@@ -104,7 +104,7 @@
     overflow: hidden;
     float: left;
     display: inline-block;
-    background-image: url(//dui.dmcdn.cn/dm_2015/index/img/logo-334-120.png);
+    background-image: url(../images/logo-334-120.png);
     background-repeat: no-repeat;
     background-size: 126px 47px;
 }
@@ -206,7 +206,7 @@
     width: 65px;
     height: 65px;
     overflow: hidden;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/arrow_bg.png) no-repeat
+    background: url(../images/arrow_bg.png) no-repeat
 }
 
 .account_con .account_arrow .arrow_infor {
@@ -251,7 +251,7 @@
     width: 45px;
     height: 27px;
     border-right: 1px solid #e3e3e3;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 10px 0;
+    background: url(../images/icon_bg.png) no-repeat 10px 0;
     float: left;
     *float: none
 }
@@ -272,7 +272,7 @@
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -180px;
+    background: url(../images/icon_bg.png) no-repeat 0 -180px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -282,7 +282,7 @@
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -360px;
+    background: url(../images/icon_bg.png) no-repeat 0 -360px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -294,7 +294,7 @@
     line-height: 17px;
     text-align: center;
     color: #fff;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/letter_bg.png) no-repeat;
+    background: url(../images/letter_bg.png) no-repeat;
     position: absolute;
     top: -14px;
     left: -1px
@@ -391,7 +391,7 @@
     width: 24px;
     height: 24px;
     margin-right: 10px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/share_bg.png) no-repeat;
+    background: url(../images/share_bg.png) no-repeat;
     float: left
 }
 
@@ -438,13 +438,13 @@
     padding-left: 18px;
     color: #f2546b;
     font-weight: normal;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -299px
+    background: url(../images/icon_bg.png) no-repeat 0 -299px
 }
 
 .account_con .account_code .code_tips .code_suc {
     display: inline-block;
     padding-left: 35px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -328px
+    background: url(../images/icon_bg.png) no-repeat 0 -328px
 }
 
 .account_con .account_code .code_img {
@@ -468,7 +468,7 @@
     line-height: 22px;
     font-size: 14px;
     padding-left: 18px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -276px
+    background: url(../images/icon_bg.png) no-repeat 0 -276px
 }
 
 .account_con .account_code .code_change a:hover {
@@ -514,7 +514,7 @@
     height: 22px;
     line-height: 22px;
     padding-top: 73px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/change_bg.png) no-repeat
+    background: url(../images/change_bg.png) no-repeat
 }
 
 .login_reg {
@@ -549,7 +549,7 @@
     width: 45px;
     height: 27px;
     border-right: 1px solid #e3e3e3;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 10px 0;
+    background: url(../images/icon_bg.png) no-repeat 10px 0;
     float: left;
     *float: none
 }
@@ -574,7 +574,7 @@
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -180px;
+    background: url(../images/icon_bg.png) no-repeat 0 -180px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -584,7 +584,7 @@
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -360px;
+    background: url(../images/icon_bg.png) no-repeat 0 -360px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -596,7 +596,7 @@
     line-height: 17px;
     text-align: center;
     color: #fff;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/letter_bg.png) no-repeat;
+    background: url(../images/letter_bg.png) no-repeat;
     position: absolute;
     top: -14px;
     left: -1px
@@ -768,7 +768,7 @@
     width: 24px;
     height: 24px;
     margin-right: 10px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/share_bg.png) no-repeat;
+    background: url(../images/share_bg.png) no-repeat;
     float: left
 }
 
@@ -830,7 +830,7 @@
     width: 45px;
     height: 27px;
     border-right: 1px solid #e3e3e3;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 10px 0;
+    background: url(../images/icon_bg.png) no-repeat 10px 0;
     float: left;
     *float: none
 }
@@ -855,7 +855,7 @@
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -180px;
+    background: url(../images/icon_bg.png) no-repeat 0 -180px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -865,7 +865,7 @@
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -360px;
+    background: url(../images/icon_bg.png) no-repeat 0 -360px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -877,7 +877,7 @@
     line-height: 17px;
     text-align: center;
     color: #fff;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/letter_bg.png) no-repeat;
+    background: url(../images/letter_bg.png) no-repeat;
     position: absolute;
     top: -21px;
     left: -1px
@@ -1141,7 +1141,7 @@
     width: 190px;
     height: 50px;
     text-indent: -999em;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/app_bg.png) no-repeat
+    background: url(../images/app_bg.png) no-repeat
 }
 
 .login_suc .suc_app .suc_link .suc_mobile .iphone:hover {
@@ -1177,7 +1177,7 @@
     display: block;
     width: 15px;
     height: 15px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 2px -238px;
+    background: url(../images/icon_bg.png) no-repeat 2px -238px;
     position: absolute;
     top: 8px;
     right: 8px
@@ -1236,7 +1236,7 @@
 .layer_box .layer_suc span {
     display: inline-block;
     padding-left: 35px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -328px
+    background: url(../images/icon_bg.png) no-repeat 0 -328px
 }
 
 .layer_box .layer_pic {
@@ -1259,7 +1259,7 @@
     line-height: 22px;
     font-size: 14px;
     padding-left: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -276px
+    background: url(../images/icon_bg.png) no-repeat 0 -276px
 }
 
 .layer_box .layer_change a:hover {
@@ -1272,7 +1272,7 @@
     line-height: 22px;
     font-size: 14px;
     padding-left: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -276px
+    background: url(../images/icon_bg.png) no-repeat 0 -276px
 }
 
 .layer_box .layer_change span:hover {
@@ -1352,7 +1352,7 @@
     width: 45px;
     height: 27px;
     border-right: 1px solid #e3e3e3;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 10px 0;
+    background: url(../images/icon_bg.png) no-repeat 10px 0;
     float: left;
     *float: none
 }
@@ -1435,7 +1435,7 @@
     display: block;
     width: 15px;
     height: 15px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 2px -238px;
+    background: url(../images/icon_bg.png) no-repeat 2px -238px;
     position: absolute;
     top: 8px;
     right: 8px
@@ -1508,7 +1508,7 @@
 
 #select h3 {
     text-decoration: none;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/select_bg.png) no-repeat right center;
+    background: url(../images/select_bg.png) no-repeat right center;
     display: block;
     line-height: 27px;
     height: 27px;
@@ -1638,7 +1638,7 @@ a:focus {
 }
 
 .scrollBox .pageBtn span {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/bntBg.png) no-repeat;
+    background: url(../images/bntbg.png) no-repeat;
     display: block;
     width: 37px;
     height: 59px;
@@ -1666,7 +1666,7 @@ a:focus {
 }
 
 .scrollBox .pageBtn .list li {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/bntBg.png);
+    background: url(../images/bntbg.png);
     float: left;
     display: inline;
     width: 15px;
@@ -1700,7 +1700,7 @@ a:focus {
 .m_china,.m_hongkong,.m_macao,.m_taiwan,.m_korea,.m_japan,.m_america,.m_britain,.m_australia,.m_singapore,.m_malaysia,.m_thailand,.m_vietnam,.m_Philippines,.m_indonesia,.m_germany,.m_italy,.m_france,.m_russia,.m_newzealand,.m_holland,.m_sweden,.m_ukraine {
     width: 30px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/jack_pic.png) no-repeat 0 0;
+    background: url(../images/jack_pic.png) no-repeat 0 0;
     display: inline-block;
     vertical-align: middle;
     margin-top: 7px;
@@ -1844,13 +1844,13 @@ a:focus {
     z-index: 3;
     width: 44px;
     height: 42px;
-    background: #fff url('//sdui.damai.cn/damai_v2/login_register3.0/images/m-captcha-btn.png') no-repeat center center;
+    background: #fff url('../images/m-captcha-btn.png') no-repeat center center;
     border: 1px solid #e2e2e2;
     cursor: move
 }
 
 .m-captcha .btn-pass {
-    background-image: url('//sdui.damai.cn/damai_v2/login_register3.0/images/m-captcha-btn-ok.png')
+    background-image: url('../images/m-captcha-btn-ok.png')
 }
 
 .m-captcha .tips {
@@ -1884,7 +1884,7 @@ a:focus {
 }
 
 .m-captcha.pass .btn {
-    background-image: url('//sdui.damai.cn/damai_v2/login_register3.0/images/m-captcha-btn-ok.png');
+    background-image: url('../images/m-captcha-btn-ok.png');
     cursor: default
 }
 
@@ -1960,7 +1960,7 @@ a:focus {
 }
 
 .m_login_pic {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_login_pic.png) 0 0;
+    background: url(../images/m_login_pic.png) 0 0;
     width: 13px;
     height: 15px;
     float: left;
@@ -1974,7 +1974,7 @@ a:focus {
 }
 
 .m_message_pic {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_message_pic.png) 0 0;
+    background: url(../images/m_message_pic.png) 0 0;
     width: 11px;
     height: 16px;
     float: left;
@@ -2023,7 +2023,7 @@ a:focus {
 }
 
 .m_login_pic1 {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_login_pic.png) no-repeat 0 0;
+    background: url(../images/m_login_pic.png) no-repeat 0 0;
     width: 13px;
     height: 15px;
     float: left;
@@ -2032,7 +2032,7 @@ a:focus {
 }
 
 .m_message_pic1 {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_message_pic.png) no-repeat 0 0;
+    background: url(../images/m_message_pic.png) no-repeat 0 0;
     width: 11px;
     height: 16px;
     float: left;
@@ -2041,7 +2041,7 @@ a:focus {
 }
 
 .m_ewm_pic1 {
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_ewm.png) no-repeat 0 0;
+    background: url(../images/m_ewm.png) no-repeat 0 0;
     width: 13px;
     height: 13px;
     float: left;
@@ -2050,15 +2050,15 @@ a:focus {
 }
 
 .m_layer_tab .active .m_login_pic1 {
-    background-image: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_login_active.png);
+    background-image: url(../images/m_login_active.png);
 }
 
 .m_layer_tab .active .m_message_pic1 {
-    background-image: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_message_active.png);
+    background-image: url(../images/m_message_active.png);
 }
 
 .m_layer_tab .active .m_ewm_pic1 {
-    background-image: url(//sdui.damai.cn/damai_v2/login_register3.0/images/new-pop/m_ewm_active.png);
+    background-image: url(../images/m_ewm_active.png);
 }
 
 .account_con .account_list li .account_site {
@@ -2088,7 +2088,7 @@ a:focus {
 
 #select1 h3 {
     text-decoration: none;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/select_bg.png) no-repeat right center;
+    background: url(../images/select_bg.png) no-repeat right center;
     display: block;
     line-height: 27px;
     height: 27px;
@@ -2199,7 +2199,7 @@ a:focus {
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -360px;
+    background: url(../images/icon_bg.png) no-repeat 0 -360px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -2239,7 +2239,7 @@ a:focus {
     width: 45px;
     height: 27px;
     border-right: 1px solid #e3e3e3;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 10px 0;
+    background: url(../images/icon_bg.png) no-repeat 10px 0;
     float: left;
     *float: none
 }
@@ -2260,7 +2260,7 @@ a:focus {
     display: none;
     width: 20px;
     height: 20px;
-    background: url(//sdui.damai.cn/damai_v2/login_register3.0/images/icon_bg.png) no-repeat 0 -180px;
+    background: url(../images/icon_bg.png) no-repeat 0 -180px;
     position: absolute;
     right: 10px;
     top: 12px
@@ -2372,7 +2372,7 @@ html {
 .g-sd .m-succ {
 	display: block;
 	margin: 85px auto 20px;
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/m-succ.png') no-repeat;
+	background: url('../images/m-succ.png') no-repeat;
 	width: 52px;
 	height: 52px;
 }
@@ -2383,7 +2383,7 @@ html {
   
 }
 .g-sd .m-hebin {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/hebin-1.png') no-repeat;
+	background: url('../images/hebin-1.png') no-repeat;
 	width: 128px;
 	height: 127px;
 	margin: 0 auto;
@@ -2404,7 +2404,7 @@ html {
 .g-sd .hebin {
 	display: block;
 	position: absolute;
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/hebin.png') no-repeat;
+	background: url('../images/hebin.png') no-repeat;
 	width: 109px;
 	height: 109px;
 	left: 50%;
@@ -2415,7 +2415,7 @@ html {
 .g-sd .m-fail {
 	display: block;
 	margin: 85px auto 20px;
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/m-fail.png') no-repeat;
+	background: url('../images/m-fail.png') no-repeat;
 	width: 139px;
 	height: 131px;
 }
@@ -2520,38 +2520,38 @@ html {
 .g-relev .lst .itm .order i {
 	margin-right: 20px;
 	display: inline-block;
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon.png') no-repeat;
+	background: url('../images/order-icon.png') no-repeat;
 	width: 48px;
 	height: 48px;
 	vertical-align: middle;
 }
 .g-relev .lst .itm .order-2 i {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon-2.png') no-repeat;
+	background: url('../images/order-icon-2.png') no-repeat;
 	width: 50px;
 	height: 48px;
 }
 .g-relev .lst .itm .order-3 i {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon-3.png') no-repeat;
+	background: url('../images/order-icon-3.png') no-repeat;
 	width: 52px;
 	height: 52px;
 }
 .g-relev .lst .itm .order-4 i {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon-4.png') no-repeat;
+	background: url('../images/order-icon-4.png') no-repeat;
 	width: 49px;
 	height: 42px;
 }
 .g-relev .lst .itm .order-5 i {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon-5.png') no-repeat;
+	background: url('../images/order-icon-5.png') no-repeat;
 	width: 50px;
 	height: 44px;
 }
 .g-relev .lst .itm .order-6 i {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon-6.png') no-repeat;
+	background: url('../images/order-icon-6.png') no-repeat;
 	width: 50px;
 	height: 44px;
 }
 .g-relev .lst .itm .order-7 i {
-	background: url('//sdui.damai.cn/damai_v2/login_register3.0/images/order-icon-7.png') no-repeat;
+	background: url('../images/order-icon-7.png') no-repeat;
 	width: 46px;
 	height: 48px;
 }
