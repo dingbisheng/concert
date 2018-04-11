@@ -5,6 +5,8 @@ package com.damai.concert.dto;
  * Created by Vincent on 2018\4\11 0011.
  */
 public class ManagerPermissionDTO {
+    public static final Long serialVersionUID = 1L;
+
     private Integer permissionId;
     private String permissionName;
 

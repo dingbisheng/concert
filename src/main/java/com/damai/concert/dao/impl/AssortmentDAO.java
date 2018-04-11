@@ -9,9 +9,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 首页总分类
@@ -91,5 +93,26 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         if(logger.isDebugEnabled()){
             logger.debug("delete(Integer sortId) end");
         }
+    }
+
+    /**
+     * 动态查询
+     * @param
+     * @return
+     */
+    @Transactional
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId) {
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessage() :::"+sortId+"::"+subId+"::"+cityId);
+        }
+        Map<String, Integer> hashMap = new HashMap<>();
+        hashMap.put("sortId",sortId);
+        hashMap.put("sortId",subId);
+        hashMap.put("sortId",cityId);
+        List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryMessage", hashMap);
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessage() end");
+        }
+        return messageDTOList;
     }
 }

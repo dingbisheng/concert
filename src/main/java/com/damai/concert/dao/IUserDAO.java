@@ -11,7 +11,13 @@ import java.util.List;
  */
 public interface IUserDAO {
 
-    List<UserDTO> queryAll();
+    List<UserDTO> queryAll()throws Exception;
 
-    UserDTO queryUser(String username);
+    UserDTO queryUser(String username)throws Exception;
+
+    void addUser(String username,String password)throws Exception;
+
+    void updateUser(String username,String password,String id)throws Exception;
+
+    void deleteUser(Integer id)throws Exception;
 }

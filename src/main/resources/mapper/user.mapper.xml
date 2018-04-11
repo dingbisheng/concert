@@ -7,16 +7,37 @@
     <resultMap id="UserResultMap" type="com.damai.concert.dto.UserDTO">
         <id property="userId" column="user_id" javaType="java.lang.Integer"/>
         <result property="userName" column="user_name" javaType="java.lang.String"/>
+        <result property="userRealname" column="user_realname" javaType="java.lang.String"/>
+        <result property="userSex" column="user_sex" javaType="java.lang.String"/>
+        <result property="userBirthday" column="user_birthday" javaType="java.lang.String"/>
+        <result property="userEdu" column="user_edu" javaType="java.lang.String"/>
+        <result property="userWork" column="user_work" javaType="java.lang.String"/>
+        <result property="userIDcard" column="user_IDcard" javaType="java.lang.String"/>
+        <result property="userAddr" column="user_addr" javaType="java.lang.String"/>
         <result property="userPassword" column="user_password" javaType="java.lang.String"/>
     </resultMap>
-
+    <!--分页查询所有User-->
     <select id="queryAll" resultMap="UserResultMap">
-        SELECT * FROM tb_user
+        SELECT * FROM tb_users
     </select>
     <select id="queryUser" resultMap="UserResultMap">
-        SELECT * FROM tb_user WHERE user_name=#{name}
+        SELECT user_name,user_password FROM tb_users WHERE user_name=#{name}
     </select>
 
+    <insert id="addUser" parameterType="com.damai.concert.dto.UserDTO">
+        INSERT INTO tb_users(user_name,user_realname,user_sex,user_birthday,
+        user_edu,user_work,user_IDcard,user_addr,user_password)
+        VALUES (#{username},#{userRealname},#{userSex},#{userBirthday},
+        #{userEdu},#{userWork},#{userIDcard},#{userAddr},#{password})
+    </insert>
 
+    <update id="updateUser" parameterType="com.damai.concert.dto.UserDTO">
+        UPDATE tb_users SET user_name=#{username},user_password=#{password} WHERE
+        user_id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="com.damai.concert.dto.UserDTO">
+        DELETE FROM tb_users WHERE user_id =#{userId}
+    </delete>
 
 </mapper>

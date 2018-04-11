@@ -17,4 +17,10 @@ public interface IAssortmentService {
     void update(String newName, String oldName);
 
     void delete(Integer sortId);
+
+    public List<AssortmentDTO> queryMessage(Integer sortId);
+
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId);
+
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId);
 }

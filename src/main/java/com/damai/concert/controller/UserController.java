@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * 前台用户请求处理
- * Created by Administrator on 2018\4\10 0010.
+ * Created by Vincent on 2018\4\10 0010.
  */
 
 @Controller
@@ -78,6 +78,9 @@ public class UserController {
         model.addAttribute("assortmentDTOList",assortmentDTOList);
         return "main";
     }
+
+
+
 
 
 //    @RequestMapping("/login")

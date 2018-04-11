@@ -9,7 +9,13 @@ import java.util.List;
  */
 public interface IUserService {
 
-    List<UserDTO> queryAll();
+    List<UserDTO> queryAll(Integer currPage,Integer pageSize)throws Exception;
 
-    UserDTO queryUser(String username);
+    UserDTO queryUser(String username)throws Exception;
+
+    void addUser(String username,String password)throws Exception;
+
+    void updateUser(String username,String password,Integer id)throws Exception;
+
+    void deleteUser(Integer id)throws Exception;
 }

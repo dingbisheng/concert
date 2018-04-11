@@ -2,10 +2,14 @@ package com.concert.test;
 
 
 import com.damai.concert.dao.IAssortmentDAO;
+import com.damai.concert.dao.IMessageDAO;
 import com.damai.concert.dao.IUserDAO;
-import com.damai.concert.dto.AssortmentDTO;
-import com.damai.concert.dto.UserDTO;
+import com.damai.concert.dto.*;
+
+import com.damai.concert.service.IAssortmentService;
+import com.damai.concert.service.IUserService;
 import org.apache.log4j.Logger;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +37,23 @@ public class TestDAO {
 
     @Test
     public void testCase1(){
-        List<UserDTO> list = userDAO.queryAll();
+        List<UserDTO> list = null;
+        try {
+            list = userDAO.queryAll();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         logger.info(list.toString());
     }
 
     @Test
     public void testCase2(){
-        UserDTO userDTO = userDAO.queryUser("zhangsan");
+        UserDTO userDTO = null;
+        try {
+            userDTO = userDAO.queryUser("zhangsan");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         logger.info(userDTO.toString());
     }
 
@@ -48,6 +62,103 @@ public class TestDAO {
         AssortmentDTO assortmentDTO = new AssortmentDTO();
         assortmentDTO.setSortName("儿童乐园");
         assortmentDAO.save(assortmentDTO);
+    }
+
+    @Test
+    public void testCase4(){
+        SimpleHash simpleHash = new SimpleHash("MD5", "123456", "zhangsan");
+        logger.info(simpleHash.toString());
+    }
+
+
+    @Autowired
+    private IUserService userService;
+    @Test
+    public void testCase5(){
+        try {
+            userService.addUser("lcecwe","123456");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase6(){
+        try {
+            userService.updateUser("www","123456",2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testCase7(){
+        try {
+            userService.deleteUser(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+//    @Autowired
+//    private IMessageDAO messageDAO ;
+//    @Test
+//    public void test2(){
+//        List<MessageDTO> messageDTOList = messageDAO.queryMessage("话剧歌剧");
+//        if (logger.isInfoEnabled()){
+//            logger.info(messageDTOList.toString());
+//        }
+//    }
+    @Test
+    public void test3(){
+        List<UserDTO> list = null;
+        try {
+            list = userService.queryAll(0, 5);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info(list.toString());
+    }
+
+
+    @Test
+    public void test1(){
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryAssortment();
+        logger.info(assortmentDTOList.toString());
+    }
+
+//    @Autowired
+//    private IMessageDAO messageDAO ;
+
+    @Test
+    public void test12(){
+        List<AssortmentDTO> messageDTOList = assortmentService.queryMessage(1,1,1);
+    }
+    @Autowired
+    private IAssortmentService assortmentService ;
+    @Test
+    public void test13(){
+        List<AssortmentDTO> assortmentDTOList = assortmentService.queryMessage(1);
+        for (AssortmentDTO assortmentDTO :assortmentDTOList){
+            logger.info(assortmentDTO.getSortName());
+            List<SubclassDTO> subclassDTOList = assortmentDTO.getSubclassDTOList();
+            for (SubclassDTO subclassDTO :subclassDTOList){
+                logger.info(subclassDTO.getSubName());
+                List<MessageDTO> messageDTOList = subclassDTO.getMessageDTOList();
+                for (MessageDTO messageDTO :messageDTOList){
+                    logger.info(messageDTO.getMesName());
+                    CityDTO cityDTO = messageDTO.getCityDTO();
+                    PlaceDTO placeDTO = messageDTO.getPlaceDTO();
+                    List<MesDetDTO> mesDetList = messageDTO.getMesDetList();
+                    logger.info(cityDTO.getCityName());
+                    logger.info(placeDTO.getPlaceName());
+                    for (MesDetDTO mesDetDTO:mesDetList){
+                        logger.info( mesDetDTO.toString());
+                    }
+                }
+            }
+        }
+
     }
 
 }

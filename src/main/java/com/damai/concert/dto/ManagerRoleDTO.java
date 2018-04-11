@@ -5,6 +5,7 @@ package com.damai.concert.dto;
  * Created by Administrator on 2018\4\11 0011.
  */
 public class ManagerRoleDTO {
+    public static final Long serialVersionUID = 1L;
     private Integer roleId;
     private String roleName;
 

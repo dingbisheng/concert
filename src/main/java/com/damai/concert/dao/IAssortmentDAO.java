@@ -19,4 +19,6 @@ public interface IAssortmentDAO {
      void update(String newName, String oldName);
 
      void delete(Integer sortId);
+
+     List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId);
 }
