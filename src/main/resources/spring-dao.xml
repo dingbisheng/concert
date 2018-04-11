@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--数据源-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/db_damai?useSSL=false"/>
+        <property name="user" value="root"/>
+        <property name="password" value=""/>
+        <!--最大连接数-->
+        <property name="maxPoolSize" value="30"/>
+        <!--最小连接数-->
+        <property name="minPoolSize" value="10"/>
+        <!--关闭连接后不自动提交-->
+        <property name="autoCommitOnClose" value="false"/>
+        <!--最大获取连接超时时间-->
+        <property name="checkoutTimeout" value="10000"/>
+        <!--连接失败后的重连次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+    <!--配置mybatis的sessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis.cfg.xml"/>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--给出需要扫描DAO接口包-->
+        <property name="basePackage" value="com.concert.dao"/>
+    </bean>
+</beans>

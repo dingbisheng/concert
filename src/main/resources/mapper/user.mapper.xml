@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dao.UserMapper">
+    <resultMap id="UserResultMap" type="com.damai.concert.dto.UserDTO">
+        <id property="userId" column="user_id" javaType="java.lang.Integer"/>
+        <result property="userName" column="user_name" javaType="java.lang.String"/>
+        <result property="userPassword" column="user_password" javaType="java.lang.String"/>
+    </resultMap>
+
+    <select id="queryAll" resultMap="UserResultMap">
+        SELECT * FROM tb_user
+    </select>
+    <select id="queryUser" resultMap="UserResultMap">
+        SELECT * FROM tb_user WHERE user_name=#{name}
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dto.AssortmentMapper">
+    <resultMap id="AssortResultMap" type="com.damai.concert.dto.AssortmentDTO">
+        <id property="sortId" column="sort_id" javaType="java.lang.Integer"/>
+        <result property="sortName" column="sort_name" javaType="java.lang.String"/>
+    </resultMap>
+
+    <select id="queryAssortment" resultMap="AssortResultMap">
+       select sort_id,sort_name from dm_assortment
+    </select>
+
+    <insert id="save" >
+        INSERT INTO  dm_assortment(sort_name) values(#{sortName})
+    </insert>
+
+    <update id="update" >
+      UPDATE dm_assortment SET sort_name = #{newName} WHERE sort_name = #{oldName}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM dm_assortment WHERE sort_id = #{sortId}
+    </delete>
+
+</mapper>
