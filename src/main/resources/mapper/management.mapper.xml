@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dto.ManagerDTOMapper">
+    <resultMap id="ManagerResultMap" type="com.damai.concert.dto.ManagerDTO">
+        <id property="managerId" column="sort_id" javaType="java.lang.Integer"/>
+        <result property="managerName" column="sort_name" javaType="java.lang.String"/>
+    </resultMap>
+
+
+</mapper>
