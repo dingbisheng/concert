@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 @charset "utf-8";
 
@@ -442,7 +442,7 @@ textarea {
 }
 
 .top-con li {
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll right 12px;
+    background: url(../images/top-bg.png) no-repeat scroll right 12px;
     padding: 0 11px 0 10px;
     float: left;
     position: relative;
@@ -486,7 +486,7 @@ textarea {
 }
 
 .top-con li.dm-info .dm-message em {
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll 0 -115px;
+    background: url(../images/top-bg.png) no-repeat scroll 0 -115px;
     width: 16px;
     height: 12px;
     display: inline-block;
@@ -510,7 +510,7 @@ textarea {
     width: 7px;
     height: 4px;
     overflow: hidden;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll 0 -40px;
+    background: url(../images/top-bg.png) no-repeat scroll 0 -40px;
     position: absolute;
     top: 15px;
     right: 10px;
@@ -598,7 +598,7 @@ textarea {
     top: 4px;
     *top: 1px;
     margin-right: 5px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll 0 -60px;
+    background: url(../images/top-bg.png) no-repeat scroll 0 -60px;
     transition: all .2s ease 0s;
     -moz-transition: all .2s ease 0s;
     -webkit-transition: all .2s ease 0s;
@@ -618,7 +618,7 @@ textarea {
 
 .top-con li.dm-app.on .app-c {
     padding: 15px 15px 0;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/app.png) no-repeat scroll 15px 15px #fff;
+    background: url(../images/app.png) no-repeat scroll 15px 15px #fff;
     width: 195px;
     position: absolute;
     top: 36px;
@@ -670,7 +670,7 @@ textarea {
     top: 1px;
     *top: -1px;
     margin-right: 5px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll 0 -100px;
+    background: url(../images/top-bg.png) no-repeat scroll 0 -100px;
     _margin-top: 12px;
 }
 
@@ -752,7 +752,7 @@ textarea {
     top: 4px;
     *top: 1px;
     margin-right: 5px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-weixin.png) no-repeat scroll 0 0;
+    background: url(../images/top-weixin.png) no-repeat scroll 0 0;
     transition: all .2s ease 0s;
     -moz-transition: all .2s ease 0s;
     -webkit-transition: all .2s ease 0s;
@@ -772,7 +772,7 @@ textarea {
 
 .top-con li.dm-weixin.on .weixin-c {
     padding: 15px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/weixin-code.png) no-repeat scroll 0 0 #fff;
+    background: url(../images/weixin-code.png) no-repeat scroll 0 0 #fff;
     width: 73px;
     height: 73px;
     position: absolute;
@@ -806,7 +806,7 @@ textarea {
     display: inline-block;
     width: 167px;
     height: 60px;
-    background-image: url(//dui.dmcdn.cn/dm_2015/index/img/logo-334-120.png);
+    background-image: url(../images/logo-334-120.png);
     background-size: 167px 60px;
 }
 
@@ -823,7 +823,7 @@ textarea {
     margin-top: 6px;
     width: 126px;
     height: 47px;
-    background-image: url(//dui.dmcdn.cn/dm_2015/index/img/logo-334-120.png);
+    background-image: url(../images/logo-334-120.png);
     background-size: 126px 47px;
 }
 .dm-header .dm-logo .logo02 img {
@@ -859,7 +859,7 @@ textarea {
     line-height: 21px;
     padding: 0 0 0 7px;
     width: 72px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat -21px -40px;
+    background: url(../images/top-bg.png) no-repeat -21px -40px;
 }
 
 .dm-header .dm-citys .change-citys.on .city,.dm-header .dm-citys .change-citys:hover .city {
@@ -899,7 +899,7 @@ textarea {
     width: 57px;
     height: 18px;
     line-height: 18px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll -21px -83px;
+    background: url(../images/top-bg.png) no-repeat scroll -21px -83px;
     color: #666;
     padding-left: 4px;
     float: left;
@@ -939,32 +939,31 @@ textarea {
     padding: 0 0 0 5px;
 }
 
-.header-w .dm-search {
+.dm-header .dm-search {
     float: left;
 }
 
-.header-w .dm-search .search-main {
+.dm-header .dm-search .search-main {
     float: left;
-    height: 40px;
+    height: 35px;
     position: relative;
-    z-index: 80;
 }
 
-.header-w .search-main .search-text {
-    border: 3px solid #ed0a75;
-    width:  520px;
+.dm-header .search-main .search-text {
+    border: 2px solid #ed0a75;
+    width: 302px;
     float: left;
-    height: 24px;
+    height: 21px;
     padding: 5px 10px;
     overflow: hidden;
     color: #666;
     outline: 0;
 }
 
-.header-w .search-main .search-btn {
+.dm-header .search-main .search-btn {
     background: #ed0a75;
-    width: 90px;
-    height: 40px;
+    width: 84px;
+    height: 35px;
     float: left;
     line-height: 35px;
     text-align: center;
@@ -972,25 +971,25 @@ textarea {
     font-size: 18px;
     font-family: "Microsoft YaHei";
     cursor: pointer;
-    border: none;
+    border: 0;
 }
 
-.header-w .search-main .search-btn:hover,.dm-header .search-main .search-btn:active {
+.dm-header .search-main .search-btn:hover,.dm-header .search-main .search-btn:active {
     background: #ed0a75;
 }
 
-.header-w .search-main .search-relate {
-    width: 542px;
+.dm-header .search-main .search-relate {
+    width: 323px;
     border: 1px solid #ed0a75;
-    border-top: none;
+    border-top: 0;
     position: absolute;
-    top: 40px;
+    top: 35px;
     left: 0;
     background: #fff;
     display: none;
 }
 
-.header-w .search-main .search-relate a {
+.dm-header .search-main .search-relate a {
     height: 35px;
     line-height: 35px;
     display: block;
@@ -999,11 +998,11 @@ textarea {
     overflow: hidden;
 }
 
-.header-w .search-main .search-relate a:hover {
+.dm-header .search-main .search-relate a:hover {
     background: #f9f9f9;
 }
 
-.header-w .search-main .search-relate a .txt {
+.dm-header .search-main .search-relate a .txt {
     float: left;
     color: #666;
     width: 240px;
@@ -1014,30 +1013,30 @@ textarea {
     white-space: nowrap;
 }
 
-.header-w .search-main .search-relate a .city {
+.dm-header .search-main .search-relate a .city {
     float: right;
     color: #ed0a75;
 }
 
-.header-w .dm-search .dm-recommend {
+.dm-header .dm-search .dm-recommend {
     clear: left;
     color: #b4b4b4;
-    padding-top: 6px;
+    padding-top: 5px;
     margin-left: -10px;
 }
 
-.header-w .dm-search .dm-recommend a {
+.dm-header .dm-search .dm-recommend a {
     color: #999;
     padding: 0 10px;
     line-height: 20px;
 }
 
-.header-w .dm-search .dm-recommend a:hover {
+.dm-header .dm-search .dm-recommend a:hover {
     text-decoration: underline;
     color: #e51b46;
 }
 
-.header-w .dm-search .dm-recommend a.c7 {
+.dm-header .dm-search .dm-recommend a.c7 {
     color: #2f97b4;
 }
 
@@ -1046,7 +1045,7 @@ textarea {
     font-size: 12px;
     color: #fff;
     font-family: "Microsoft YaHei";
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/app-sear.png) no-repeat;
+    background: url(../images/app-sear.png) no-repeat;
     height: 42px;
     line-height: 20px;
     border-bottom: none;
@@ -1054,7 +1053,7 @@ textarea {
 }
 
 .dm-header .search-main .search-relate .dm-appimg:hover {
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/app-sear.png) no-repeat;
+    background: url(../images/app-sear.png) no-repeat;
 }
 
 .dm-quick-guide-box {
@@ -1160,7 +1159,7 @@ textarea {
 .nav-w {
     height: 37px;
     line-height: 37px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/dm-bg-line.png) scroll 0 0 repeat-x;
+    background: url(../images/dm-bg-line.png) scroll 0 0 repeat-x;
 }
 
 .nav {
@@ -1204,7 +1203,7 @@ textarea {
 
 .nav li a:hover {
     text-decoration: none;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/dm-bg-line.png) 0 -37px repeat-x;
+    background: url(../images/dm-bg-line.png) 0 -37px repeat-x;
     color: #fff;
 }
 
@@ -1257,7 +1256,7 @@ textarea {
 }
 
 .dm-bottom .dm-helper dd .dm-code,.dm-bottom .dm-helper dd .dm-code-m {
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat no-repeat scroll 0 -135px;
+    background: url(../images/top-bg.png) no-repeat no-repeat scroll 0 -135px;
     height: 89px;
     width: 90px;
     display: block;
@@ -1370,7 +1369,7 @@ textarea {
     width: 960px;
     margin: 0 auto;
     padding-top: 72px;
-    background: #fff url(//dui.dmcdn.cn/dm_2014/common/img/404.png) no-repeat scroll 205px 65px;
+    background: #fff url(../images/404.png) no-repeat scroll 205px 65px;
 }
 
 .error404-main-new a {
@@ -1416,7 +1415,7 @@ textarea {
 .popup-c-rb-close a {
     width: 18px;
     height: 18px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) -80px -113px no-repeat;
+    background: url(../images/top-bg.png) -80px -113px no-repeat;
 }
 
 .popup-c-rb-img img {
@@ -1428,7 +1427,7 @@ textarea {
 .loading-1 {
     width: 32px;
     height: 32px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/loading-1.gif) 0 0 no-repeat;
+    background: url(../images/loading-1.gif) 0 0 no-repeat;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1453,7 +1452,7 @@ textarea {
     height: 8px;
     display: block;
     position: absolute;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll -57px -120px;
+    background: url(../images/top-bg.png) no-repeat scroll -57px -120px;
     right: 15px;
     top: 14px;
     line-height: 0;
@@ -1465,7 +1464,7 @@ textarea {
     width: 4px;
     height: 4px;
     position: absolute;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll -35px -120px;
+    background: url(../images/top-bg.png) no-repeat scroll -35px -120px;
     display: block;
     line-height: 0;
     font-size: 0;
@@ -1501,7 +1500,7 @@ textarea {
 
 .layers h2 {
     height: 27px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/dm-bg-line.png) 0 -80px repeat-x;
+    background: url(../images/dm-bg-line.png) 0 -80px repeat-x;
     line-height: 27px;
     text-indent: 10px;
     font-weight: 700;
@@ -1555,7 +1554,7 @@ textarea {
 
 .m-breadcrumb .subnav-fr {
     float: right;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/subnav_bg.png) no-repeat scroll right 0;
+    background: url(../images/subnav_bg.png) no-repeat scroll right 0;
     width: 228px;
     height: 33px;
     padding-left: 15px;
@@ -1575,7 +1574,7 @@ textarea {
 }
 
 .gotop-code .new-top {
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat 0 -225px;
+    background: url(../images/top-bg.png) no-repeat 0 -225px;
     width: 45px;
     height: 45px;
     display: block;
@@ -1587,7 +1586,7 @@ textarea {
 }
 
 .gotop-code .two-code {
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/top-bg.png) no-repeat scroll 0 -278px;
+    background: url(../images/top-bg.png) no-repeat scroll 0 -278px;
     height: 45px;
     height: 55px;
     display: block;
@@ -1669,7 +1668,7 @@ textarea {
 
 .top-con li.dm-info .vip {
     margin-left: 5px;
-    background: url(//dui.dmcdn.cn/dm_2014/common/img/badge_pic.png) no-repeat;
+    background: url(../images/badge_pic.png) no-repeat;
     width: 39px;
     height: 14px;
     display: inline-block;
