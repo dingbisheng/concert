@@ -20,12 +20,23 @@
 
     <!--securityManager 交给spring管理-->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realm" ref="MyRealm"/>
+        <!--<property name="realm" ref="MyRealm"/>-->
+        <!--完成自定义的realm分发操作-->
+        <property name="authenticator" ref="MyRealmAuthenticator"/>
+        <!--提供自定义的realm完成登录认证-->
+        <property name="realms">
+            <list>
+                <ref bean="MyRealm"/>
+                <ref bean="ManagerRealm"/>
+            </list>
+        </property>
         <property name="rememberMeManager" ref="rememberMeManager"/>
     </bean>
 
     <!--shiroRealm配置参数-->
     <bean id="MyRealm" class="com.damai.concert.realm.LoginRealm"/>
+    <bean id="ManagerRealm" class="com.damai.concert.realm.ManagerRealm"/>
+    <bean id="MyRealmAuthenticator" class="com.damai.concert.realm.MyRealmAuthenticator"/>
 
     <!--用cookie保存用户登陆状态的帮助类-->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
