@@ -17,7 +17,7 @@
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
-        <property name="suffix" value=".html"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

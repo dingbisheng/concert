@@ -39,19 +39,16 @@ public class LoginRealm extends AuthorizingRealm {
         char[] pwd = usernamePasswordToken.getPassword();
         String password = new String(pwd);
         logger.info("username" + username + "password" + password);
-        try {
-            UserDTO userDTO = userDAO.queryUser(username);
-            if (userDTO == null){
-                throw new UnknownAccountException("账号错误");
-            }
-            String userPassword = userDTO.getUserPassword();
-            SimpleHash simpleHash = new SimpleHash("MD5", password, userDTO.getUserName());
-            if (!simpleHash.toString().equalsIgnoreCase(userPassword)){
-                throw new IncorrectCredentialsException("密码错误");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        UserDTO userDTO = userDAO.queryUser(username);
+        if (userDTO == null){
+            throw new UnknownAccountException("账号错误");
         }
+        String userPassword = userDTO.getUserPassword();
+        SimpleHash simpleHash = new SimpleHash("MD5", password, userDTO.getUserName());
+        if (!simpleHash.toString().equalsIgnoreCase(userPassword)){
+            throw new IncorrectCredentialsException("密码错误");
+        }
+
         return new SimpleAuthenticationInfo(username,password,getName());
     }
 }

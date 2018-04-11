@@ -1,8 +1,10 @@
 package com.damai.concert.controller;
 
 import com.damai.concert.dao.IUserDAO;
+import com.damai.concert.dto.AssortmentDTO;
 import com.damai.concert.dto.UserDTO;
 import com.damai.concert.realm.token.MyUsernamePasswordToken;
+import com.damai.concert.service.IAssortmentService;
 import com.damai.concert.service.IUserService;
 import com.damai.concert.sysconfig.SystemCfg;
 import com.jagregory.shiro.freemarker.ShiroTags;
@@ -17,12 +19,15 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * 前台用户请求处理
@@ -41,14 +46,21 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private IAssortmentService assortmentService;
+
     @RequestMapping("/login")
+    @ResponseBody
     public String doLogin(String username,String password,boolean rememberMe){
+        if(logger.isDebugEnabled()){
+            logger.debug("doLogin() start  username =="+ username);
+        }
         MyUsernamePasswordToken token = new MyUsernamePasswordToken(username, password);
         token.setSwitchType(SystemCfg.USER_LOGIN_REALM_NAME);
         token.setRememberMe(rememberMe);
         try {
             SecurityUtils.getSubject().login(token);
-            return "/main.html";
+            return "success";
         } catch (UnknownAccountException e) {
             e.printStackTrace();
         } catch (IncorrectCredentialsException e) {
@@ -56,7 +68,15 @@ public class UserController {
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
-        return "/login.html";
+        return "failed";
+    }
+
+
+    @RequestMapping("/main")
+    public String queryAssortment(Model model){
+        List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
+        model.addAttribute("assortmentDTOList",assortmentDTOList);
+        return "main";
     }
 
 

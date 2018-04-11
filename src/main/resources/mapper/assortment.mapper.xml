@@ -7,10 +7,35 @@
     <resultMap id="AssortResultMap" type="com.damai.concert.dto.AssortmentDTO">
         <id property="sortId" column="sort_id" javaType="java.lang.Integer"/>
         <result property="sortName" column="sort_name" javaType="java.lang.String"/>
+        <collection property="subclassDTOList" ofType="com.damai.concert.dto.SubclassDTO">
+            <id property="subId" column="sub_id" javaType="java.lang.Integer"/>
+            <result property="subName" column="sub_name" javaType="java.lang.String"/>
+            <!--<collection property="messageDTOList" ofType="com.damai.concert.dto.MessageDTO">-->
+                <!--<id property="mesId" column="mes_id" javaType="java.lang.Integer"/>-->
+                <!--<result property="mesName" column="mes_name" javaType="java.lang.String"/>-->
+                <!--<result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>-->
+                <!--<result property="mesTime" column="mes_time" javaType="java.lang.String"/>-->
+                <!--<result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>-->
+                <!--<association property="cityDTO"  javaType="com.damai.concert.dto.CityDTO">-->
+                    <!--<id property="cityId" column="city_id" javaType="java.lang.Integer"/>-->
+                    <!--<result property="cityName" column="city_name" javaType="java.lang.String"/>-->
+                <!--</association>-->
+                <!--<association property="placeDTO"  javaType="com.damai.concert.dto.PlaceDTO">-->
+                    <!--<id property="placeId" column="place_id" javaType="java.lang.Integer"/>-->
+                    <!--<result property="placeName" column="place_name" javaType="java.lang.String"/>-->
+                    <!--<result property="placePhoto" column="place_photo" javaType="java.lang.String"/>-->
+                    <!--<result property="placeExplain" column="place_explain" javaType="java.lang.String"/>-->
+                <!--</association>-->
+                <!--<collection property="mesDetList" ofType="com.damai.concert.dto.MesDetDTO">-->
+                    <!--<id property="mdId" column="md_id" javaType="java.lang.Integer"/>-->
+                    <!--<result property="mdPrice" column="md_price" javaType="java.lang.Integer"/>-->
+                <!--</collection>-->
+            <!--</collection>-->
+        </collection>
     </resultMap>
 
     <select id="queryAssortment" resultMap="AssortResultMap">
-       select sort_id,sort_name from dm_assortment
+        select * from dm_assortment a join dm_subclass s on a.sort_id=s.sub_sort_id
     </select>
 
     <insert id="save" >
@@ -18,11 +43,34 @@
     </insert>
 
     <update id="update" >
-      UPDATE dm_assortment SET sort_name = #{newName} WHERE sort_name = #{oldName}
+        UPDATE dm_assortment SET sort_name = #{newName} WHERE sort_name = #{oldName}
     </update>
 
     <delete id="delete">
         DELETE FROM dm_assortment WHERE sort_id = #{sortId}
     </delete>
+
+    <select id="querySubclass" resultMap="AssortResultMap">
+        select * from dm_message m join dm_subclass s join dm_assortment a
+        on m.mes_sub_id = s.sub_id and s.sub_sort_id = a.sort_id
+        and a.sort_name=#{sortName};
+    </select>
+
+    <!--&lt;!&ndash;动态查询分类条件信息&ndash;&gt;-->
+    <!--<select id="queryMessage" resultMap="AssortResultMap" parameterType="String">-->
+        <!--select * from dm_message m join dm_subclass s join dm_assortment a-->
+        <!--join dm_city c join dm_place p join dm_mes_det md-->
+        <!--on m.mes_sub_id = s.sub_id and s.sub_sort_id = a.sort_id-->
+        <!--and m.mes_city_id = c.city_id and m.mes_place_id = p.place_id and md.md_mes_id=m.mes_id-->
+        <!--<if test="_parameter !=NULL ">-->
+            <!--and a.sort_name=#{sortName}-->
+        <!--</if>-->
+        <!--<if test="_parameter!=NULL">-->
+            <!--and c.city_name =#{cityName}-->
+        <!--</if>-->
+        <!--<if test="_parameter!=NULL">-->
+            <!--and s.sub_name= #{subName}-->
+        <!--</if>-->
+    <!--</select>-->
 
 </mapper>
