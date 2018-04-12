@@ -12,5 +12,6 @@
         <mapper resource="mapper/user.mapper.xml"/>
         <mapper resource="mapper/assortment.mapper.xml"/>
         <mapper resource="mapper/sortdetails.mapper.xml"/>
+        <mapper resource="mapper/management.mapper.xml"/>
     </mappers>
 </configuration>
