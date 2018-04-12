@@ -39,7 +39,13 @@ public class LoginRealm extends AuthorizingRealm {
         char[] pwd = usernamePasswordToken.getPassword();
         String password = new String(pwd);
         logger.info("username" + username + "password" + password);
-        UserDTO userDTO = userDAO.queryUser(username);
+        UserDTO userDTO = null;
+        try {
+            userDTO = userDAO.queryUser(username);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new UnknownAccountException("账号错误");
+        }
         if (userDTO == null){
             throw new UnknownAccountException("账号错误");
         }
