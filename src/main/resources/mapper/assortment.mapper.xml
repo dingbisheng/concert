@@ -68,7 +68,7 @@
         <if test="sortId!=null ">
             and a.sort_id=#{sortId}
         </if>
-        <if test="cityID!=null">
+        <if test="cityId!=null">
             and c.city_name =#{cityId}
         </if>
         <if test="subId!=null">
