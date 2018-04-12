@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dto.SortDetailsMapper">
+    <resultMap id="SortDetailsMapper" type="com.damai.concert.dto.SortDetailsDTO">
+        <result property="name" column="mes_name" javaType="java.lang.String"/>
+        <result property="price" column="md_price" javaType="java.lang.String"/>
+        <result property="img" column="mes_photo" javaType="java.lang.String"/>
+    </resultMap>
+
+    <select id="querySortDetails" resultMap="SortDetailsMapper">
+       select distinct mes_name,mes_photo,(select min(md_price) as md_price from dm_mes_det) md_price from dm_message m
+       join dm_mes_det md on md.md_mes_id = m.mes_id
+       join dm_subclass s on s.sub_id = m.mes_sub_id
+       join dm_assortment a on s.sub_sort_id = a.sort_id
+       and mes_time > #{time}
+       and a.sort_id = #{sortId};
+    </select>
+
+
+</mapper>
