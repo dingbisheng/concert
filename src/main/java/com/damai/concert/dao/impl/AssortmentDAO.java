@@ -40,7 +40,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         }
         List<AssortmentDTO> assortmentDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryAssortment");
         if (logger.isDebugEnabled()){
-            logger.debug("queryAssortment end");
+            logger.debug("queryAssortment end assortmentDTOList ==" + assortmentDTOList);
         }
         return assortmentDTOList;
     }
