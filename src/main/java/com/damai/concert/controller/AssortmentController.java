@@ -51,7 +51,7 @@ public class AssortmentController {
         model.addAttribute("cityDTO",cityDTO);
         model.addAttribute("placeDTO",placeDTO);
         model.addAttribute("mesDetList",mesDetList);
-        return "main";
+        return "details";
     }
 
 
