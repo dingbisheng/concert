@@ -38,7 +38,7 @@
     </resultMap>
 
     <select id="queryAssortment" resultMap="AssortResultMap">
-        select a.sort_name,s.sub_name from dm_assortment a join dm_subclass s on a.sort_id=s.sub_sort_id
+        select a.sort_id,a.sort_name,s.sub_id,s.sub_name from dm_assortment a join dm_subclass s on a.sort_id=s.sub_sort_id
     </select>
 
     <insert id="save" >
