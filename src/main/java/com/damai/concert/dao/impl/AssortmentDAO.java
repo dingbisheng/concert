@@ -107,11 +107,11 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         }
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("sortId",sortId);
-        hashMap.put("sortId",subId);
-        hashMap.put("sortId",cityId);
+        hashMap.put("subId",subId);
+        hashMap.put("cityId",cityId);
         List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryMessage", hashMap);
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() end");
+            logger.debug("queryMessage() end"+messageDTOList);
         }
         return messageDTOList;
     }
