@@ -5,9 +5,22 @@
 
 <mapper namespace="com.damai.concert.dto.ManagerDTOMapper">
     <resultMap id="ManagerResultMap" type="com.damai.concert.dto.ManagerDTO">
-        <id property="managerId" column="sort_id" javaType="java.lang.Integer"/>
-        <result property="managerName" column="sort_name" javaType="java.lang.String"/>
+        <id property="managerId" column="manager_id" javaType="java.lang.Integer"/>
+        <result property="managerName" column="manager_name" javaType="java.lang.String"/>
+        <result property="managerNickName" column="manager_nick_name" javaType="java.lang.String"/>
+        <result property="password" column="manager_password" javaType="java.lang.String"/>
     </resultMap>
 
+    <select id="queryManagerDTOByName" resultMap="ManagerResultMap">
+        select * from manager_user WHERE manager_name=#{name}
+    </select>
+
+    <select id="queryManagerRoleList" resultType="java.lang.String">
+        select r.manager_role_name from manager_role r join manager_ur ur on r.manager_role_id = ur.manager_role_id join manager_user u on ur.manager_user_id = u.manager_id and u.manager_name = #{username}
+    </select>
+
+    <select id="queryManagerPermissionList" resultType="java.lang.String">
+        select p.manager_permission_name from manager_permission p JOIN manager_rp rp on p.manager_permission_id = rp.manager_permission_id join manager_role r on rp.manager_role_id = r.manager_role_id join manager_ur ur on r.manager_role_id = ur.manager_role_id join manager_user u on ur.manager_user_id = u.manager_id and u.manager_name = #{username}
+    </select>
 
 </mapper>
