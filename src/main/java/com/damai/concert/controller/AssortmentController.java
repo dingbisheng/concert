@@ -99,13 +99,16 @@ public class AssortmentController {
         model.addAttribute("placeDTO",placeDTO);
         model.addAttribute("mesDetList",mesDetList);
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() end:::");
+            logger.debug("queryAll() end:::");
         }
         return "details";
     }
 
     @RequestMapping("/queryMessage")
     public String queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime, Model model){
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessage() start:::"+sortId+"::"+subId+":::"+cityId+"::::"+minTime+":::::"+maxTime);
+        }
         List<AssortmentDTO> assortmentDTOs = null;
         try {
             assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId,minTime,maxTime);
@@ -138,6 +141,9 @@ public class AssortmentController {
         model.addAttribute("messageDTOList",messageDTOList);
         model.addAttribute("placeDTO",placeDTO);
         model.addAttribute("mesDetList",mesDetList);
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessage()end:::"+mesDetList.toString());
+        }
         return "details";
     }
 
