@@ -3,6 +3,7 @@ package com.damai.concert.service.impl;
 
 import com.damai.concert.dao.IAssortmentDAO;
 import com.damai.concert.dto.AssortmentDTO;
+import com.damai.concert.dto.CityDTO;
 import com.damai.concert.service.IAssortmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,5 +74,11 @@ public class AssortmentService implements IAssortmentService {
     public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId) {
         List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId);
         return assortmentDTOList;
+    }
+
+    @Override
+    public List<CityDTO> queryCIty() {
+        List<CityDTO> cityDTOs = assortmentDAO.queryCity();
+        return cityDTOs;
     }
 }
