@@ -74,6 +74,12 @@
         <if test="subId!=null">
             and s.sub_id= #{subId}
         </if>
+        <if test="minTime!=null">
+            and m.mes_time &gt;= #{minTime}
+        </if>
+        <if test="maxTime!=null">
+            and m.mes_time &lt;= #{maxTime}
+        </if>
 
     </select>
 

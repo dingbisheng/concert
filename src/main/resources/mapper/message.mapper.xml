@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dto.MessageMapper">
+
+    <resultMap id="MessageResultMap" type="com.damai.concert.dto.MessageDTO">
+
+        <id property="mesId" column="mes_id" javaType="java.lang.Integer"/>
+        <result property="mesName" column="mes_name" javaType="java.lang.String"/>
+        <result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>
+        <result property="mesTime" column="mes_time" javaType="java.lang.String"/>
+        <result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>
+        <collection property="messageInfoDTOList" ofType="com.damai.concert.dto.MessageInfoDTO">
+            <id property="infoId" column="info_id" javaType="java.lang.Integer"/>
+            <result property="infoName" column="info_name" javaType="java.lang.String"/>
+            <result property="infoContent" column="info_content" javaType="java.lang.String"/>
+        </collection>
+
+    </resultMap>
+        <select id="queryMessageInfo" resultMap="MessageResultMap">
+            select * from dm_messageinfo mi join dm_message m join dm_place p
+            on mi.info_mes_id = m.mes_id and m.mes_place_id = p.place_id
+            and mes_id = #{mesId};
+        </select>
+
+</mapper>

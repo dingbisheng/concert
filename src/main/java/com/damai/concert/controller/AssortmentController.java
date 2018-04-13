@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,16 +34,18 @@ public class AssortmentController {
     public String queryAssortment(Model model){
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
         model.addAttribute("assortmentDTOList",assortmentDTOList);
+        HashMap<Integer, List<SortDetailsDTO>> sortDetailsListHashMap = new HashMap<>();
         try {
              for (AssortmentDTO assortmentDTO :assortmentDTOList) {
             Integer sortId = assortmentDTO.getSortId();
 
-            List<SortDetailsDTO> objects = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
-                 }
+            List<SortDetailsDTO> sortDetailsDTOList = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
+                 sortDetailsListHashMap.put(sortId, sortDetailsDTOList);
+             }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            model.addAttribute("sortDetailsListHashMap",sortDetailsListHashMap);
         return "main";
     }
 
@@ -58,7 +61,12 @@ public class AssortmentController {
         if (logger.isDebugEnabled()){
             logger.debug("queryAll() start:::"+sortId+":::"+subId);
         }
-        List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+        List<AssortmentDTO> assortmentDTOs = null;
+        try {
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sortName = null;
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
@@ -93,12 +101,17 @@ public class AssortmentController {
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() end:::");
         }
-        return "main";
+        return "details";
     }
 
     @RequestMapping("/queryMessage")
     public String queryMessage(Integer sortId,Integer subId,Integer cityId,Model model){
-        List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId);
+        List<AssortmentDTO> assortmentDTOs = null;
+        try {
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sortName = null;
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
