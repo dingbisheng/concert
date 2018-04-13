@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,14 +103,17 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
      * @return
      */
     @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId) {
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime) throws Exception{
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() :::"+sortId+"::"+subId+"::"+cityId);
         }
-        Map<String, Integer> hashMap = new HashMap<>();
+        Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("sortId",sortId);
         hashMap.put("subId",subId);
         hashMap.put("cityId",cityId);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        hashMap.put("minTime", format.parse(minTime));
+        hashMap.put("maxTime", format.parse(maxTime));
         List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryMessage", hashMap);
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() end"+messageDTOList);

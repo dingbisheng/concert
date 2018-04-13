@@ -61,7 +61,12 @@ public class AssortmentController {
         if (logger.isDebugEnabled()){
             logger.debug("queryAll() start:::"+sortId+":::"+subId);
         }
-        List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+        List<AssortmentDTO> assortmentDTOs = null;
+        try {
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sortName = null;
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
@@ -101,7 +106,12 @@ public class AssortmentController {
 
     @RequestMapping("/queryMessage")
     public String queryMessage(Integer sortId,Integer subId,Integer cityId,Model model){
-        List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId);
+        List<AssortmentDTO> assortmentDTOs = null;
+        try {
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sortName = null;
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;

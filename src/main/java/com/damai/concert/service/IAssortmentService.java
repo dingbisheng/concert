@@ -19,11 +19,11 @@ public interface IAssortmentService {
 
     void delete(Integer sortId);
 
-    public List<AssortmentDTO> queryMessage(Integer sortId);
+    public List<AssortmentDTO> queryMessage(Integer sortId)throws Exception;
 
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId);
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId)throws Exception;
 
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId);
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId)throws Exception;
 
     List<CityDTO> queryCity();
 }
