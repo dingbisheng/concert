@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Teori on 2018/4/12.
  */
 public class SortDetailsDTO implements Serializable {
+    public static final Long serialVersionUID = 1L;
     private String name;
     private String price;
     private String img;
