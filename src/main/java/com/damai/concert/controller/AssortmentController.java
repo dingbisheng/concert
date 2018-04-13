@@ -37,7 +37,7 @@ public class AssortmentController {
              for (AssortmentDTO assortmentDTO :assortmentDTOList) {
             Integer sortId = assortmentDTO.getSortId();
 
-            List<Object> objects = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
+            List<SortDetailsDTO> objects = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
                  }
             } catch (Exception e) {
                 e.printStackTrace();
