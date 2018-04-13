@@ -16,7 +16,8 @@
        join dm_subclass s on s.sub_id = m.mes_sub_id
        join dm_assortment a on s.sub_sort_id = a.sort_id
        and mes_time > #{time}
-       and a.sort_id = #{sortId};
+       and a.sort_id = #{sortId}
+       limit #{pageNum};
     </select>
 
 
