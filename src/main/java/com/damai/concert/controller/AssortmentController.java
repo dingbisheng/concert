@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,16 +34,18 @@ public class AssortmentController {
     public String queryAssortment(Model model){
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
         model.addAttribute("assortmentDTOList",assortmentDTOList);
+        HashMap<Integer, List<SortDetailsDTO>> sortDetailsListHashMap = new HashMap<>();
         try {
              for (AssortmentDTO assortmentDTO :assortmentDTOList) {
             Integer sortId = assortmentDTO.getSortId();
 
-            List<SortDetailsDTO> objects = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
-                 }
+            List<SortDetailsDTO> sortDetailsDTOList = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
+                 sortDetailsListHashMap.put(sortId, sortDetailsDTOList);
+             }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
+            model.addAttribute("sortDetailsListHashMap",sortDetailsListHashMap);
         return "main";
     }
 
