@@ -31,25 +31,18 @@ public class AssortmentController {
 
     @RequestMapping("/queryAssortment")
     public String queryAssortment(Model model){
-        if (logger.isDebugEnabled()){
-            logger.debug("queryAssortment() start ::::");
-        }
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
         model.addAttribute("assortmentDTOList",assortmentDTOList);
-        List<SortDetailsDTO> sortDetailsDTOList = null ;
         try {
              for (AssortmentDTO assortmentDTO :assortmentDTOList) {
             Integer sortId = assortmentDTO.getSortId();
 
-                 sortDetailsDTOList = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
-             }
+            List<SortDetailsDTO> objects = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
+                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            model.addAttribute("sortDetailsDTOList",sortDetailsDTOList);
-        if (logger.isDebugEnabled()){
-            logger.debug("queryAssortment() end::::sortDetailsDTOList="+ sortDetailsDTOList);
-        }
+
         return "main";
     }
 
