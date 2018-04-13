@@ -2,6 +2,7 @@ package com.damai.concert.service;
 
 
 import com.damai.concert.dto.AssortmentDTO;
+import com.damai.concert.dto.CityDTO;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface IAssortmentService {
     public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId);
 
     public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId);
+
+    List<CityDTO> queryCity();
 }

@@ -2,6 +2,7 @@ package com.damai.concert.dao.impl;
 
 import com.damai.concert.dao.IAssortmentDAO;
 import com.damai.concert.dto.AssortmentDTO;
+import com.damai.concert.dto.CityDTO;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
@@ -107,12 +108,18 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         }
         Map<String, Integer> hashMap = new HashMap<>();
         hashMap.put("sortId",sortId);
-        hashMap.put("sortId",subId);
-        hashMap.put("sortId",cityId);
+        hashMap.put("subId",subId);
+        hashMap.put("cityId",cityId);
         List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryMessage", hashMap);
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() end");
+            logger.debug("queryMessage() end"+messageDTOList);
         }
         return messageDTOList;
+    }
+
+    @Override
+    public List<CityDTO> queryCity() {
+        List<CityDTO> cityDTO = getSqlSession().selectList("com.damai.concert.dto.CityMapper.queryCity");
+        return cityDTO;
     }
 }

@@ -13,5 +13,6 @@
         <mapper resource="mapper/assortment.mapper.xml"/>
         <mapper resource="mapper/sortdetails.mapper.xml"/>
         <mapper resource="mapper/management.mapper.xml"/>
+        <mapper resource="mapper/city.mapper.xml"/>
     </mappers>
 </configuration>
