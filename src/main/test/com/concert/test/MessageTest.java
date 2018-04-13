@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,7 +47,31 @@ public class MessageTest {
         }
     }
 
-
+    @Autowired
+    private IAssortmentDAO assortmentDAO ;
+    @Test
+    public void test13()throws Exception{
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(1,1,1,"2018-05-01","2018-06-01");
+        for (AssortmentDTO assortmentDTO :assortmentDTOList){
+            logger.info(assortmentDTO.getSortName());
+            List<SubclassDTO> subclassDTOList = assortmentDTO.getSubclassDTOList();
+            for (SubclassDTO subclassDTO :subclassDTOList){
+                logger.info(subclassDTO.getSubName());
+                List<MessageDTO> messageDTOList = subclassDTO.getMessageDTOList();
+                for (MessageDTO messageDTO :messageDTOList){
+                    logger.info(messageDTO.getMesName());
+                    CityDTO cityDTO = messageDTO.getCityDTO();
+                    PlaceDTO placeDTO = messageDTO.getPlaceDTO();
+                    List<MesDetDTO> mesDetList = messageDTO.getMesDetList();
+                    logger.info(cityDTO.getCityName());
+                    logger.info(placeDTO.getPlaceName());
+                    for (MesDetDTO mesDetDTO:mesDetList){
+                        logger.info( mesDetDTO.toString());
+                    }
+                }
+            }
+        }
+    }
 
 
 }
