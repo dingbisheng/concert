@@ -68,12 +68,13 @@
         <if test="sortId!=null ">
             and a.sort_id=#{sortId}
         </if>
-        <if test="subId!=null">
-            and s.sub_id= #{subId}
-        </if>
         <if test="cityId!=null">
             and c.city_id =#{cityId}
         </if>
+        <if test="subId!=null">
+            and s.sub_id= #{subId}
+        </if>
+
     </select>
 
 </mapper>

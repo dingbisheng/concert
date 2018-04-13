@@ -109,7 +109,7 @@ public class AssortmentController {
         model.addAttribute("messageDTOList",messageDTOList);
         model.addAttribute("placeDTO",placeDTO);
         model.addAttribute("mesDetList",mesDetList);
-        return "main";
+        return "details";
     }
 
 

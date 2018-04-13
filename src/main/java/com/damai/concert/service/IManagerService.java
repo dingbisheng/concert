@@ -1,13 +1,13 @@
-package com.damai.concert.dao;
+package com.damai.concert.service;
 
 import com.damai.concert.dto.ManagerDTO;
 
 import java.util.List;
 
 /**
- * Created by Administrator on 2018\4\11 0011.
+ * Created by Administrator on 2018\4\12 0012.
  */
-public interface IManagerDAO {
+public interface IManagerService {
 
     ManagerDTO queryManagerDTOByName(String username) throws Exception;
 
