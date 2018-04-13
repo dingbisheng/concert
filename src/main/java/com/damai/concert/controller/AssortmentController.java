@@ -93,7 +93,7 @@ public class AssortmentController {
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() end:::");
         }
-        return "main";
+        return "details";
     }
 
     @RequestMapping("/queryMessage")
