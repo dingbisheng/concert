@@ -4,6 +4,7 @@ package com.damai.concert.dao;
 
 
 import com.damai.concert.dto.AssortmentDTO;
+import com.damai.concert.dto.CityDTO;
 
 import java.util.List;
 
@@ -21,4 +22,6 @@ public interface IAssortmentDAO {
      void delete(Integer sortId);
 
      List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId);
+
+     List<CityDTO> queryCity();
 }
