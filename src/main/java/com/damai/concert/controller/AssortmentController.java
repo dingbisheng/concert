@@ -2,12 +2,15 @@ package com.damai.concert.controller;
 
 import com.damai.concert.dto.*;
 import com.damai.concert.service.IAssortmentService;
+import com.damai.concert.service.ISortDetailsService;
+import com.damai.concert.sysconfig.SystemCfg;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,11 +26,23 @@ public class AssortmentController {
 
     @Autowired
     private IAssortmentService assortmentService ;
+    @Autowired
+    private ISortDetailsService sortDetailsService ;
 
     @RequestMapping("/queryAssortment")
     public String queryAssortment(Model model){
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
         model.addAttribute("assortmentDTOList",assortmentDTOList);
+        try {
+             for (AssortmentDTO assortmentDTO :assortmentDTOList) {
+            Integer sortId = assortmentDTO.getSortId();
+
+            List<Object> objects = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
+                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         return "main";
     }
 
@@ -62,6 +77,7 @@ public class AssortmentController {
                 }
             }
         }
+        //查询所有城市
         List<CityDTO> cityDTOList = assortmentService.queryCity();
         model.addAttribute("cityDTOList",cityDTOList);
         //全部分类集合
