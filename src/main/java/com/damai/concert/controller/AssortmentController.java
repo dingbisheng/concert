@@ -105,10 +105,10 @@ public class AssortmentController {
     }
 
     @RequestMapping("/queryMessage")
-    public String queryMessage(Integer sortId,Integer subId,Integer cityId,Model model){
+    public String queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime, Model model){
         List<AssortmentDTO> assortmentDTOs = null;
         try {
-            assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId);
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId,minTime,maxTime);
         } catch (Exception e) {
             e.printStackTrace();
         }
