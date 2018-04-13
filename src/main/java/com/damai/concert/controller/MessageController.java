@@ -26,6 +26,9 @@ public class MessageController {
 
     @RequestMapping("/info")
     public String queryMessageInfo(Integer mesId, Model model){
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessageInfo() start "+mesId);
+        }
         MessageDTO messageDTO = null ;
         List<MessageInfoDTO> messageInfoDTOList = null;
         try {
@@ -37,6 +40,9 @@ public class MessageController {
         }
         model.addAttribute("messageDTO",messageDTO);
         model.addAttribute("messageInfoDTOList",messageInfoDTOList);
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessageInfo() end "+messageDTO.toString() +":::"+messageInfoDTOList.toString());
+        }
         return "";
     }
 }
