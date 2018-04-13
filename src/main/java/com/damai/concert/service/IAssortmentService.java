@@ -25,5 +25,5 @@ public interface IAssortmentService {
 
     public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId);
 
-    List<CityDTO> queryCIty();
+    List<CityDTO> queryCity();
 }

@@ -39,9 +39,9 @@ public class AssortmentController {
      * @return
      */
     @RequestMapping("/queryAll")
-    public String queryMessage(Integer sortId,Integer subId,Model model){
+    public String queryAll(Integer sortId,Integer subId,Model model){
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() start:::"+sortId+":::"+subId);
+            logger.debug("queryAll() start:::"+sortId+":::"+subId);
         }
         List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId);
         String sortName = null;

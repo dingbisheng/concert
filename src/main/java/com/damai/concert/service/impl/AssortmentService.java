@@ -77,7 +77,7 @@ public class AssortmentService implements IAssortmentService {
     }
 
     @Override
-    public List<CityDTO> queryCIty() {
+    public List<CityDTO> queryCity() {
         List<CityDTO> cityDTOs = assortmentDAO.queryCity();
         return cityDTOs;
     }
