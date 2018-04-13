@@ -49,4 +49,9 @@ public class SortDetailsTest {
         IndustrySMS.execute("15071348069","1234");
     }
 
+    @Test
+    public void registerTest(){
+        AccountInfo.execute();
+        IndustrySMS.execute("15071348069","1234");
+    }
 }
