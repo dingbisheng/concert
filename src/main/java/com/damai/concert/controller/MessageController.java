@@ -24,6 +24,12 @@ public class MessageController {
     @Autowired
     private IMessageService messageService ;
 
+    /**
+     * 根据场次id查询基本信息注意事项
+     * @param mesId
+     * @param model
+     * @return
+     */
     @RequestMapping("/info")
     public String queryMessageInfo(Integer mesId, Model model){
         if (logger.isDebugEnabled()){
