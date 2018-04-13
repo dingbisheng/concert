@@ -15,5 +15,5 @@ import java.util.List;
 public interface IMessageDAO {
     List<SubclassDTO> querySubclass(String sortName);
 
-    MessageDTO queryMessageInfo(Integer mesId);
+    MessageDTO queryMessageInfo(Integer mesId) throws Exception;
 }

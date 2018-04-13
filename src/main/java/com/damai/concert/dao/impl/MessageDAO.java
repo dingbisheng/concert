@@ -48,7 +48,7 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
     }
 
     @Override
-    public MessageDTO queryMessageInfo(Integer mesId) {
+    public MessageDTO queryMessageInfo(Integer mesId) throws Exception{
         if (logger.isDebugEnabled()){
             logger.debug("queryMessageInfo():::"+mesId);
         }
