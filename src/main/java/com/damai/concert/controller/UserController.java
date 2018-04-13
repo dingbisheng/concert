@@ -49,6 +49,13 @@ public class UserController {
     @Autowired
     private IAssortmentService assortmentService;
 
+    /**
+     * 用户登录
+     * @param username
+     * @param password
+     * @param rememberMe
+     * @return
+     */
     @RequestMapping("/login")
     @ResponseBody
     public String doLogin(String username,String password,boolean rememberMe){
@@ -70,6 +77,8 @@ public class UserController {
         }
         return "failed";
     }
+
+
 
 
     @RequestMapping("/main")
