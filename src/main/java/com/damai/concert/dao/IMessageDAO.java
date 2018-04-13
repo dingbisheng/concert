@@ -4,6 +4,7 @@ package com.damai.concert.dao;
 
 import com.damai.concert.dto.AssortmentDTO;
 import com.damai.concert.dto.MessageDTO;
+import com.damai.concert.dto.MessageInfoDTO;
 import com.damai.concert.dto.SubclassDTO;
 
 import java.util.List;
@@ -14,4 +15,5 @@ import java.util.List;
 public interface IMessageDAO {
     List<SubclassDTO> querySubclass(String sortName);
 
+    MessageDTO queryMessageInfo(Integer mesId);
 }

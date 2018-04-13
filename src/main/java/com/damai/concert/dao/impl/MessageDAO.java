@@ -4,6 +4,7 @@ package com.damai.concert.dao.impl;
 import com.damai.concert.dao.IMessageDAO;
 import com.damai.concert.dto.AssortmentDTO;
 import com.damai.concert.dto.MessageDTO;
+import com.damai.concert.dto.MessageInfoDTO;
 import com.damai.concert.dto.SubclassDTO;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
@@ -38,6 +39,11 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
         return subclassDTOList;
     }
 
+    @Override
+    public MessageDTO queryMessageInfo(Integer mesId) {
+        MessageDTO messageInfoDTO = getSqlSession().selectOne("com.damai.concert.dto.MessageMapper.queryMessageInfo", mesId);
+        return messageInfoDTO;
+    }
 
 
 }

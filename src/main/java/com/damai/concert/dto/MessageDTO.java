@@ -18,6 +18,15 @@ public class MessageDTO implements Serializable {
     private CityDTO cityDTO ;
     private PlaceDTO placeDTO ;
     private List<MesDetDTO> mesDetList ;
+    private List<MessageInfoDTO> messageInfoDTOList ;
+
+    public List<MessageInfoDTO> getMessageInfoDTOList() {
+        return messageInfoDTOList;
+    }
+
+    public void setMessageInfoDTOList(List<MessageInfoDTO> messageInfoDTOList) {
+        this.messageInfoDTOList = messageInfoDTOList;
+    }
 
     @Override
     public boolean equals(Object o) {
