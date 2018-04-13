@@ -25,5 +25,8 @@ public interface IAssortmentService {
 
     public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId)throws Exception;
 
+    List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime)throws  Exception;
+
+
     List<CityDTO> queryCity();
 }

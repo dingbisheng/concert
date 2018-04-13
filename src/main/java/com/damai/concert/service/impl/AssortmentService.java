@@ -76,7 +76,13 @@ public class AssortmentService implements IAssortmentService {
         return assortmentDTOList;
     }
 
-    @Override
+    @Transactional
+    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId, String minTime, String maxTime) throws Exception {
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId,minTime,maxTime);
+        return null;
+    }
+
+    @Transactional
     public List<CityDTO> queryCity() {
         List<CityDTO> cityDTOs = assortmentDAO.queryCity();
         return cityDTOs;
