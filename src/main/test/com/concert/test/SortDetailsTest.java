@@ -1,5 +1,6 @@
 package com.concert.test;
 
+import com.damai.concert.dto.SortDetailsDTO;
 import com.damai.concert.service.ISortDetailsService;
 import com.damai.concert.sysconfig.SystemCfg;
 import com.damai.concert.verificate.AccountInfo;
@@ -30,7 +31,7 @@ public class SortDetailsTest {
     @Test
     public void detailsTest(){
         Date date = new Date();
-        List<Object> list = null;
+        List<SortDetailsDTO> list = null;
         try {
             list = sortDetailsService.querySortDetails(1,date, SystemCfg.PAGE_NUM);
         } catch (Exception e) {
