@@ -18,7 +18,7 @@ public class SortDetailsServiece implements ISortDetailsService{
     private ISortDetailsDAO sortDetailsDAO;
 
     @Override
-    public List<Object> querySortDetails(Integer sortId,Date time) {
-        return sortDetailsDAO.querySortDetails(sortId,time);
+    public List<Object> querySortDetails(Integer sortId,Date time,Integer pageNum) throws Exception{
+        return sortDetailsDAO.querySortDetails(sortId,time,pageNum);
     }
 }
