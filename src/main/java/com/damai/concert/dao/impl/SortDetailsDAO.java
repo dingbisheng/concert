@@ -33,7 +33,7 @@ public class SortDetailsDAO extends SqlSessionDaoSupport implements ISortDetails
      * @return
      */
     @Override
-    public List<Object> querySortDetails(Integer sortId,Date time) {
+    public List<Object> querySortDetails(Integer sortId,Date time,Integer pageNum) throws Exception {
         if (logger.isDebugEnabled()){
             logger.debug("queryAssortment start");
         }
@@ -41,8 +41,9 @@ public class SortDetailsDAO extends SqlSessionDaoSupport implements ISortDetails
         HashMap<String, Object> map = new HashMap<>();
         map.put("sortId",sortId);
         map.put("time",time);
+        map.put("pageNum",pageNum);
 
-        List<Object> sortDetailsList = getSqlSession().selectList("com.damai.concert.dto.SortDetailsMapper.querySortDetails" , sortId);
+        List<Object> sortDetailsList = getSqlSession().selectList("com.damai.concert.dto.SortDetailsMapper.querySortDetails" ,map);
 
 
 

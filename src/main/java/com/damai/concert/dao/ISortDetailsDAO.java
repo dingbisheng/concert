@@ -13,6 +13,6 @@ public interface ISortDetailsDAO {
      * @param sortId
      * @return
      */
-    List<Object> querySortDetails(Integer sortId,Date time);
+    List<Object> querySortDetails(Integer sortId,Date time,Integer pageNum) throws Exception;
 
 }
