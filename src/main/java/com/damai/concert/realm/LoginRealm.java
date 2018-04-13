@@ -2,6 +2,8 @@ package com.damai.concert.realm;
 
 import com.damai.concert.dao.IUserDAO;
 import com.damai.concert.dto.UserDTO;
+import com.damai.concert.realm.token.MyUsernamePasswordToken;
+import com.damai.concert.sysconfig.SystemCfg;
 import org.apache.log4j.Logger;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -34,7 +36,8 @@ public class LoginRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        MyUsernamePasswordToken usernamePasswordToken = (MyUsernamePasswordToken) token;
+        String msgLogin = usernamePasswordToken.getMsgLogin();
         String username = usernamePasswordToken.getUsername();
         char[] pwd = usernamePasswordToken.getPassword();
         String password = new String(pwd);
@@ -51,10 +54,12 @@ public class LoginRealm extends AuthorizingRealm {
         }
         String userPassword = userDTO.getUserPassword();
         SimpleHash simpleHash = new SimpleHash("MD5", password, userDTO.getUserName());
-        if (!simpleHash.toString().equalsIgnoreCase(userPassword)){
-            throw new IncorrectCredentialsException("密码错误");
-        }
 
+        if(!SystemCfg.MSG_LOGIN.equals(msgLogin)){
+            if (!simpleHash.toString().equalsIgnoreCase(userPassword)){
+                throw new IncorrectCredentialsException("密码错误");
+            }
+        }
         return new SimpleAuthenticationInfo(username,password,getName());
     }
 }
