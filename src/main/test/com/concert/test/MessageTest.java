@@ -33,8 +33,13 @@ public class MessageTest {
 
     @Test
     public void testCase1(){
-        MessageDTO messageDTO = messageDAO.queryMessageInfo(2);
-       logger.info( messageDTO.getMesName());
+        MessageDTO messageDTO = null;
+        try {
+            messageDTO = messageDAO.queryMessageInfo(2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        logger.info( messageDTO.getMesName());
         List<MessageInfoDTO> messageInfoDTOList = messageDTO.getMessageInfoDTOList();
         for (MessageInfoDTO messageInfoDTO:messageInfoDTOList){
             logger.info(messageInfoDTO.toString());
