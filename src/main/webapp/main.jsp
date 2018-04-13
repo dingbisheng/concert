@@ -103,7 +103,7 @@
 
                    <c:forEach items="${assortmentDTOList}" var="assortment">
 
-                       <li><a title="${assortment.sortName}" target="_blank" href="<%=basePath%>/user/details?assortmentid=${assortment.sortId}">${assortment.sortName}</a></li>
+                       <li><a title="${assortment.sortName}" target="_blank" href="<%=basePath%>/assortment/queryMessage?assortmentid=${assortment.sortId}">${assortment.sortName}</a></li>
 
                    </c:forEach>
 
@@ -810,7 +810,7 @@
 
             <c:forEach items="${assortmentDTOList}" var="assortment" varStatus="status">
                 <li>
-                    <a href="/user/details?assortmentid=${assortment.sortId}" target="_blank" class="sort-list-${status.count} lnk" id="home_fldh_00${status.count}" data-categoryId="${status.count}"><span>${assortment.sortName}</span></a>
+                    <a href="/assortment/queryMessage?assortmentid=${assortment.sortId}" target="_blank" class="sort-list-${status.count} lnk" id="home_fldh_00${status.count}" data-categoryId="${status.count}"><span>${assortment.sortName}</span></a>
                     <div class="sort-layer">
                         <a class="ri-close" href="#">关闭</a>
                         <dl class="layer-top">
@@ -818,7 +818,7 @@
                             <dd>
                                 <span>&gt;</span>
                                 <c:forEach items="${assortment.subclassDTOList}" var="SubclassDTO">
-                                    <a href="/user/details?assortmentid=${assortment.sortId}&subclassid=${SubclassDTO.subId}" target="_blank" id="home_fldh_tan_ych_wenzi_001">${SubclassDTO.subName}</a><i>|</i>
+                                    <a href="/assortment/queryMessage?assortmentid=${assortment.sortId}&subclassid=${SubclassDTO.subId}" target="_blank" id="home_fldh_tan_ych_wenzi_001">${SubclassDTO.subName}</a><i>|</i>
                                 </c:forEach>
 
                                 <%--<a href="//search.damai.cn/search.html?ctl=%E6%BC%94%E5%94%B1%E4%BC%9A&sctl=%E6%91%87%E6%BB%9A&order=1" target="_blank" id="home_fldh_tan_ych_wenzi_002">摇滚</a><i>|</i>--%>
