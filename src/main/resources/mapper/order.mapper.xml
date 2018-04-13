@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.damai.concert.dto.OrderMapper">
+
+    <resultMap id="OrderResultMap" type="com.damai.concert.dto.OrderDTO">
+        <id column="order_id" property="orderId" javaType="java.lang.Integer"/>
+        <result column="order_price" property="orderPrice" javaType="java.lang.String"/>
+        <result column="order_time" property="orderTime" javaType="java.lang.String"/>
+        <result column="order_seat_num" property="orderSeatNum" javaType="java.lang.Integer"/>
+        <result column="order_num" property="orderNum" javaType="java.lang.String"/>
+        <result column="order_total_price" property="orderTotalPrice" javaType="java.lang.String"/>
+        <result column="order_condition" property="orderCondition" javaType="java.lang.String"/>
+
+        <association property="userDTO" column="order_user_id" javaType="com.damai.concert.dto.UserDTO">
+            <id property="userId" column="user_id" javaType="java.lang.Integer"/>
+            <result property="userName" column="user_name" javaType="java.lang.String"/>
+            <result property="userRealname" column="user_realname" javaType="java.lang.String"/>
+            <result property="userSex" column="user_sex" javaType="java.lang.String"/>
+            <result property="userBirthday" column="user_birthday" javaType="java.lang.String"/>
+            <result property="userEdu" column="user_edu" javaType="java.lang.String"/>
+            <result property="userWork" column="user_work" javaType="java.lang.String"/>
+            <result property="userIDcard" column="user_IDcard" javaType="java.lang.String"/>
+            <result property="userAddr" column="user_addr" javaType="java.lang.String"/>
+            <result property="userPassword" column="user_password" javaType="java.lang.String"/>
+        </association>
+
+        <association property="messageDTO" column="order_msg_id" javaType="com.damai.concert.dto.MessageDTO">
+            <id property="mesId" column="mes_id" javaType="java.lang.Integer"/>
+            <result property="mesName" column="mes_name" javaType="java.lang.String"/>
+            <result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>
+            <result property="mesTime" column="mes_time" javaType="java.lang.String"/>
+            <result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>
+
+            <collection property="mesDetList" ofType="com.damai.concert.dto.MesDetDTO">
+                <id property="mdId" column="md_id" javaType="java.lang.Integer"/>
+                <result property="mdPrice" column="md_price" javaType="java.lang.Integer"/>
+            </collection>
+        </association>
+    </resultMap>
+
+    <select id="queryOrders" resultMap="OrderResultMap">
+        SELECT *
+        FROM tb_users u JOIN  tb_order o JOIN dm_message m
+        JOIN dm_mes_det d
+        ON d.md_mes_id=m.mes_id
+        AND u.user_id=o.order_user_id
+        AND o.order_msg_id=m.mes_id
+        AND u.user_name=#{username}
+    </select>
+
+</mapper>
