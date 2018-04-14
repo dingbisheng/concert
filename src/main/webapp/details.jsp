@@ -1023,14 +1023,14 @@
                                     </div>
 
                                     <div class="search_txt">
-                                        <h3>【${mes.cityDTO.cityName}】<a id="search_log_147994" href=""
+                                        <h3>【${mes.cityDTO.cityName}】<a id="search_log_147994" href="<%=basePath%>/message/info?mesId=${mes.mesId}"
                                                    onclick="toItem(147994,1,1,2018)" target="_blank">${mes.mesName}</a></h3>
                                         <p class="search_txt_cut c3">${mes.mesExplain}</p>
                                         <p class="search_txt_time c3" data-spm-anchor-id="a2o6e.search.0.i2.54824d15MB9bj8">
                                             <a href="#" class="search_txt_time_icon"></a>${mes.mesTime}
                                         </p>
                                         <p class="c1">
-                                            <a href="<%=basePath%>/message/info?mesId=${mes.mesId}" target="_blank" class="search_txt_site_icon">${mes.placeDTO.placeName}</a>
+                                            <a href="#" target="_blank" class="search_txt_site_icon">${mes.placeDTO.placeName}</a>
                                         </p>
                                         <p class="search_txt_piao"><em>${mes.mesDetList[0].mdPrice}元</em>预售</p>
                                     </div>
