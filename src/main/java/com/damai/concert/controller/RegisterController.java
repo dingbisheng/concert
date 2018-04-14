@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 
@@ -83,6 +84,13 @@ public class RegisterController {
         }
 
         return "success";
+    }
+
+    @RequestMapping("/view")
+    public ModelAndView testView(){
+        ModelAndView modelAndView = new ModelAndView("main");
+        modelAndView.addObject("name","zxy");
+        return modelAndView;
     }
 
 }
