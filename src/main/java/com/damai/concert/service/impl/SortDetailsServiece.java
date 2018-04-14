@@ -1,6 +1,7 @@
 package com.damai.concert.service.impl;
 
 import com.damai.concert.dao.ISortDetailsDAO;
+import com.damai.concert.dto.SortDetailsDTO;
 import com.damai.concert.service.ISortDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class SortDetailsServiece implements ISortDetailsService{
     private ISortDetailsDAO sortDetailsDAO;
 
     @Override
-    public List<Object> querySortDetails(Integer sortId,Date time) {
-        return sortDetailsDAO.querySortDetails(sortId,time);
+    public List<SortDetailsDTO> querySortDetails(Integer sortId, Date time, Integer pageNum) throws Exception{
+        return sortDetailsDAO.querySortDetails(sortId,time,pageNum);
     }
 }

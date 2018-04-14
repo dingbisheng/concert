@@ -1,5 +1,7 @@
 package com.damai.concert.service;
 
+import com.damai.concert.dto.SortDetailsDTO;
+
 import java.util.Date;
 import java.util.List;
 
@@ -13,6 +15,6 @@ public interface ISortDetailsService {
      * @param sortId
      * @return
      */
-    List<Object> querySortDetails(Integer sortId, Date time);
+    List<SortDetailsDTO> querySortDetails(Integer sortId, Date time, Integer pageNum) throws Exception;
 
 }

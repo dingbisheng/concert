@@ -1,6 +1,7 @@
 package com.damai.concert.dao.impl;
 
 import com.damai.concert.dao.ISortDetailsDAO;
+import com.damai.concert.dto.SortDetailsDTO;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class SortDetailsDAO extends SqlSessionDaoSupport implements ISortDetails
      * @return
      */
     @Override
-    public List<Object> querySortDetails(Integer sortId,Date time) {
+    public List<SortDetailsDTO> querySortDetails(Integer sortId, Date time, Integer pageNum) throws Exception {
         if (logger.isDebugEnabled()){
             logger.debug("queryAssortment start");
         }
@@ -41,8 +42,9 @@ public class SortDetailsDAO extends SqlSessionDaoSupport implements ISortDetails
         HashMap<String, Object> map = new HashMap<>();
         map.put("sortId",sortId);
         map.put("time",time);
+        map.put("pageNum",pageNum);
 
-        List<Object> sortDetailsList = getSqlSession().selectList("com.damai.concert.dto.SortDetailsMapper.querySortDetails" , sortId);
+        List<SortDetailsDTO> sortDetailsList = getSqlSession().selectList("com.damai.concert.dto.SortDetailsMapper.querySortDetails" ,map);
 
 
 

@@ -3,7 +3,9 @@ package com.damai.concert.dao.impl;
 import com.damai.concert.dao.IAssortmentDAO;
 import com.damai.concert.dto.AssortmentDTO;
 import com.damai.concert.dto.CityDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
+
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 
 import org.slf4j.Logger;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,14 +105,19 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
      * @return
      */
     @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId) {
+    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime) throws Exception{
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() :::"+sortId+"::"+subId+"::"+cityId);
         }
-        Map<String, Integer> hashMap = new HashMap<>();
+        Map<String, Object> hashMap = new HashMap<>();
         hashMap.put("sortId",sortId);
         hashMap.put("subId",subId);
         hashMap.put("cityId",cityId);
+        if (StringUtils.isNotEmpty(minTime) &&StringUtils.isNotEmpty(maxTime) ){
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            hashMap.put("minTime", format.parse(minTime));
+            hashMap.put("maxTime", format.parse(maxTime));
+        }
         List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryMessage", hashMap);
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() end"+messageDTOList);

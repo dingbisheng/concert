@@ -2,12 +2,16 @@ package com.damai.concert.controller;
 
 import com.damai.concert.dto.*;
 import com.damai.concert.service.IAssortmentService;
+import com.damai.concert.service.ISortDetailsService;
+import com.damai.concert.sysconfig.SystemCfg;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -23,11 +27,25 @@ public class AssortmentController {
 
     @Autowired
     private IAssortmentService assortmentService ;
+    @Autowired
+    private ISortDetailsService sortDetailsService ;
 
     @RequestMapping("/queryAssortment")
     public String queryAssortment(Model model){
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
         model.addAttribute("assortmentDTOList",assortmentDTOList);
+        HashMap<Integer, List<SortDetailsDTO>> sortDetailsListHashMap = new HashMap<>();
+        try {
+             for (AssortmentDTO assortmentDTO :assortmentDTOList) {
+            Integer sortId = assortmentDTO.getSortId();
+
+            List<SortDetailsDTO> sortDetailsDTOList = sortDetailsService.querySortDetails(sortId, new Date(), SystemCfg.PAGE_NUM);
+                 sortDetailsListHashMap.put(sortId, sortDetailsDTOList);
+             }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            model.addAttribute("sortDetailsListHashMap",sortDetailsListHashMap);
         return "main";
     }
 
@@ -43,7 +61,12 @@ public class AssortmentController {
         if (logger.isDebugEnabled()){
             logger.debug("queryAll() start:::"+sortId+":::"+subId);
         }
-        List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+        List<AssortmentDTO> assortmentDTOs = null;
+        try {
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sortName = null;
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
@@ -62,6 +85,7 @@ public class AssortmentController {
                 }
             }
         }
+        //查询所有城市
         List<CityDTO> cityDTOList = assortmentService.queryCity();
         model.addAttribute("cityDTOList",cityDTOList);
         //全部分类集合
@@ -75,14 +99,22 @@ public class AssortmentController {
         model.addAttribute("placeDTO",placeDTO);
         model.addAttribute("mesDetList",mesDetList);
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() end:::");
+            logger.debug("queryAll() end:::");
         }
-        return "main";
+        return "details";
     }
 
     @RequestMapping("/queryMessage")
-    public String queryMessage(Integer sortId,Integer subId,Integer cityId,Model model){
-        List<AssortmentDTO> assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId);
+    public String queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime, Model model){
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessage() start:::"+sortId+"::"+subId+":::"+cityId+"::::"+minTime+":::::"+maxTime);
+        }
+        List<AssortmentDTO> assortmentDTOs = null;
+        try {
+            assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId,minTime,maxTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String sortName = null;
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
@@ -109,6 +141,9 @@ public class AssortmentController {
         model.addAttribute("messageDTOList",messageDTOList);
         model.addAttribute("placeDTO",placeDTO);
         model.addAttribute("mesDetList",mesDetList);
+        if (logger.isDebugEnabled()){
+            logger.debug("queryMessage()end:::"+mesDetList.toString());
+        }
         return "details";
     }
 

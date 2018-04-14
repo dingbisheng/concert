@@ -1,6 +1,10 @@
 package com.concert.test;
 
+import com.damai.concert.dto.SortDetailsDTO;
 import com.damai.concert.service.ISortDetailsService;
+import com.damai.concert.sysconfig.SystemCfg;
+import com.damai.concert.verificate.AccountInfo;
+import com.damai.concert.verificate.IndustrySMS;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,11 +31,27 @@ public class SortDetailsTest {
     @Test
     public void detailsTest(){
         Date date = new Date();
-        List<Object> list = sortDetailsService.querySortDetails(1,date);
+        List<SortDetailsDTO> list = null;
+        try {
+            list = sortDetailsService.querySortDetails(1,date, SystemCfg.PAGE_NUM);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         logger.info(list);
         for (Object l:list) {
             logger.info(l);
         }
     }
 
+    @Test
+    public void codeTest(){
+        AccountInfo.execute();
+        IndustrySMS.execute("15071348069","1234");
+    }
+
+    @Test
+    public void registerTest(){
+        AccountInfo.execute();
+        IndustrySMS.execute("15071348069","1234");
+    }
 }

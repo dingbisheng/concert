@@ -1,17 +1,10 @@
 package com.damai.concert.controller;
 
-import com.damai.concert.dao.IUserDAO;
 import com.damai.concert.dto.AssortmentDTO;
-import com.damai.concert.dto.UserDTO;
 import com.damai.concert.realm.token.MyUsernamePasswordToken;
 import com.damai.concert.service.IAssortmentService;
 import com.damai.concert.service.IUserService;
 import com.damai.concert.sysconfig.SystemCfg;
-import com.jagregory.shiro.freemarker.ShiroTags;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,10 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -87,7 +76,6 @@ public class UserController {
         model.addAttribute("assortmentDTOList",assortmentDTOList);
         return "main";
     }
-
 
 
 

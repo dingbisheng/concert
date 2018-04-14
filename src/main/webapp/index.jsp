@@ -5,7 +5,9 @@
 <%	String basePath = request.getContextPath();%>
 <html>
 <head>
+    <script type="text/javascript" src="<%= basePath%>/concert/js/jquery-3.3.1.js"></script>
     <title>Title</title>
+
 </head>
 <body>
 
@@ -29,9 +31,32 @@ ${rows}  //  ${cols}
     <br/>
 </c:forEach>
 
+<form method="post" target="_self" action="/admin/addfieldsteptwo">
+
+    <input id="seats" name="seats" value="" />
+    <input id="totalrows" name="totalrows" value="${rows}" />
+    <input id="totalcols" name="totalcols" value="${cols}" />
+
+    <button type="button"  id="button" value="提交" onclick="doCollect()"/>
+</form>
+
 
 
 </body>
+
+
+<script>
+    function doCollect() {
+        var ids = $("#seats");
+        $(img).each(function(index, element) {
+            if($(element).src == "<%= basePath%>/concert/picture/y.png"){
+                var seatid = $(element).id;
+                ids.value=ids.value+seatid+";";
+            }
+        });
+    }
+</script>
+
 
 <script>
     function doChangeYN(row,col) {
@@ -40,9 +65,11 @@ ${rows}  //  ${cols}
             it.src="<%= basePath%>/concert/picture/n.png";
         }else{
             it.src="<%= basePath%>/concert/picture/y.png";
-        }
 
+        }
     }
+
+
 
 </script>
 </html>
