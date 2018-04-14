@@ -2,10 +2,8 @@ package com.concert.test;
 
 
 import com.damai.concert.dao.IAssortmentDAO;
-import com.damai.concert.dao.IMessageDAO;
 import com.damai.concert.dao.IUserDAO;
 import com.damai.concert.dto.*;
-
 import com.damai.concert.service.IAssortmentService;
 import com.damai.concert.service.IUserService;
 import org.apache.log4j.Logger;
@@ -132,13 +130,22 @@ public class TestDAO {
 
     @Test
     public void test12(){
-        List<AssortmentDTO> messageDTOList = assortmentService.queryMessage(1,1,1);
+        try {
+            List<AssortmentDTO> messageDTOList = assortmentService.queryMessage(1,1,1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     @Autowired
     private IAssortmentService assortmentService ;
     @Test
     public void test13(){
-        List<AssortmentDTO> assortmentDTOList = assortmentService.queryMessage(1);
+        List<AssortmentDTO> assortmentDTOList = null;
+        try {
+            assortmentDTOList = assortmentService.queryMessage(1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         for (AssortmentDTO assortmentDTO :assortmentDTOList){
             logger.info(assortmentDTO.getSortName());
             List<SubclassDTO> subclassDTOList = assortmentDTO.getSubclassDTOList();
@@ -158,7 +165,7 @@ public class TestDAO {
                 }
             }
         }
-
     }
+
 
 }

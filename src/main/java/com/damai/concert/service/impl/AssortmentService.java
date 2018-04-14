@@ -59,24 +59,30 @@ public class AssortmentService implements IAssortmentService {
     }
 
     @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId) {
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, null, null);
+    public List<AssortmentDTO> queryMessage(Integer sortId) throws Exception{
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, null, null,null,null);
         return assortmentDTOList;
     }
 
     @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId) {
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, null);
+    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId) throws Exception{
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, null,null,null);
         return assortmentDTOList;
     }
 
     @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId) {
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId);
+    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId)throws Exception {
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId,null,null);
         return assortmentDTOList;
     }
 
-    @Override
+    @Transactional
+    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId, String minTime, String maxTime) throws Exception {
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId,minTime,maxTime);
+        return null;
+    }
+
+    @Transactional
     public List<CityDTO> queryCity() {
         List<CityDTO> cityDTOs = assortmentDAO.queryCity();
         return cityDTOs;

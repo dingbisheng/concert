@@ -108,20 +108,14 @@
                     </div>
                   </div>
                 </div>
-				<input type="text" class="text layer_text" name="login_email" id="login_email"  placeholder="邮箱/手机号码" style="width:312px;"  value="" autocomplete="off" />
+				<input type="text" class="text layer_text" name="login_email" id="login_email"  placeholder="邮箱/手机号码"
+					   style="width:312px;"  value="" autocomplete="off" />
                 
               </div>
             </li>
 			</ul>
-			
 
-
-
-
-
-
-
-			<form method="post" id="login_form" name="login_form" action="user/main">
+			<form method="post" id="login_form" name="login_form" action="assortment/queryAssortment">
 			
 			<div id="acc_div" class="con m_new_tab_main">
 				<ul class="account_list">
@@ -184,25 +178,29 @@
 
 			<div class="con" id="msg_login" style="display:none;">
 				<ul class="layer_write">
-					<li style="position:relative;z-index:999">
+					<!--<li style="position:relative;z-index:999">
 								<input type='hidden' id='csessionid1' name='csessionid1' /> 
 								<input type='hidden' id='sig1' name='sig1' /> 
 								<input type='hidden' id='alitoken1'	name='alitoken1' />
 								<input type='hidden' id='scene1' name='scene1' />
 								<div id="dom_id1"></div>
-					</li>
+					</li>-->
 					<li>
 						<div class="layer_inner">
 							<span class="account_password"></span>
 							
 							<input type="text" id="mCode" class="text layer_text" value="动态密码" onblur="if(this.value=='') {this.value='动态密码';}" onfocus="if(this.value=='动态密码') {this.value='';}" style="width:193px;" />
                         </div>
-						<span class="m_send_code c1" id="get_mcode">发送动态密码</span>
+						<!--发送动态码-->
+						<!--<span class="m_send_code c1" id="get_mcode">发送动态密码</span>-->
+						<span class="m_send_code c1" id="get_mcode1">发送动态密码</span>
                         <a id="dis_get_vcode" class="m_send_code c3" style="display:none;"></a>
 					</li>
+					<!--错误弹出框-->
 					<div class="account_site" id="pwdmsg1"></div>
 					<li id="layer_img_code"class="layer_high" style="display:none;">
 						<div class="account_inner">
+							<!--验证码输入框-->
 							<input id="vcode" type="text" class="text layer_text" phdata="验证码" style="width:160px; float:left" />
 							<strong class="account_icon" style="display:none;"></strong>
 					    </div>
@@ -212,7 +210,8 @@
 					    <a class="account_else" href="javascript:void(0)" onclick="document.getElementById('mImg').src='/VerifyShow.aspx?d='+new Date().toLocaleString()">换一换</a>
 					</li>
 				</ul>
-				<input type="button" id="msgBtn" class="login_btn" value="立即登录" />
+				<!--登陆-->
+				<input type="button" id="msgBtn1" class="login_btn" value="立即登录" onclick="msgSubmit()"/>
 			</div>
 			
 			<!--</form>-->
@@ -269,7 +268,7 @@
 </script>
 
 <script>
-	var nc1 = new noCaptcha();
+/*	var nc1 = new noCaptcha();
 	var nc_appkey1 = 'FFFF000000000168D5DA';
     var nc_scene1 = 'login';
 	var nc_token1 = [nc_appkey1, (new Date()).getTime(), Math.random()].join(':');
@@ -289,7 +288,7 @@
 	};
 	nc1.init(nc_option1);
 	nc1.on('error', function(){
-	});
+	});*/
 </script>
 
 <script type="text/javascript">
@@ -322,7 +321,12 @@ $(function() {
 </script>
 <!-- CNZZ -->
 <script type="text/javascript">
-!function(a,b){if(!b.__SV){var c,d,e,f;window.dplus=b,b._i=[],b.init=function(a,c,d){function g(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]),a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var h=b;for("undefined"!=typeof d?h=b[d]=[]:d="dplus",h.people=h.people||[],h.toString=function(a){var b="dplus";return"dplus"!==d&&(b+="."+d),a||(b+=" (stub)"),b},h.people.toString=function(){return h.toString(1)+".people (stub)"},e="disable track track_links track_forms register unregister get_property identify clear set_config get_config get_distinct_id track_pageview register_once track_with_tag time_event people.set people.unset people.delete_user".split(" "),f=0;f<e.length;f++)g(h,e[f]);b._i.push([a,c,d])},b.__SV=1.1,c=a.createElement("script"),c.type="text/javascript",c.charset="utf-8",c.async=!0,c.src="//w.cnzz.com/dplus.php?token=7415364c9dab5n09ff68",d=a.getElementsByTagName("script")[0],d.parentNode.insertBefore(c,d)}}(document,window.dplus||[]),dplus.init("7415364c9dab5n09ff68");
+!function(a,b){
+	if(!b.__SV){
+		var c,d,e,f;window.dplus=b,b._i=[],b.init=function(a,c,d){
+			function g(a,b){
+				var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]),a[b]=function(){
+					a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var h=b;for("undefined"!=typeof d?h=b[d]=[]:d="dplus",h.people=h.people||[],h.toString=function(a){var b="dplus";return"dplus"!==d&&(b+="."+d),a||(b+=" (stub)"),b},h.people.toString=function(){return h.toString(1)+".people (stub)"},e="disable track track_links track_forms register unregister get_property identify clear set_config get_config get_distinct_id track_pageview register_once track_with_tag time_event people.set people.unset people.delete_user".split(" "),f=0;f<e.length;f++)g(h,e[f]);b._i.push([a,c,d])},b.__SV=1.1,c=a.createElement("script"),c.type="text/javascript",c.charset="utf-8",c.async=!0,c.src="//w.cnzz.com/dplus.php?token=7415364c9dab5n09ff68",d=a.getElementsByTagName("script")[0],d.parentNode.insertBefore(c,d)}}(document,window.dplus||[]),dplus.init("7415364c9dab5n09ff68");
 </script>
 <script type="text/javascript">!function(a,b){var c,d;window.__dplusDefineCacheQueue=[],b.define=function(){window.__dplusDefineCacheQueue.push(Array.prototype.slice.call(arguments))},c=a.createElement("script"),c.type="text/javascript",c.charset="utf-8",c.async=!0,c.src="https://w.cnzz.com/dplus.define.php",d=a.getElementsByTagName("script")[0],d.parentNode.insertBefore(c,d)}(document,window.dplus);</script>
 <script type="text/javascript">
@@ -398,13 +402,70 @@ if(typeof JsLoader === 'undefined') {window.JsLoader = {load:function(){},before
 
 				},function(data,status){
 					if(data=="failed"){
-						alert("用户名或者密码错误");
+//						alert("用户名或者密码错误");
+						document.getElementById("pwdmsg1").innerHTML = "用户名或者密码错误";
 					}else{
 						$("#login_form").submit();
 					}
 				});
 	}
-	
+
+	function msgSubmit() {
+		var usernameStr = $("#login_email").val();
+		var inputCode = $("#mCode").val();
+		$.post("/reg/register",
+				{login_email:usernameStr,vcode:inputCode},
+				function (data) {
+					alert(data);
+					if ("success" == data){
+						window.location.href="/main.jsp";
+
+					}else{
+						document.getElementById("pwdmsg1").innerHTML = "请检查验证码是否正确";
+					}
+				}
+		)
+	}
+	//发送验证码
+	$("#get_mcode1").click(function () {
+		var usernameStr = $("#login_email").val();
+			$.ajax({
+				cache:false,
+				url:"/reg/sendSms",
+				data:{login_email:usernameStr},
+				success:updateButtonStatus()
+			});
+
+	})
+
+	function updateButtonStatus() {
+		times = 60;
+		timer = null;
+		var code = document.getElementById('get_mcode1');
+		timer = setInterval(function () {
+			times --;
+			if (times <= 0){
+				code.innerHTML = '发送验证码';
+				clearInterval(timer);
+				times = 60;
+				code.disabled = false;
+			}else {
+				code.innerHTML = times + '秒后重试';
+				code.disabled = true;
+			}console.log(times)
+		},1000)
+	}
+
+//	失去焦点时间，判断手机号是否满足条件
+/*	function checkPhone() {
+		var mobileReg = /^((\+86)|(86))?(1)\d{10}$/;
+		var mobile = $("#login_email").val();
+		var result = mobileReg.test(mobile);
+		if (!result){
+			document.getElementById("pwdmsg1").innerHTML = "请输入合法的手机号";
+		}
+
+	}*/
 </script>
 
 </body>
