@@ -801,7 +801,7 @@
 
                     <c:forEach items="${assortmentDTOList}" var="assortment" varStatus="status">
                         <li>
-                            <a href="/assortment/queryMessage?assortmentid=${assortment.sortId}" target="_blank" class="sort-list-${status.count} lnk" id="home_fldh_00${status.count}" data-categoryId="${status.count}"><span>${assortment.sortName}</span></a>
+                            <a href="/assortment/queryAll?sortId=${assortment.sortId}" target="_blank" class="sort-list-${status.count} lnk" id="home_fldh_00${status.count}" data-categoryId="${status.count}"><span>${assortment.sortName}</span></a>
                             <div class="sort-layer">
                                 <a class="ri-close" href="#">关闭</a>
                                 <dl class="layer-top">
@@ -809,7 +809,7 @@
                                     <dd>
                                         <span>&gt;</span>
                                         <c:forEach items="${assortment.subclassDTOList}" var="SubclassDTO">
-                                            <a href="/assortment/queryMessage?assortmentid=${assortment.sortId}&subclassid=${SubclassDTO.subId}" target="_blank" id="home_fldh_tan_ych_wenzi_001">${SubclassDTO.subName}</a><i>|</i>
+                                            <a href="/assortment/queryAll?sortId=${assortment.sortId}&subId=${SubclassDTO.subId}" target="_blank" id="home_fldh_tan_ych_wenzi_001">${SubclassDTO.subName}</a><i>|</i>
                                         </c:forEach>
                                     </dd>
                                 </dl>
