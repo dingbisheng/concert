@@ -93,4 +93,10 @@ public class AssortmentService implements IAssortmentService {
         List<CityDTO> cityDTOs = assortmentDAO.queryCity();
         return cityDTOs;
     }
+
+    @Override
+    public AssortmentDTO queryAssortmentName(Integer mesId) throws Exception{
+        AssortmentDTO assortmentDTO = assortmentDAO.queryAssortmentName(mesId);
+        return assortmentDTO;
+    }
 }

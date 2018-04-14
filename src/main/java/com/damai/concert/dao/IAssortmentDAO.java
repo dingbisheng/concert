@@ -24,4 +24,7 @@ public interface IAssortmentDAO {
      List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime)throws  Exception;
 
      List<CityDTO> queryCity();
+
+
+     AssortmentDTO queryAssortmentName(Integer mesId)throws Exception;
 }
