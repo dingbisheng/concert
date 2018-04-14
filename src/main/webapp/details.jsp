@@ -899,13 +899,13 @@
 <!-- 猜您在找 end-->
 <!-- 条件筛选 start -->
 				<div class="search_city">
-<!-- 加载城市 start  --><%--
-                    ${assortmentDTOList}
-                    ${subclassDTOList}
-                    ${messageDTOList}
+<!-- 加载城市 start  -->
+                    <%--${assortmentDTOList}--%>
+                    <%--${subclassDTOList}--%>
+                    <%--${messageDTOList}--%>
                     ${cityDTOList}
-                    ${placeDTO}
-                    ${mesDetList}--%>
+                    <%--${placeDTO}--%>
+                    <%--${mesDetList}--%>
 					<a class="search_city_more" href="#">
 						<span class="search_city_up" onclick="javascript:citylinecontrol(0)">更多</span>
 						<span class="search_city_off" style="display:none;" onclick="javascript:citylinecontrol(1)">收起</span>
@@ -917,7 +917,11 @@
 							<ul class="search_city_all clear" style="height: auto;">
                                 <c:forEach items="${cityDTOList}" var="city" varStatus="status">
                                     <li>
-                                        <a href="javascript:void(0)" onclick="cityfilter('${city.cityName}',this)">${city.cityName}</a>
+                                        <input type="hidden" value="${city.cityId}" name="cityId"/>
+                                        <a href="javascript:void(0)" onclick="cityfilter('${city.cityId}',this)">
+                                            <a href="/assortment/queryMessage?cityId=${city.cityId}">${city.cityName}
+                                            </a>
+                                        </a>
                                     </li>
                                 </c:forEach>
 							</ul>
@@ -933,7 +937,8 @@
 								<ul class="clear">
                                     <c:forEach items="${assortmentDTOList}" var="sort" varStatus="status">
                                         <li>
-                                            <a href="javascript:void(0)" onclick="cityfilter('${sort.sortName}',this)">${sort.sortName}</a>
+                                            <input type="hidden" value="${sort.sortId}" name="sortId"/>
+                                            <a href="javascript:void(0)" onclick="categoryfilter('${sort.sortId}',this)">${sort.sortName}</a>
                                         </li>
                                     </c:forEach>
 								</ul>
@@ -944,12 +949,12 @@
 <!--加载子类 start -->
 						<dl class="search_city_line"  id="subcategory_filter_id" style="display:none">
                             <dt>子　类：</dt>
-                            <dd><a class="active" href="javascript:void(0)" onclick="categoryfilter('',this)">全部</a></dd>
+                            <dd><a class="active" href="javascript:void(0)" onclick="sctlfilter('',this)">全部</a></dd>
                             <%--<dd class="search_city_num">
                                 <ul class="clear">
                                     <c:forEach items="${subclassDTOList}" var="sub">
                                         <li>
-                                            <a href="javascript:void(0)" onclick="cityfilter('${sub.subName}',this)">${sort.subName}</a>
+                                            <a href="javascript:void(0)" onclick="sctlfilter('${sub.subName}',this)">${sort.subName}</a>
                                         </li>
                                     </c:forEach>
                                 </ul>
@@ -1777,8 +1782,90 @@ searchajax(param);
 </script>
 
 <script type="text/javascript">
-(function(b){var c=b(window);b.fn.lazyload=function(e){var f={threshold:100,failurelimit:10,event:"scroll",effect:"show",container:window};if(e){b.extend(f,e)}var d=this;if("scroll"==f.event){b(f.container).bind("scroll",function(h){var g=0;d.each(function(){if(b.abovethetop(this,f)){}else{if(!b.belowthefold(this,f)){b(this).trigger("appear")}else{if(g++>f.failurelimit){return false}}}});var i=b.grep(d,function(j){return !j.loaded});d=b(i)})}this.each(function(){var g=this;if(undefined!=b(g).attr("original")){g.loaded=false;b(g).one("appear",function(){if(!this.loaded){b("<img />").bind("load",function(){b(g).hide().attr("src",b(g).attr("original"))[f.effect](f.effectspeed);g.loaded=true}).attr("src",b(g).attr("original"))}})}});b(f.container).trigger(f.event);return this};function a(){}b.belowthefold=function(e,d){var f;if(d.container===undefined||d.container===window){f=(window.innerHeight?window.innerHeight:b(window).height())+b(window).scrollTop()}else{f=b(d.container).offset().top+b(d.container).height()}return f<=b(e).offset().top-d.threshold};b.abovethetop=function(e,d){var f;if(d.container===undefined||d.container===window){f=b(window).scrollTop()}else{f=b(d.container).offset().top}return f>=b(e).offset().top+d.threshold+b(e).height()};b.extend(b.expr[":"],{"below-the-fold":"jQuery.belowthefold(a, {threshold : 0, container: window})","above-the-fold":"!jQuery.belowthefold(a, {threshold : 0, container: window})"})})(jQuery);
-$(function () { $("img").lazyload({ effect: "fadeIn", failurelimit: 0, threshold: 0 }); });
+    (function (b) {
+        var c = b(window);
+        b.fn.lazyload = function (e) {
+            var f = {threshold: 100, failurelimit: 10, event: "scroll", effect: "show", container: window};
+            if (e) {
+                b.extend(f, e)
+            }
+            var d = this;
+            if ("scroll" == f.event) {
+                b(f.container).bind("scroll", function (h) {
+                    var g = 0;
+                    d.each(function () {
+                        if (b.abovethetop(this, f)) {
+                        } else {
+                            if (!b.belowthefold(this, f)) {
+                                b(this).trigger("appear")
+                            } else {
+                                if (g++ > f.failurelimit) {
+                                    return false
+                                }
+                            }
+                        }
+                    });
+                    var i = b.grep(d, function (j) {
+                        return !j.loaded
+                    });
+                    d = b(i)
+                })
+            }
+            this.each(function () {
+                var g = this;
+                if (undefined != b(g).attr("original")) {
+                    g.loaded = false;
+                    b(g).one("appear", function () {
+                        if (!this.loaded) {
+                            b("<img />").bind("load", function () {
+                                b(g).hide().attr("src", b(g).attr("original"))[f.effect](f.effectspeed);
+                                g.loaded = true
+                            }).attr("src", b(g).attr("original"))
+                        }
+                    })
+                }
+            });
+            b(f.container).trigger(f.event);
+            return this
+        };
+        function a() {
+        }
+
+        b.belowthefold = function (e, d) {
+            var f;
+            if (d.container === undefined || d.container === window) {
+                f = (window.innerHeight ? window.innerHeight : b(window).height()) + b(window).scrollTop()
+            } else {
+                f = b(d.container).offset().top + b(d.container).height()
+            }
+            return f <= b(e).offset().top - d.threshold
+        };
+        b.abovethetop = function (e, d) {
+            var f;
+            if (d.container === undefined || d.container === window) {
+                f = b(window).scrollTop()
+            } else {
+                f = b(d.container).offset().top
+            }
+            return f >= b(e).offset().top + d.threshold + b(e).height()
+        };
+        b.extend(b.expr[":"], {
+            "below-the-fold": "jQuery.belowthefold(a, {threshold : 0, container: window})",
+            "above-the-fold": "!jQuery.belowthefold(a, {threshold : 0, container: window})"
+        })
+    })(jQuery);
+    $(function () {
+        $("img").lazyload({effect: "fadeIn", failurelimit: 0, threshold: 0});
+    });
+
+
+//    function cityfilter(data){
+//
+//        $.post("/assortment/queryMessage?sortId="+data,function () {
+//
+//        })
+//    }
+
 </script>
 
 
