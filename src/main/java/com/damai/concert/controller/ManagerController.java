@@ -4,6 +4,7 @@ import com.damai.concert.dto.setseatvo.SeatStepOneVO;
 import com.damai.concert.realm.token.MyUsernamePasswordToken;
 import com.damai.concert.service.IManagerService;
 import com.damai.concert.sysconfig.SystemCfg;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -13,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +37,7 @@ public class ManagerController {
     private IManagerService managerService;
 
     @RequestMapping("/login")
+    @ResponseBody
     public String managerDoLogin(String username,String password,boolean rememberMe){
         if(logger.isDebugEnabled()){
             logger.debug("doLogin() start  username =="+ username);
@@ -45,7 +47,7 @@ public class ManagerController {
         token.setRememberMe(rememberMe);
         try {
             SecurityUtils.getSubject().login(token);
-            return "index";
+            return "success";
         } catch (UnknownAccountException e) {
             e.printStackTrace();
         } catch (IncorrectCredentialsException e) {
@@ -53,7 +55,7 @@ public class ManagerController {
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
-        return "main";
+        return "failed";
     }
 
     /**
@@ -68,14 +70,11 @@ public class ManagerController {
             logger.debug("managerAddFieldStepOne() start  rows cols =="+ rows +"/"+cols);
         }
 
-//        model.addAttribute("rows",rows);
-//        model.addAttribute("cols",cols);
         if (null == rows || null == cols){
             return "404";
         }
+        
         HashMap<Integer, List<SeatStepOneVO>> seatMap = new HashMap<>();
-
-
         for(int i=1;i<=rows;i++){
             ArrayList<SeatStepOneVO> seatStepOneVOList = new ArrayList<>();
             for (int j=1;j<=cols;j++){
@@ -92,6 +91,31 @@ public class ManagerController {
             logger.debug("seatMap=="+seatMap);
         }
         model.addAttribute("seatMap",seatMap);
+        model.addAttribute("rows",rows);
+        model.addAttribute("cols",cols);
+        return "index";
+    }
+
+
+    /**
+     *
+     * @param totalrows 行
+     * @param totalcols 列
+     * @return
+     */
+    @RequestMapping("/addfieldsteptwo")
+    public String managerAddFieldStepTwo(String seats,Integer totalrows, Integer totalcols,Model model){
+        if(logger.isDebugEnabled()){
+            logger.debug("managerAddFieldStepTwo() start  totalrows totalcols seats =="+ totalrows +"/"+totalcols+"/"+seats);
+        }
+        if (null == totalrows || null == totalcols){
+            return "404";
+        }
+        String[] seatIds = StringUtils.split(seats, ";");
+        for (String seatId:seatIds) {
+            System.out.println(seatId);
+        }
+
         return "index";
     }
 
