@@ -104,7 +104,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
      * @param
      * @return
      */
-    @Transactional
+
     public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime) throws Exception{
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() :::"+sortId+"::"+subId+"::"+cityId);
@@ -129,5 +129,11 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
     public List<CityDTO> queryCity() {
         List<CityDTO> cityDTO = getSqlSession().selectList("com.damai.concert.dto.CityMapper.queryCity");
         return cityDTO;
+    }
+
+    @Override
+    public AssortmentDTO queryAssortmentName(Integer mesId) throws Exception{
+        AssortmentDTO assortment = getSqlSession().selectOne("com.damai.concert.dto.AssortmentMapper.queryAssortmentName", mesId);
+        return assortment;
     }
 }

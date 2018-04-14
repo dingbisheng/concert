@@ -30,13 +30,6 @@
 <script type="text/javascript" src="<%=basePath %>/concert/js/jquery.playalert3.js"></script>
 </head>
 <body data-spm="search">
-${assortmentDTOList}
-${subclassDTOList}
-${messageDTOList}
-${cityDTO}
-${placeDTO}
-${mesDetList}
-
 <script type="text/javascript" id="beacon-aplus" src="<%=basePath %>/concert/js/aplus_v2.js"  exparams="clog=o&aplus&sidx=aplusSidx&ckx=aplusCkx"></script>
 <div class="wrapper">
 <script type="text/javascript">var cityId = 0;</script>
@@ -906,7 +899,13 @@ ${mesDetList}
 <!-- 猜您在找 end-->
 <!-- 条件筛选 start -->
 				<div class="search_city">
-<!-- 加载城市 start  -->
+<!-- 加载城市 start  --><%--
+                    ${assortmentDTOList}
+                    ${subclassDTOList}
+                    ${messageDTOList}
+                    ${cityDTOList}
+                    ${placeDTO}
+                    ${mesDetList}--%>
 					<a class="search_city_more" href="#">
 						<span class="search_city_up" onclick="javascript:citylinecontrol(0)">更多</span>
 						<span class="search_city_off" style="display:none;" onclick="javascript:citylinecontrol(1)">收起</span>
@@ -916,11 +915,11 @@ ${mesDetList}
 						<dd><a class="active" href="javascript:void(0)" onclick="cityfilter('',this)">全部</a></dd>
 						<dd class="search_city_num" id="search_city_num_tj">
 							<ul class="search_city_all clear" style="height: auto;">
-                                <li>1</li>
-                                <li>1</li>
-                                <li>1</li>
-                                <li>1</li>
-
+                                <c:forEach items="${cityDTOList}" var="city" varStatus="status">
+                                    <li>
+                                        <a href="javascript:void(0)" onclick="cityfilter('${city.cityName}',this)">${city.cityName}</a>
+                                    </li>
+                                </c:forEach>
 							</ul>
 						</dd>
 					</dl>
@@ -931,7 +930,12 @@ ${mesDetList}
 						<dt>分　类：</dt>
 							<dd><a class="active" href="javascript:void(0)" onclick="categoryfilter('',this)">全部</a></dd>
 							<dd class="search_city_num">
-								<ul class="clear">	
+								<ul class="clear">
+                                    <c:forEach items="${assortmentDTOList}" var="sort" varStatus="status">
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="cityfilter('${sort.sortName}',this)">${sort.sortName}</a>
+                                        </li>
+                                    </c:forEach>
 								</ul>
 							</dd>
 						</dl>
@@ -939,6 +943,17 @@ ${mesDetList}
 
 <!--加载子类 start -->
 						<dl class="search_city_line"  id="subcategory_filter_id" style="display:none">
+                            <dt>子　类：</dt>
+                            <dd><a class="active" href="javascript:void(0)" onclick="categoryfilter('',this)">全部</a></dd>
+                            <%--<dd class="search_city_num">
+                                <ul class="clear">
+                                    <c:forEach items="${subclassDTOList}" var="sub">
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="cityfilter('${sub.subName}',this)">${sort.subName}</a>
+                                        </li>
+                                    </c:forEach>
+                                </ul>
+                            </dd>--%>
 						</dl>
 <!-- 加载子类 end -->
 
@@ -948,14 +963,14 @@ ${mesDetList}
 							<dd><a id="alltime" class="active" href="javascript:void(0)" onclick="selectDatechange(0,this)">全部</a></dd>
 							<dd class="search_city_num">
 								<ul class="clear">
-									<li><a href="javascript:void(0)" id = "selectDate" onClick = "selectDatechange(1,this)">今天</a></li>
-									<li><a href="javascript:void(0)" id = "selectDate" onClick = "selectDatechange(2,this)">明天</a></li>
-									<li><a href="javascript:void(0)" id = "selectDate" onClick = "selectDatechange(3,this)">本周末</a></li>
-									<li><a href="javascript:void(0)" id = "selectDate" onClick = "selectDatechange(4,this)">一个月内</a></li>
+									<li><a href="javascript:void(0)" id = "selectDate" name="maxTime" onClick = "selectDatechange(1,this)">今天</a></li>
+									<li><a href="javascript:void(0)" id = "selectDate" name="maxTime" onClick = "selectDatechange(2,this)">明天</a></li>
+									<li><a href="javascript:void(0)" id = "selectDate" name="maxTime" onClick = "selectDatechange(3,this)">本周末</a></li>
+									<li><a href="javascript:void(0)" id = "selectDate" name="maxTime" onClick = "selectDatechange(4,this)">一个月内</a></li>
 									<li class="search_time">
 										<span class="dataTime" id="dataTime">按时间段:
-											<input id="from" class="t" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d'})"  style="*z-index:100;*position:relative;"/> -
-											<input id="to" class="t" type="text" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d'})"  style="*z-index:100;*position:relative;"/>
+											<input id="from" class="t" type="text" name="minTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d'})"  style="*z-index:100;*position:relative;"/> -
+											<input id="to" class="t" type="text" name="maxTime" onClick="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'%y-%M-%d'})"  style="*z-index:100;*position:relative;"/>
 										</span>
 									</li>
 									<li class="sarch-calen">
@@ -969,7 +984,7 @@ ${mesDetList}
 <!-- 条件筛选 end -->
 
 <!-- 排序start -->
-					<div class="search_main">
+                <div class="search_main">
 						<div class="search_sort">
 							<div class="search_sort_page">
 								<div class="search_sort_com">
@@ -991,17 +1006,40 @@ ${mesDetList}
 								<li><a id="search_sjsj"  href="javascript:void(0)" onclick="orderajax(3,this)">最新上架</a></li>
 							</ul>
 						</div>
-						<ul  class="search_list_loading">
+						<%--<ul  class="search_list_loading">
 							<li style="border:none;display:none;margin-left:30px;height:40px; margin-top:25px;" id="search_loading"  >
 								<div class="search_loading"  >努力加载中...</div>
 							</li>
-						</ul>
+						</ul>--%>
 <!-- 搜索列表 start -->
+                        <%--${messageDTOList}--%>
 						<ul class="search_list" id="content_list" >
+                            <c:forEach items="${messageDTOList}" var="mes" varStatus="status">
+                                <li>
+                                    <div class="search_img">
+                                        <a id="search_log_147994" href="<%=basePath%>/message/info?mesId=${mes.mesId}" onclick="toItem(147994,1,1,${mes.mesName})"
+                                           target="_blank" title="${mes.mesName}">
+                                            <img src="<%=basePath%>/concert/img/${mes.mesPhoto}" alt="" width="115" height="155"></a>
+                                    </div>
 
+                                    <div class="search_txt">
+                                        <h3>【${mes.cityDTO.cityName}】<a id="search_log_147994" href="<%=basePath%>/message/info?mesId=${mes.mesId}"
+                                                   onclick="toItem(147994,1,1,2018)" target="_blank">${mes.mesName}</a></h3>
+                                        <p class="search_txt_cut c3">${mes.mesExplain}</p>
+                                        <p class="search_txt_time c3" data-spm-anchor-id="a2o6e.search.0.i2.54824d15MB9bj8">
+                                            <a href="#" class="search_txt_time_icon"></a>${mes.mesTime}
+                                        </p>
+                                        <p class="c1">
+                                            <a href="#" target="_blank" class="search_txt_site_icon">${mes.placeDTO.placeName}</a>
+                                        </p>
+                                        <p class="search_txt_piao"><em>${mes.mesDetList[0].mdPrice}元</em>预售</p>
+                                    </div>
+                                </li>
+                            </c:forEach>
 						</ul>
 					</div>
-				</div>
+            </div>
+
 				<div class="search_right">
 					<div class = "search_right_head" ></div>
 <!-- 艺人场馆展位 -->
@@ -1013,179 +1051,180 @@ ${mesDetList}
 <!--热门推荐-->
 					<div id = "guess_you_like"></div>
 				</div>
-			</div>
-		</div>
+        </div>
+</div>
 <!--搜索有结果 end -->
 
 
 
 <!--内容 end-->
 <!--页面尾部  start-->
-	<div id="showfoot">
+    <div id="showfoot">
 	<!--页面底部 start-->
-<div class="dm-bottom-wrap">
-  <div class="dm-bottom">
-	<div class="dm-helper">
-		  <dl class="lst  lst-order">
-			  <dt>订购方式</dt>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/269.html" target="_blank">在线订购</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/270.html" target="_blank">电话订购</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/271.html" target="_blank">上门订购</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/272.html" target="_blank">大客户团体订购</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/contents/295/5717.html" target="_blank">大麦超级票订购</a>
-			  </dd>
-		  </dl>
-		  <dl class="lst  lst-dist">
-			  <dt>配送方式</dt>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/275.html" target="_blank">送货上门</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/276.html" target="_blank">电子票</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/277.html" target="_blank">上门自取</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/1916.html" target="_blank">大麦自助机换票</a>
-			  </dd>
-		  </dl>
-		  <dl class="lst  lst-pay">
-			  <dt>支付方式</dt>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/281.html" target="_blank">在线支付</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/284.html" target="_blank">柜台付款</a>
-			  </dd>
-		  </dl>
-		  <dl class="lst lst-weixin">
-            <dt style="margin-left:-2px;">大麦网微信</dt>
-            <dd>
-              <a class="dm-code"></a>
-            </dd>
-          </dl>
-		  <dl class="lst lst-touch">
-            <dt style="margin-left:-8px;">大麦网触屏版</dt>
-          	<dd><a class="dm-code-m"></a></dd>
-          </dl>
-		  <dl class="lst  lst-safe ">
-			  <dt>账户安全</dt>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/287.html" target="_blank">找回密码</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/288.html" target="_blank">账户注册</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/289.html" target="_blank">账户绑定</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/290.html" target="_blank">SSL安全证书</a>
-			  </dd>
-		  </dl>
-		  <dl class="lst  lst-service ">
-			  <dt>售后服务</dt>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/299.html" target="_blank">退换及缺货说明</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/channels/300.html" target="_blank">发票帮助</a>
-			  </dd>
-			  <dd>
-				  <a href="//help.damai.cn/damai/contents/1870/5676.html" target="_blank">订票服务条款</a>
-			  </dd>
-		  </dl>
-		  <dl class="lst lst-feature">
-			  <dt>特色服务</dt>
-			  			  			  <dd>
-				  <a target="_blank" href="//venue.damai.cn/">场馆库</a>
-			  </dd>
-			  <dd>
-				  <a target="_blank" href="//dingyue.damai.cn/subType.do?platformId=1">演出订阅</a>
-			  </dd>
-		  </dl>
-	  </div>
+        <div class="dm-bottom-wrap">
+          <div class="dm-bottom">
+            <div class="dm-helper">
+                  <dl class="lst  lst-order">
+                      <dt>订购方式</dt>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/269.html" target="_blank">在线订购</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/270.html" target="_blank">电话订购</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/271.html" target="_blank">上门订购</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/272.html" target="_blank">大客户团体订购</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/contents/295/5717.html" target="_blank">大麦超级票订购</a>
+                      </dd>
+                  </dl>
+                  <dl class="lst  lst-dist">
+                      <dt>配送方式</dt>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/275.html" target="_blank">送货上门</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/276.html" target="_blank">电子票</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/277.html" target="_blank">上门自取</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/1916.html" target="_blank">大麦自助机换票</a>
+                      </dd>
+                  </dl>
+                  <dl class="lst  lst-pay">
+                      <dt>支付方式</dt>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/281.html" target="_blank">在线支付</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/284.html" target="_blank">柜台付款</a>
+                      </dd>
+                  </dl>
+                  <dl class="lst lst-weixin">
+                    <dt style="margin-left:-2px;">大麦网微信</dt>
+                    <dd>
+                      <a class="dm-code"></a>
+                    </dd>
+                  </dl>
+                  <dl class="lst lst-touch">
+                    <dt style="margin-left:-8px;">大麦网触屏版</dt>
+                    <dd><a class="dm-code-m"></a></dd>
+                  </dl>
+                  <dl class="lst  lst-safe ">
+                      <dt>账户安全</dt>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/287.html" target="_blank">找回密码</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/288.html" target="_blank">账户注册</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/289.html" target="_blank">账户绑定</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/290.html" target="_blank">SSL安全证书</a>
+                      </dd>
+                  </dl>
+                  <dl class="lst  lst-service ">
+                      <dt>售后服务</dt>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/299.html" target="_blank">退换及缺货说明</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/channels/300.html" target="_blank">发票帮助</a>
+                      </dd>
+                      <dd>
+                          <a href="//help.damai.cn/damai/contents/1870/5676.html" target="_blank">订票服务条款</a>
+                      </dd>
+                  </dl>
+                  <dl class="lst lst-feature">
+                      <dt>特色服务</dt>
+                                              <dd>
+                          <a target="_blank" href="//venue.damai.cn/">场馆库</a>
+                      </dd>
+                      <dd>
+                          <a target="_blank" href="//dingyue.damai.cn/subType.do?platformId=1">演出订阅</a>
+                      </dd>
+                  </dl>
+              </div>
 
-    <div class="dm-links">
-            <a href="//help.damai.cn/damai/contents/1896/5617.html" target="_blank">公司介绍</a>
-            |<a href="//help.damai.cn/damai/contents/1896/5638.html" target="_blank">品牌识别</a>
-            |<a href="//www.damai.cn/QuestionDetail_186_396.html" target="_blank">企业荣誉</a>
-            |<a href="https://help.damai.cn/damai/contents/288/13934.html" target="_blank">隐私权专项政策</a>
-            |<a href="//help.damai.cn/damai/contents/1872/5674.html" target="_blank">联系及合作</a>
-            |<a href="https://jubao.alibaba.com/internet/readme.htm?site=damai" target="_blank">廉正举报</a>
-            |<a href="https://help.damai.cn/contents/1896/5629.html" target="_blank">招聘信息</a>
-            |<a href="//www.damai.cn/map.html" target="_blank">网站地图</a>
-            |<a href="//help.damai.cn/damai/contents/1896/5655.html" target="_blank">友情链接</a>
-            |<a href="https://help.damai.cn/damai/contents/1896/13733.html" target="_blank">公司大事记</a>
-           </div>
-    <div class="dm-copyright">
-		<p>
-			<a href="http://www.miitbeian.gov.cn" target="_blank">京ICP证031057号</a>
-			<span>|</span>
-			<a href="http://www.miitbeian.gov.cn" target="_blank">京ICP备11043884号</a>
-			<span>|</span>
-			<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102000430" target="_blank">
-				<img src="<%=basePath %>/concert/picture/police.png" class="vm" />京公网安备11010102000430号
-			</a>
-			<span>|</span>
-			<a href="//dui.dmcdn.cn/dm_2014/common/img/logo/gbdsjm.jpg" target="_blank">广播电视节目制作经营许可证 (京)字第02253号</a>
-		</p>
-		<p>
-			<a href="//dui.dmcdn.cn/dm_2014/common/img/logo/wlwhjy.jpg?v2016" target="_blank">网络文化经营许可证 京网文[2016]3438-413号</a>
-			<span>|</span>
-			<a href="//dui.dmcdn.cn/dm_2014/common/img/logo/yyxyc.jpg" target="_blank">营业性演出许可证 京市演587号</a>
-		</p>
-		<p>
-			北京红马传媒文化发展有限公司 版权所有 <a href="//www.damai.cn/">大麦网</a> Copyright 2003-2018 All Rights Reserved
-    </p>
-	</div>
-    <div class="dm-copyright">
-      <a rel="nofollow" title="中国票务在线" target="_blank" href="//www.damai.cn/">
-        <img class="mr10" alt="" src="<%=basePath %>/concert/picture/piao.png">
-      </a>
-		<a rel="nofollow" title="电子营业执照" target="_blank" href="//dui.dmcdn.cn/dm_2014/common/img/logo/dzyyzz.jpg">
-			<img class="mr10" alt="" src="<%=basePath %>/concert/picture/dzyy.png">
-		</a>
-		<span id="siteseal">
-			<script async="" type="text/javascript">
-	function verifySeal() {
-		var bgHeight = "null";
-		var bgWidth = "593";
-		var url = "https:\/\/seal.godaddy.com\/verifySeal?sealID=LU6rXPgk5BZ67ZEYpYS2JcN3AyCJOs6aD3HBo4dwA3iGeqp6csKFmqgB0zLL";
-		window.open(url,'SealVerfication','menubar=no,toolbar=no,personalbar=no,location=yes,status=no,resizable=yes,fullscreen=no,scrollbars=no,width=' + bgWidth + ',height=' + bgHeight);
-	}
-</script>
-<img style="cursor:pointer;cursor:hand" src="<%=basePath %>/concert/picture/siteseal_gd_3_h_l_m.gif" onclick="verifySeal();" alt="SSL site seal - click to verify">		</span>
-      <a rel="nofollow" target="_blank" href="https://www.pcisecuritystandards.org/">
-        <img src="<%=basePath %>/concert/picture/pci.png" class="mr10">
-      </a>
-      <a rel="nofollow" target="_blank" href="http://www.itrust.org.cn/home/index/itrust_certifi/wm/1756737221">
-        <img src="<%=basePath %>/concert/picture/xin.png" class="mr10">
-      </a>
-      <a target="_blank" href="https://search.szfw.org/cert/l/CX20130327002367002885" id="___szfw_logo___">
-        <img src="<%=basePath %>/concert/picture/chengxin.png">
-      </a>
-        <script type="text/javascript">(function () { document.getElementById('___szfw_logo___').oncontextmenu = function () { return false; } })();</script>
-    </div>
-  </div>
-</div>
+            <div class="dm-links">
+                    <a href="//help.damai.cn/damai/contents/1896/5617.html" target="_blank">公司介绍</a>
+                    |<a href="//help.damai.cn/damai/contents/1896/5638.html" target="_blank">品牌识别</a>
+                    |<a href="//www.damai.cn/QuestionDetail_186_396.html" target="_blank">企业荣誉</a>
+                    |<a href="https://help.damai.cn/damai/contents/288/13934.html" target="_blank">隐私权专项政策</a>
+                    |<a href="//help.damai.cn/damai/contents/1872/5674.html" target="_blank">联系及合作</a>
+                    |<a href="https://jubao.alibaba.com/internet/readme.htm?site=damai" target="_blank">廉正举报</a>
+                    |<a href="https://help.damai.cn/contents/1896/5629.html" target="_blank">招聘信息</a>
+                    |<a href="//www.damai.cn/map.html" target="_blank">网站地图</a>
+                    |<a href="//help.damai.cn/damai/contents/1896/5655.html" target="_blank">友情链接</a>
+                    |<a href="https://help.damai.cn/damai/contents/1896/13733.html" target="_blank">公司大事记</a>
+                   </div>
+            <div class="dm-copyright">
+                <p>
+                    <a href="http://www.miitbeian.gov.cn" target="_blank">京ICP证031057号</a>
+                    <span>|</span>
+                    <a href="http://www.miitbeian.gov.cn" target="_blank">京ICP备11043884号</a>
+                    <span>|</span>
+                    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102000430" target="_blank">
+                        <img src="<%=basePath %>/concert/picture/police.png" class="vm" />京公网安备11010102000430号
+                    </a>
+                    <span>|</span>
+                    <a href="//dui.dmcdn.cn/dm_2014/common/img/logo/gbdsjm.jpg" target="_blank">广播电视节目制作经营许可证 (京)字第02253号</a>
+                </p>
+                <p>
+                    <a href="//dui.dmcdn.cn/dm_2014/common/img/logo/wlwhjy.jpg?v2016" target="_blank">网络文化经营许可证 京网文[2016]3438-413号</a>
+                    <span>|</span>
+                    <a href="//dui.dmcdn.cn/dm_2014/common/img/logo/yyxyc.jpg" target="_blank">营业性演出许可证 京市演587号</a>
+                </p>
+                <p>
+                    北京红马传媒文化发展有限公司 版权所有 <a href="//www.damai.cn/">大麦网</a> Copyright 2003-2018 All Rights Reserved
+            </p>
+            </div>
+            <div class="dm-copyright">
+              <a rel="nofollow" title="中国票务在线" target="_blank" href="//www.damai.cn/">
+                <img class="mr10" alt="" src="<%=basePath %>/concert/picture/piao.png">
+              </a>
+                <a rel="nofollow" title="电子营业执照" target="_blank" href="//dui.dmcdn.cn/dm_2014/common/img/logo/dzyyzz.jpg">
+                    <img class="mr10" alt="" src="<%=basePath %>/concert/picture/dzyy.png">
+                </a>
+                <span id="siteseal">
+                    <script async="" type="text/javascript">
+            function verifySeal() {
+                var bgHeight = "null";
+                var bgWidth = "593";
+                var url = "https:\/\/seal.godaddy.com\/verifySeal?sealID=LU6rXPgk5BZ67ZEYpYS2JcN3AyCJOs6aD3HBo4dwA3iGeqp6csKFmqgB0zLL";
+                window.open(url,'SealVerfication','menubar=no,toolbar=no,personalbar=no,location=yes,status=no,resizable=yes,fullscreen=no,scrollbars=no,width=' + bgWidth + ',height=' + bgHeight);
+            }
+        </script>
+        <img style="cursor:pointer;cursor:hand" src="<%=basePath %>/concert/picture/siteseal_gd_3_h_l_m.gif" onclick="verifySeal();" alt="SSL site seal - click to verify">		</span>
+              <a rel="nofollow" target="_blank" href="https://www.pcisecuritystandards.org/">
+                <img src="<%=basePath %>/concert/picture/pci.png" class="mr10">
+              </a>
+              <a rel="nofollow" target="_blank" href="http://www.itrust.org.cn/home/index/itrust_certifi/wm/1756737221">
+                <img src="<%=basePath %>/concert/picture/xin.png" class="mr10">
+              </a>
+              <a target="_blank" href="https://search.szfw.org/cert/l/CX20130327002367002885" id="___szfw_logo___">
+                <img src="<%=basePath %>/concert/picture/chengxin.png">
+              </a>
+                <script type="text/javascript">(function () { document.getElementById('___szfw_logo___').oncontextmenu = function () { return false; } })();</script>
+            </div>
+          </div>
+        </div>
 <!--页面底部 end-->
-<script type="text/javascript" src="<%=basePath %>/concert/js/seoflowstatistics.js"></script>
-<script>
-    if (typeof JsLoader === 'undefined') { window.JsLoader = { load: function () { }, before: function () { }, complete: function () { }, completeAfter: function () { } }; }
-</script>
+    <script type="text/javascript" src="<%=basePath %>/concert/js/seoflowstatistics.js"></script>
+    <script>
+        if (typeof JsLoader === 'undefined') { window.JsLoader = { load: function () { }, before: function () { }, complete: function () { }, completeAfter: function () { } }; }
+    </script>
 
-	</div>
+    </div>
+
 <!--页面尾部 end-->
 <!-- 固定侧栏 begin -->
 	<div class="m-sdfix">
@@ -1247,6 +1286,8 @@ ${mesDetList}
 			</div>
 		</div>
 	</div>
+
+</div>
 <!--搜索体验  end-->
 <!--弹出层  end-->
 <script src="<%=basePath %>/concert/js/dindex.js"></script>
@@ -1739,5 +1780,7 @@ searchajax(param);
 (function(b){var c=b(window);b.fn.lazyload=function(e){var f={threshold:100,failurelimit:10,event:"scroll",effect:"show",container:window};if(e){b.extend(f,e)}var d=this;if("scroll"==f.event){b(f.container).bind("scroll",function(h){var g=0;d.each(function(){if(b.abovethetop(this,f)){}else{if(!b.belowthefold(this,f)){b(this).trigger("appear")}else{if(g++>f.failurelimit){return false}}}});var i=b.grep(d,function(j){return !j.loaded});d=b(i)})}this.each(function(){var g=this;if(undefined!=b(g).attr("original")){g.loaded=false;b(g).one("appear",function(){if(!this.loaded){b("<img />").bind("load",function(){b(g).hide().attr("src",b(g).attr("original"))[f.effect](f.effectspeed);g.loaded=true}).attr("src",b(g).attr("original"))}})}});b(f.container).trigger(f.event);return this};function a(){}b.belowthefold=function(e,d){var f;if(d.container===undefined||d.container===window){f=(window.innerHeight?window.innerHeight:b(window).height())+b(window).scrollTop()}else{f=b(d.container).offset().top+b(d.container).height()}return f<=b(e).offset().top-d.threshold};b.abovethetop=function(e,d){var f;if(d.container===undefined||d.container===window){f=b(window).scrollTop()}else{f=b(d.container).offset().top}return f>=b(e).offset().top+d.threshold+b(e).height()};b.extend(b.expr[":"],{"below-the-fold":"jQuery.belowthefold(a, {threshold : 0, container: window})","above-the-fold":"!jQuery.belowthefold(a, {threshold : 0, container: window})"})})(jQuery);
 $(function () { $("img").lazyload({ effect: "fadeIn", failurelimit: 0, threshold: 0 }); });
 </script>
+
+
 </body>
 </html>

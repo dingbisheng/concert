@@ -31,4 +31,6 @@ public interface IAssortmentService {
 
 
     List<CityDTO> queryCity();
+
+    AssortmentDTO queryAssortmentName(Integer mesId)throws Exception;
 }
