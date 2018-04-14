@@ -19,6 +19,8 @@ public interface IAssortmentService {
 
     void delete(Integer sortId);
 
+    public List<AssortmentDTO> queryMessage() throws Exception;
+
     public List<AssortmentDTO> queryMessage(Integer sortId)throws Exception;
 
     public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId)throws Exception;

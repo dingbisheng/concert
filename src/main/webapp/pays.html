@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>大麦支付中心</title>
+	<style>
+		body {
+		    font-family: 'Verdana',"华文细黑";
+		    background: #FFF;
+		    margin: 0;
+		    padding-bottom: 20px;
+		    font-size: 15px;
+		}
+
+		.header {
+		    background: #e41b46;
+		    height: 45px;
+		    line-height: 45px;
+		    color: #FDFCFC;
+		    text-align: center;
+		    font-size: 18px;
+		    position: relative;
+		}
+		.error,.success {
+			position: relative;
+			text-align: center;
+		}
+		.error:before,.success:before{
+			content: "";
+			display: block;
+			background: url(/concertbuy/images/ok_1.png) no-repeat;
+			background-size: 240px;
+			width: 240px;
+			height: 230px;
+			margin: 50px auto 15px;
+		}
+
+		.success:before{
+			background-position: 0 0;
+		}
+		.error:before{
+			background-position: 0 -231px;
+		}
+		.error h3,.success h3 {
+			margin: 5px 0 8px;
+			font-size: 1.1rem;
+			color: #575757;
+		}
+		.error p,.success p {
+			font-size: 1rem;
+			color: #A4A0A0;
+			margin: 0;
+		}
+		/*只对Ie8 有效*/
+		@media \0screen {
+			.error:before,.success:before{
+				display: block;
+				width: 240px;
+				height: 230px;
+				display: block;
+				margin: 50px auto 15px;
+			}
+			.error:before{
+				background: url(/concertbuy/images/er_1.png) no-repeat;
+			}
+			.success:before{
+				background: url(/concertbuy/images/su_1.png) no-repeat;
+			}
+
+		}
+		/*只针对Ie7 有效*/
+		*+html .error,*+html .success{
+				display: block;
+				width: 240px;
+				height: 230px;
+				display: block;	
+				margin: 50px auto 15px;
+			}
+		*+html .error{
+			background: url(/concertbuy/images/er_1.png) no-repeat;
+		}
+		*+html .success{
+			background: url(/concertbuy/images/su_1.png) no-repeat;
+		}
+		*+html .error h3,*+html .success h3{
+			margin: 240px 0 8px;
+			font-size: 1.1rem;
+			color: #575757;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		收银台
+	</div>
+	<div class="error">
+	    			<h3>错误代码：1071</h3>
+			<p> 
+						错误原因：
+						订单信息异常，请返回订单中心检查。
+</p>
+			</div>
+	 
+</body>
+</html>

@@ -59,6 +59,12 @@ public class AssortmentService implements IAssortmentService {
     }
 
     @Transactional
+    public List<AssortmentDTO> queryMessage() throws Exception{
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(null, null, null,null,null);
+        return assortmentDTOList;
+    }
+
+    @Transactional
     public List<AssortmentDTO> queryMessage(Integer sortId) throws Exception{
         List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, null, null,null,null);
         return assortmentDTOList;
