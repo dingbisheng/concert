@@ -21,6 +21,11 @@ public class RedisTemplateUtil {
         this.redisTemplate=redisTemplate;
     }
 
+    /**
+     * redis String的存取
+     * @param key
+     * @param value
+     */
     public void set(String key,Object value){
         ValueOperations valueOperations = redisTemplate.opsForValue();
         valueOperations.set(key,value);
@@ -30,6 +35,11 @@ public class RedisTemplateUtil {
         return redisTemplate.opsForValue().get(key);
     }
 
+    /**
+     * redis list的存取
+     * @param key
+     * @param value
+     */
     public void setList(String key, List<?> value){
         ListOperations listOperations = redisTemplate.opsForList();
         listOperations.leftPush(key,value);
@@ -39,6 +49,11 @@ public class RedisTemplateUtil {
         return redisTemplate.opsForList().leftPop(key);
     }
 
+    /**
+     * redis set的存取
+     * @param key
+     * @param value
+     */
     public void setSet(String key, Set<?> value){
         SetOperations setOperations = redisTemplate.opsForSet();
         setOperations.add(key,value);
@@ -48,6 +63,11 @@ public class RedisTemplateUtil {
         return redisTemplate.opsForSet().members(key);
     }
 
+    /**
+     * redis hash的存取
+     * @param key
+     * @param value
+     */
     public void setHash(String key, Map<String,?> value){
         HashOperations hashOperations = redisTemplate.opsForHash();
         hashOperations.putAll(key,value);

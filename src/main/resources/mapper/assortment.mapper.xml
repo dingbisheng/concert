@@ -83,4 +83,12 @@
 
     </select>
 
+    <select id="queryAssortmentName" resultMap="AssortResultMap">
+        select distinct(a.sort_name),a.sort_id from dm_message m join dm_subclass s join dm_assortment a
+         join dm_place p join dm_mes_det md
+        on m.mes_sub_id = s.sub_id and s.sub_sort_id = a.sort_id
+        and m.mes_place_id = p.place_id and md.md_mes_id=m.mes_id
+        and m.mes_id=#{mesId}
+    </select>
+
 </mapper>
