@@ -17,12 +17,20 @@
             <result property="infoName" column="info_name" javaType="java.lang.String"/>
             <result property="infoContent" column="info_content" javaType="java.lang.String"/>
         </collection>
-
+        <collection property="mesDetList" ofType="com.damai.concert.dto.MesDetDTO">
+            <id property="mdId" column="md_id" javaType="java.lang.Integer"/>
+            <result property="mdPrice" column="md_price" javaType="java.lang.Integer"/>
+        </collection>
     </resultMap>
+        <!--查询购买场次的基本信息注意事项-->
         <select id="queryMessageInfo" resultMap="MessageResultMap">
             select * from dm_messageinfo mi join dm_message m join dm_place p
             on mi.info_mes_id = m.mes_id and m.mes_place_id = p.place_id
             and mes_id = #{mesId};
         </select>
 
+    <select id="queryMessagePrice" resultMap="MessageResultMap">
+        select min(md_price),max(md_price) from dm_mes_det md join dm_message m
+        on m.mes_id=md.md_mes_id and m.mes_id=#{mdPrice};
+    </select>
 </mapper>
