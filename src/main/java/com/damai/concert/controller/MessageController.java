@@ -57,7 +57,7 @@ public class MessageController {
         model.addAttribute("cityDTO",cityDTO);
         model.addAttribute("messageInfoDTOList",messageInfoDTOList);
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessageInfo() end "+messageDTO.toString() +":::"+messageInfoDTOList.toString());
+            logger.debug("queryMessageInfo() end "+messageDTO.toString() +"::::"+messageInfoDTOList.toString());
         }
         return "";
     }
