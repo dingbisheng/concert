@@ -1,9 +1,11 @@
 package com.damai.concert.dto;
 
+import java.io.Serializable;
+
 /**
  * Created by 王明 on 2018/4/9.
  */
-public class UserDTO {
+public class UserDTO implements Serializable{
     public static final Long serialVersionUID = 1L;
     private Integer userId;
     private String userName;
