@@ -1,9 +1,6 @@
 package com.damai.concert.controller;
 
-import com.damai.concert.dto.AssortmentDTO;
-import com.damai.concert.dto.CityDTO;
-import com.damai.concert.dto.MessageDTO;
-import com.damai.concert.dto.MessageInfoDTO;
+import com.damai.concert.dto.*;
 import com.damai.concert.service.IAssortmentService;
 import com.damai.concert.service.IMessageService;
 import org.apache.log4j.Logger;
@@ -43,15 +40,18 @@ public class MessageController {
         MessageDTO messageDTO = null ;
         List<MessageInfoDTO> messageInfoDTOList = null;
         AssortmentDTO assortmentDTO =null;
+        List<MesDetDTO> mesDetList = null;
         CityDTO cityDTO =null;
         try {
             messageDTO = messageService.queryMessageInfo(mesId);
             messageInfoDTOList = messageDTO.getMessageInfoDTOList();
             cityDTO = messageDTO.getCityDTO();
+             mesDetList = messageDTO.getMesDetList();
             assortmentDTO = assortmentService.queryAssortmentName(mesId);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        model.addAttribute("mesDetList",mesDetList);
         model.addAttribute("assortmentDTO",assortmentDTO);
         model.addAttribute("messageDTO",messageDTO);
         model.addAttribute("cityDTO",cityDTO);
