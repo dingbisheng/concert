@@ -1,6 +1,7 @@
 package com.damai.concert.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/14.
@@ -11,6 +12,24 @@ public class DetailDTO implements Serializable {
     private Integer detailId ;
     private String detailName ;
     private String detailColor ;
+    private List<HistoryDTO> historyList;
+    private List<MesDetDTO> mesDetList;
+
+    public List<MesDetDTO> getMesDetList() {
+        return mesDetList;
+    }
+
+    public void setMesDetList(List<MesDetDTO> mesDetList) {
+        this.mesDetList = mesDetList;
+    }
+
+    public List<HistoryDTO> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<HistoryDTO> historyList) {
+        this.historyList = historyList;
+    }
 
     @Override
     public String toString() {

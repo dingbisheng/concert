@@ -8,6 +8,29 @@
         <id property="hisId" column="his_id" javaType="java.lang.Integer"/>
         <result property="hisState" column="his_state" javaType="java.lang.Integer"/>
 
+        <association property="seatDTO" javaType="com.damai.concert.dto.SeatDTO">
+            <id property="seatId" column="seat_id" javaType="java.lang.Integer"/>
+            <result property="seatRow" column="seat_row" javaType="java.lang.Integer"/>
+            <result property="seatCol" column="seat_col" javaType="java.lang.Integer"/>
+        </association>
+        <collection property="detailList" ofType="com.damai.concert.dto.DetailDTO">
+            <id property="detailId" column="detail_id" javaType="java.lang.Integer"/>
+            <result property="detailName" column="detail_name" javaType="java.lang.String"/>
+            <result property="detailColor" column="detail_colour" javaType="java.lang.String"/>
+
+            <collection property="mesDetList" ofType="com.damai.concert.dto.MesDetDTO">
+                <id property="mdId" column="md_id" javaType="java.lang.Integer"/>
+                <result property="mdPrice" column="md_price" javaType="java.lang.Integer"/>
+
+                <association property="messageDTO" javaType="com.damai.concert.dto.MessageDTO">
+                    <id property="mesId" column="mes_id" javaType="java.lang.Integer"/>
+                    <result property="mesName" column="mes_name" javaType="java.lang.String"/>
+                    <result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>
+                    <result property="mesTime" column="mes_time" javaType="java.lang.String"/>
+                    <result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>
+                </association>
+            </collection>
+        </collection>
 
     </resultMap>
 

@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface IHistoryDAO {
 
-    List<HistoryDTO> queryHistory(Integer mesId);
+    List<HistoryDTO> queryHistory(Integer mesId)throws Exception;
 }
