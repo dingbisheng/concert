@@ -9,5 +9,10 @@ import java.util.List;
  */
 public interface ISeatDAO {
 
-    List<SeatDTO> getSeatList() throws Exception;
+    /**
+     * @param msgId  场次ID
+     * @return
+     * @throws Exception
+     */
+    List<SeatDTO> getSeatList(Integer msgId) throws Exception;
 }
