@@ -3,19 +3,14 @@ package com.concert.test;
 
 import com.damai.concert.dao.IAssortmentDAO;
 import com.damai.concert.dao.IMessageDAO;
-import com.damai.concert.dao.IUserDAO;
 import com.damai.concert.dto.*;
-import com.damai.concert.service.IAssortmentService;
-import com.damai.concert.service.IUserService;
 import org.apache.log4j.Logger;
-import org.apache.shiro.crypto.hash.SimpleHash;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -51,7 +46,7 @@ public class MessageTest {
     private IAssortmentDAO assortmentDAO ;
     @Test
     public void test13()throws Exception{
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(1,1,1,"2018-05-01","2018-06-01");
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(null,null,1,null,null);
         for (AssortmentDTO assortmentDTO :assortmentDTOList){
             logger.info(assortmentDTO.getSortName());
             List<SubclassDTO> subclassDTOList = assortmentDTO.getSubclassDTOList();
