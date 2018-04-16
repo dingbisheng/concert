@@ -1,6 +1,8 @@
 package com.concert.test;
 
+import com.damai.concert.dao.IHistoryDAO;
 import com.damai.concert.dao.IOrderDAO;
+import com.damai.concert.dto.HistoryDTO;
 import com.damai.concert.dto.OrderDTO;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -36,6 +38,16 @@ public class SeanTest {
         }
     }
 
+    @Autowired
+    private IHistoryDAO historyDAO;
 
+    @Test
+    public void testCase2(){
+        List<HistoryDTO> list = historyDAO.queryHistory(1);
+
+        for (HistoryDTO historyDTO:list){
+            logger.info(historyDTO.toString());
+        }
+    }
 
 }
