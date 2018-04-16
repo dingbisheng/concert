@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface ISeatDAO {
 
-    List<SeatDTO> getSeatList();
+    List<SeatDTO> getSeatList() throws Exception;
 }
