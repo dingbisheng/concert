@@ -53,6 +53,21 @@ public class MessageDTO implements Serializable {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "MessageDTO{" +
+                "mesId=" + mesId +
+                ", mesName='" + mesName + '\'' +
+                ", mesPhoto='" + mesPhoto + '\'' +
+                ", mesTime='" + mesTime + '\'' +
+                ", mesExplain='" + mesExplain + '\'' +
+                ", cityDTO=" + cityDTO +
+                ", placeDTO=" + placeDTO +
+                ", mesDetList=" + mesDetList +
+                ", messageInfoDTOList=" + messageInfoDTOList +
+                '}';
+    }
+
     public CityDTO getCityDTO() {
         return cityDTO;
     }

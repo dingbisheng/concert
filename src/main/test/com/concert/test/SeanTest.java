@@ -1,7 +1,8 @@
 package com.concert.test;
 
+import com.damai.concert.dao.IHistoryDAO;
 import com.damai.concert.dao.IOrderDAO;
-import com.damai.concert.dto.OrderDTO;
+import com.damai.concert.dto.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -36,6 +37,31 @@ public class SeanTest {
         }
     }
 
+    @Autowired
+    private IHistoryDAO historyDAO;
 
+    @Test
+    public void testCase2()throws Exception{
+        List<HistoryDTO> list = historyDAO.queryHistory(1);
+        for (HistoryDTO historyDTO:list){
+            logger.info(historyDTO.toString());
+            logger.info(historyDTO.getSeatDTO().toString());
+            logger.info(historyDTO.getDetailList().toString());
+            List<DetailDTO> detailList = historyDTO.getDetailList();
+            for (DetailDTO detailDTO:detailList){
+                logger.info(detailDTO.toString());
+                logger.info(detailDTO.getMesDetList().toString());
+                List<MesDetDTO> mesDetList = detailDTO.getMesDetList();
+                for (MesDetDTO mesDetDTO:mesDetList){
+                    logger.info(mesDetDTO.getMessageDTO());
+                }
+            }
+
+//            logger.info(historyDTO.getSeatDTO().getPlaceDTO().toString());
+//            List<MessageDTO> messageList = historyDTO.getSeatDTO().getPlaceDTO().getMessageList();
+//            for (MessageDTO messageDTO:messageList)
+//            logger.info(messageDTO.toString());
+        }
+    }
 
 }

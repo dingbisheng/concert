@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.damai.concert.dto.HistoryMapper">
+
+    <resultMap id="HistoryResultMap" type="com.damai.concert.dto.HistoryDTO">
+        <id property="hisId" column="his_id" javaType="java.lang.Integer"/>
+        <result property="hisState" column="his_state" javaType="java.lang.Integer"/>
+
+        <association property="seatDTO" javaType="com.damai.concert.dto.SeatDTO">
+            <id property="seatId" column="seat_id" javaType="java.lang.Integer"/>
+            <result property="seatRow" column="seat_row" javaType="java.lang.Integer"/>
+            <result property="seatCol" column="seat_col" javaType="java.lang.Integer"/>
+        </association>
+        <collection property="detailList" ofType="com.damai.concert.dto.DetailDTO">
+            <id property="detailId" column="detail_id" javaType="java.lang.Integer"/>
+            <result property="detailName" column="detail_name" javaType="java.lang.String"/>
+            <result property="detailColor" column="detail_colour" javaType="java.lang.String"/>
+
+            <collection property="mesDetList" ofType="com.damai.concert.dto.MesDetDTO">
+                <id property="mdId" column="md_id" javaType="java.lang.Integer"/>
+                <result property="mdPrice" column="md_price" javaType="java.lang.Integer"/>
+
+                <association property="messageDTO" javaType="com.damai.concert.dto.MessageDTO">
+                    <id property="mesId" column="mes_id" javaType="java.lang.Integer"/>
+                    <result property="mesName" column="mes_name" javaType="java.lang.String"/>
+                    <result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>
+                    <result property="mesTime" column="mes_time" javaType="java.lang.String"/>
+                    <result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>
+                </association>
+            </collection>
+        </collection>
+
+    </resultMap>
+
+    <select id="queryHistory" resultMap="HistoryResultMap">
+        select * from dm_history h join dm_seat s join dm_det_seat ds
+    join dm_detail d join dm_mes_det md join dm_message m
+    on h.his_seat_id=s.seat_id and h.his_id=ds.ds_his_id
+    and ds.ds_detail_id=d.detail_id and md.md_detail_id=d.detail_id
+    and md.md_mes_id=m.mes_id and m.mes_id=#{mesId}
+    </select>
+</mapper>

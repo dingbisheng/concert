@@ -395,6 +395,7 @@ if(typeof JsLoader === 'undefined') {window.JsLoader = {load:function(){},before
 
 <script>
 	function doLogin(url) {
+		alert(url);
 		$.post(url,
 				{
 					username:$("#login_email").val(),
@@ -402,8 +403,8 @@ if(typeof JsLoader === 'undefined') {window.JsLoader = {load:function(){},before
 
 				},function(data,status){
 					if(data=="failed"){
-//						alert("用户名或者密码错误");
-						document.getElementById("pwdmsg1").innerHTML = "用户名或者密码错误";
+						alert("用户名或者密码错误");
+//						document.getElementById("pwdmsg1").innerHTML = "用户名或者密码错误";
 					}else{
 						$("#login_form").submit();
 					}

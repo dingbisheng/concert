@@ -6,7 +6,11 @@
     <!--开启日志输出-->
     <settings>
         <setting name="logImpl" value="LOG4J"/>
+        <!--开启mybatis自带的二级缓存-->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
+
+    
 
     <mappers>
         <mapper resource="mapper/user.mapper.xml"/>
@@ -16,5 +20,6 @@
         <mapper resource="mapper/city.mapper.xml"/>
         <mapper resource="mapper/order.mapper.xml"/>
         <mapper resource="mapper/message.mapper.xml"/>
+        <mapper resource="mapper/history.mapper.xml"/>
     </mappers>
 </configuration>

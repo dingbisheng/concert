@@ -1,6 +1,7 @@
 package com.damai.concert.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**演唱会与详情的中间信息 价格
  * Created by Administrator on 2018/4/10.
@@ -10,6 +11,15 @@ public class MesDetDTO implements Serializable {
 
     private Integer mdId ;
     private Integer mdPrice ;
+    private MessageDTO messageDTO;
+
+    public MessageDTO getMessageDTO() {
+        return messageDTO;
+    }
+
+    public void setMessageDTO(MessageDTO messageDTO) {
+        this.messageDTO = messageDTO;
+    }
 
     public Integer getMdId() {
         return mdId;
