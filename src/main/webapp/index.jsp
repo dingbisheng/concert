@@ -5,26 +5,23 @@
 <%	String basePath = request.getContextPath();%>
 <html>
 <head>
-    <script type="text/javascript" src="<%= basePath%>/concert/js/jquery-3.3.1.js"></script>
     <title>Title</title>
-
 </head>
 <body>
-
-
-<shiro:principal/>  -----
-<shiro:hasRole name="超级管理员">
-    超管
-</shiro:hasRole>
-
-${rows}  //  ${cols}
-
-<br/>
+-------------------------------------------演唱会台方向-------------------------------------------
 <c:forEach items="${seatMap.keySet()}" var="key" varStatus="status">
-    ${key}
     <div>
+    ${key}
+        <c:choose>
+            <c:when test="${status.count >= 10}">
+                --
+            </c:when>
+            <c:otherwise>
+                ---
+            </c:otherwise>
+        </c:choose>
         <c:forEach items="${seatMap.get(key)}" var="seat">
-            <img id="${seat.row},${seat.col}" src="<%=basePath %>/concert/picture/${seat.hasSeatImage}" width="20" height="20" onclick="doChangeYN(${seat.row},${seat.col})" />
+            <img title="${seat.row}排${seat.col}座" id="${seat.row},${seat.col}" src="<%=basePath %>/concert/picture/${seat.hasSeatImage}" width="20" height="20" onclick="doChangeYN(${seat.row},${seat.col})" />
         </c:forEach>
     </div>
 
@@ -33,43 +30,32 @@ ${rows}  //  ${cols}
 
 <form method="post" target="_self" action="/admin/addfieldsteptwo">
 
-    <input id="seats" name="seats" value="" />
+    <input id="noneseatids" name="noneseatids" value="" />
+    <input id="notnoneseatids" name="notnoneseatids" value="" />
     <input id="totalrows" name="totalrows" value="${rows}" />
     <input id="totalcols" name="totalcols" value="${cols}" />
+    <input id="token" name="token" value="${token}" />
+    <button type="submit"  id="submit" value="提交" />
 
-    <button type="button"  id="button" value="提交" onclick="doCollect()"/>
 </form>
 
 
 
 </body>
 
-
-<script>
-    function doCollect() {
-        var ids = $("#seats");
-        $(img).each(function(index, element) {
-            if($(element).src == "<%= basePath%>/concert/picture/y.png"){
-                var seatid = $(element).id;
-                ids.value=ids.value+seatid+";";
-            }
-        });
-    }
-</script>
-
-
 <script>
     function doChangeYN(row,col) {
         var it = document.getElementById(row+","+col);
         if(it.getAttribute("src",2)=="<%= basePath%>/concert/picture/y.png"){
             it.src="<%= basePath%>/concert/picture/n.png";
+            var ids = document.getElementById("noneseatids");
+            ids.value=ids.value+row+","+col+";";
         }else{
             it.src="<%= basePath%>/concert/picture/y.png";
-
+            var ids = document.getElementById("notnoneseatids");
+            ids.value=ids.value+row+","+col+";";
         }
     }
-
-
 
 </script>
 </html>

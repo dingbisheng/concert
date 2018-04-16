@@ -1,10 +1,12 @@
 package com.damai.concert.dto;
 
+import java.io.Serializable;
+
 /**
  *管理员实体类
  * Created by Vincent on 2018\4\11 0011.
  */
-public class ManagerDTO {
+public class ManagerDTO  implements Serializable {
     public static final Long serialVersionUID = 1L;
     private Integer managerId;
     private String managerName;

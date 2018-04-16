@@ -1,11 +1,15 @@
 package com.damai.concert.service.impl;
 
 import com.damai.concert.dao.IMessageDAO;
+import com.damai.concert.dto.MesDetDTO;
 import com.damai.concert.dto.MessageDTO;
 import com.damai.concert.service.IMessageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/13.
@@ -28,4 +32,6 @@ public class MessageService implements IMessageService {
         }
         return messageDTO;
     }
+
+
 }

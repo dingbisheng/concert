@@ -1,10 +1,12 @@
 package com.damai.concert.dto;
 
+import java.io.Serializable;
+
 /**
  * 管理员角色DTO
  * Created by Administrator on 2018\4\11 0011.
  */
-public class ManagerRoleDTO {
+public class ManagerRoleDTO  implements Serializable {
     public static final Long serialVersionUID = 1L;
     private Integer roleId;
     private String roleName;
