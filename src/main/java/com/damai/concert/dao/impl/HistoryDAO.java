@@ -23,8 +23,7 @@ public class HistoryDAO extends SqlSessionDaoSupport implements IHistoryDAO{
 
 
     @Override
-    @Transactional
-    public List<HistoryDTO> queryHistory(Integer mesId) {
+    public List<HistoryDTO> queryHistory(Integer mesId)throws Exception {
         return getSqlSession().selectList("com.damai.concert.dto.HistoryMapper.queryHistory",mesId);
     }
 }
