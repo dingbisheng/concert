@@ -60,4 +60,5 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
     }
 
 
+
 }

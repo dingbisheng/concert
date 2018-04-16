@@ -16,9 +16,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -47,7 +49,7 @@ public class ManagerController {
         token.setRememberMe(rememberMe);
         try {
             SecurityUtils.getSubject().login(token);
-            return "success";
+            return SystemCfg.SUCCESS_DATA;
         } catch (UnknownAccountException e) {
             e.printStackTrace();
         } catch (IncorrectCredentialsException e) {
@@ -55,7 +57,7 @@ public class ManagerController {
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
-        return "failed";
+        return SystemCfg.FAILED_DATA;
     }
 
     /**
@@ -65,34 +67,48 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/addfieldstepone")
-    public String managerAddFieldStepOne(Integer rows, Integer cols,Model model){
+    public String managerAddFieldStepOne(Integer rows, Integer cols, Model model, HttpSession session){
         if(logger.isDebugEnabled()){
             logger.debug("managerAddFieldStepOne() start  rows cols =="+ rows +"/"+cols);
         }
 
-        if (null == rows || null == cols){
-            return "404";
+        if (null == rows || null == cols || rows==0 || cols == 0){
+            return SystemCfg.FAILED_404;
         }
-        
-        HashMap<Integer, List<SeatStepOneVO>> seatMap = new HashMap<>();
-        for(int i=1;i<=rows;i++){
-            ArrayList<SeatStepOneVO> seatStepOneVOList = new ArrayList<>();
-            for (int j=1;j<=cols;j++){
-                SeatStepOneVO seatStepOneVO = new SeatStepOneVO();
-                seatStepOneVO.setRow(i);
-                seatStepOneVO.setCol(j);
-                seatStepOneVO.setHasSeatImage("y.png");
-                seatStepOneVO.setNoneSeatImage("n.png");
-                seatStepOneVOList.add(seatStepOneVO);
+        try{
+            String tokenRandomString = SystemCfg.TOKEN_RANDOM_STRING;
+            int length = tokenRandomString.length();
+            Random random = new Random();
+            String token = "";
+            for (int i=0;i<5;i++) {
+                int i1 = random.nextInt(length);
+                token = token + tokenRandomString.charAt(i1);
             }
-            seatMap.put(i,seatStepOneVOList);
+            session.setAttribute("token",token);
+            HashMap<Integer, List<SeatStepOneVO>> seatMap = new HashMap<>();
+            for(int i=1;i<=rows;i++){
+                ArrayList<SeatStepOneVO> seatStepOneVOList = new ArrayList<>();
+                for (int j=1;j<=cols;j++){
+                    SeatStepOneVO seatStepOneVO = new SeatStepOneVO();
+                    seatStepOneVO.setRow(i);
+                    seatStepOneVO.setCol(j);
+                    seatStepOneVO.setHasSeatImage(SystemCfg.HAS_SEAT_PNG);
+                    seatStepOneVO.setNoneSeatImage(SystemCfg.NO_SEAT_PNG);
+                    seatStepOneVOList.add(seatStepOneVO);
+                }
+                seatMap.put(i,seatStepOneVOList);
+            }
+            if(logger.isDebugEnabled()){
+                logger.debug("seatMap=="+seatMap);
+            }
+            model.addAttribute("seatMap",seatMap);
+            model.addAttribute("rows",rows);
+            model.addAttribute("cols",cols);
+            model.addAttribute("token",token);
+        }catch (Exception e){
+            logger.fatal(e);
+            return SystemCfg.FAILED_404;
         }
-        if(logger.isDebugEnabled()){
-            logger.debug("seatMap=="+seatMap);
-        }
-        model.addAttribute("seatMap",seatMap);
-        model.addAttribute("rows",rows);
-        model.addAttribute("cols",cols);
         return "index";
     }
 
@@ -104,18 +120,138 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/addfieldsteptwo")
-    public String managerAddFieldStepTwo(String seats,Integer totalrows, Integer totalcols,Model model){
-        if(logger.isDebugEnabled()){
-            logger.debug("managerAddFieldStepTwo() start  totalrows totalcols seats =="+ totalrows +"/"+totalcols+"/"+seats);
+    public String managerAddFieldStepTwo(String token ,String noneseatids,String notnoneseatids,Integer totalrows, Integer totalcols,Model model,HttpSession session) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("managerAddFieldStepTwo() start  totalrows totalcols noneseatids notnoneseatids ==" + totalrows + "/" + totalcols + "/" + noneseatids + "/" + notnoneseatids);
         }
-        if (null == totalrows || null == totalcols){
-            return "404";
+        if (null == token || null == totalrows || null == totalcols || totalrows == 0 || totalcols == 0) {
+            return SystemCfg.FAILED_404;
         }
-        String[] seatIds = StringUtils.split(seats, ";");
-        for (String seatId:seatIds) {
-            System.out.println(seatId);
+        try {
+            if (!token.equals(session.getAttribute("token"))) {
+                //重复提交了
+                logger.fatal("重复提交了座位信息");
+                return SystemCfg.FAILED_DATA;
+            } else {
+                session.removeAttribute("token");
+            }
+
+            String[] notNoneSeatIds = StringUtils.split(notnoneseatids, SystemCfg.SEAT_SPLIT);
+            String replace = noneseatids;
+            for (String seat : notNoneSeatIds) {
+                replace = StringUtils.replace(replace, seat, "", 1);
+            }
+
+            String[] noneSeatIds = StringUtils.split(replace, SystemCfg.SEAT_ROW_COL_SPLIT);
+            String[] rowAndCol = null;
+            for (String i : noneSeatIds) {
+                rowAndCol = StringUtils.split(replace, SystemCfg.SEAT_SPLIT);
+            }
+            int row;
+            int col;
+            ArrayList<int[]> ints = new ArrayList<>();
+            for (int i = 1; i <= totalrows; i++) {
+                for (int j = 1; j <= totalcols; j++) {
+                    int[] seatArray = new int[2];
+                    boolean flag = true;
+                    for (String seat : rowAndCol) {
+                        String[] split = StringUtils.split(seat, SystemCfg.SEAT_ROW_COL_SPLIT);
+                        row = Integer.parseInt(split[0]);
+                        col = Integer.parseInt(split[1]);
+                        if (i == row && j == col) {
+                            flag = false;
+                            break;
+                        }
+                    }
+                    if (flag) {
+                        seatArray[0] = i;
+                        seatArray[1] = j;
+                        ints.add(seatArray);
+                    }
+
+                }
+            }
+            if (logger.isDebugEnabled()) {
+                logger.debug("ints.size() ===" + ints.size());
+            }
+            for (int[] is : ints) {
+                if (logger.isDebugEnabled()) {
+                    logger.debug("row ===" + is[0]);
+                }
+                System.out.print(",");
+                if (logger.isDebugEnabled()) {
+                    logger.debug("col ===" + is[1]);
+                }
+            }
+
+        }catch(Exception e){
+            logger.fatal(e);
+            return SystemCfg.FAILED_404;
+        }
+        return SystemCfg.SUCCESS_DATA;
+    }
+
+
+
+
+    /**
+     *
+     * @param rows 行
+     * @param cols 列
+     * @return
+     */
+    @RequestMapping("/setseat")
+    public String setSeat(Integer rows, Integer cols,Model model,HttpSession session) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("managerAddFieldStepTwo() start  rows cols==" + rows + "/" + cols);
+        }
+        if (null == rows || null == cols) {
+            return SystemCfg.FAILED_404;
+        }
+        try {
+            session.setAttribute("seatrows",rows);
+            session.setAttribute("seatcols",cols);
+        }catch(Exception e){
+            logger.fatal(e);
+            return SystemCfg.FAILED_404;
+        }
+        return "damaiseat";
+    }
+
+
+    @RequestMapping("/getseat")
+    public String getSeat(Model model,HttpSession session) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("getSeat()");
         }
 
+        try {
+            Integer rows = (Integer) session.getAttribute("seatrows");
+            Integer cols = (Integer) session.getAttribute("seatcols");
+
+            HashMap<Integer, List<SeatStepOneVO>> seatMap = new HashMap<>();
+            for(int i=1;i<=rows;i++){
+                ArrayList<SeatStepOneVO> seatStepOneVOList = new ArrayList<>();
+                for (int j=1;j<=cols;j++){
+                    SeatStepOneVO seatStepOneVO = new SeatStepOneVO();
+                    seatStepOneVO.setRow(i);
+                    seatStepOneVO.setCol(j);
+                    seatStepOneVO.setHasSeatImage(SystemCfg.HAS_SEAT_PNG);
+                    seatStepOneVO.setNoneSeatImage(SystemCfg.NO_SEAT_PNG);
+                    seatStepOneVOList.add(seatStepOneVO);
+                }
+                seatMap.put(i,seatStepOneVOList);
+            }
+            if(logger.isDebugEnabled()){
+                logger.debug("seatMap=="+seatMap);
+            }
+            model.addAttribute("seatMap",seatMap);
+            model.addAttribute("rows",rows);
+            model.addAttribute("cols",cols);
+        }catch(Exception e){
+            logger.fatal(e);
+            return SystemCfg.FAILED_404;
+        }
         return "index";
     }
 

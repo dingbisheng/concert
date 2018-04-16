@@ -1,5 +1,7 @@
 package com.damai.concert.sysconfig;
 
+import java.util.Random;
+
 /**
  *
  * 系统配置参数
@@ -22,4 +24,28 @@ public class SystemCfg {
 
     //短信登陆标识
     public static final String MSG_LOGIN = "MSG_LOGIN";
+
+    //Ajax登录返回值成功字段
+    public static final String SUCCESS_DATA = "success";
+
+    //Ajax登录返回值失败字段
+    public static final String FAILED_DATA = "failed";
+
+    //404 页面无法异常页面
+    public static final String FAILED_404 = "404";
+
+    //增加座位第一步   有座位的图片名称
+    public static final String HAS_SEAT_PNG = "y.png";
+
+    //增加座位第一步   没有座位的图片名称
+    public static final String NO_SEAT_PNG = "n.png";
+
+    //前端座位分隔符
+    public static final String SEAT_SPLIT = ";";
+
+    //前端行列分割符
+    public static final String SEAT_ROW_COL_SPLIT = ",";
+
+    //Token机制  防止重复提交   使用该字符串生成随机码
+    public static final String TOKEN_RANDOM_STRING = "1234567890zxcvbnmlkjhgfdsaqwertyuiop";
 }
