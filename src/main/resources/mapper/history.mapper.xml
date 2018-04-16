@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        <mapper namespace="com.damai.concert.dto.HistoryMapper">
+
+    <resultMap id="HistoryResultMap" type="com.damai.concert.dto.HistoryDTO">
+        <id property="hisId" column="his_id" javaType="java.lang.Integer"/>
+        <result property="hisState" column="his_state" javaType="java.lang.Integer"/>
+
+
+    </resultMap>
+
+    <select id="queryHistory" resultMap="HistoryResultMap">
+        select * from dm_history h join dm_seat s join dm_det_seat ds
+    join dm_detail d join dm_mes_det md join dm_message m
+    on h.his_seat_id=s.seat_id and h.his_id=ds.ds_his_id
+    and ds.ds_detail_id=d.detail_id and md.md_detail_id=d.detail_id
+    and md.md_mes_id=m.mes_id and m.mes_id=#{mesId}
+    </select>
+</mapper>

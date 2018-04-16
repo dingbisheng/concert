@@ -16,5 +16,6 @@
         <mapper resource="mapper/city.mapper.xml"/>
         <mapper resource="mapper/order.mapper.xml"/>
         <mapper resource="mapper/message.mapper.xml"/>
+        <mapper resource="mapper/history.mapper.xml"/>
     </mappers>
 </configuration>

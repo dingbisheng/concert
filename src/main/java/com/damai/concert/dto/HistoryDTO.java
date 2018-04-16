@@ -1,6 +1,7 @@
 package com.damai.concert.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/4/14.
@@ -10,6 +11,15 @@ public class HistoryDTO implements Serializable {
 
     private Integer hisId ;
     private Integer hisState ;
+    private SeatDTO seatDTO;
+
+    public SeatDTO getSeatDTO() {
+        return seatDTO;
+    }
+
+    public void setSeatDTO(SeatDTO seatDTO) {
+        this.seatDTO = seatDTO;
+    }
 
     @Override
     public String toString() {
