@@ -5,7 +5,7 @@ import com.damai.concert.dto.SeatDTO;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018\4\16 0016.
+ * Created by Vincent on 2018\4\16 0016.
  */
 public interface ISeatDAO {
 
