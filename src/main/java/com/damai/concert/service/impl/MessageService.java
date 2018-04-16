@@ -33,5 +33,10 @@ public class MessageService implements IMessageService {
         return messageDTO;
     }
 
+    @Override
+    public List<String> queryMessageVague(String mesName, String cityName) throws Exception {
+        return messageDAO.queryMessageVague(mesName,cityName);
+    }
+
 
 }
