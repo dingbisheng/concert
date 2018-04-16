@@ -45,4 +45,14 @@ public class ManagerDTO  implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "ManagerDTO{" +
+                "managerId=" + managerId +
+                ", managerName='" + managerName + '\'' +
+                ", managerNickName='" + managerNickName + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }
