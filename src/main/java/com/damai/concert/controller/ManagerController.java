@@ -1,8 +1,10 @@
 package com.damai.concert.controller;
 
+import com.damai.concert.dto.SeatDTO;
 import com.damai.concert.dto.setseatvo.SeatStepOneVO;
 import com.damai.concert.realm.token.MyUsernamePasswordToken;
 import com.damai.concert.service.IManagerService;
+import com.damai.concert.service.ISeatService;
 import com.damai.concert.sysconfig.SystemCfg;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -17,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 /**
@@ -37,6 +36,9 @@ public class ManagerController {
 
     @Autowired
     private IManagerService managerService;
+
+    @Autowired
+    private ISeatService seatService;
 
     @RequestMapping("/login")
     @ResponseBody
@@ -195,22 +197,19 @@ public class ManagerController {
 
 
     /**
-     *
-     * @param rows 行
-     * @param cols 列
+     * @param msgId 场次Id
      * @return
      */
     @RequestMapping("/setseat")
-    public String setSeat(Integer rows, Integer cols,Model model,HttpSession session) {
+    public String setSeat(Integer msgId,Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
-            logger.debug("managerAddFieldStepTwo() start  rows cols==" + rows + "/" + cols);
+            logger.debug("managerAddFieldStepTwo() start  msgId==" + msgId);
         }
-        if (null == rows || null == cols) {
+        if (null == msgId) {
             return SystemCfg.FAILED_404;
         }
         try {
-            session.setAttribute("seatrows",rows);
-            session.setAttribute("seatcols",cols);
+            session.setAttribute("msgId",msgId);
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -218,7 +217,12 @@ public class ManagerController {
         return "damaiseat";
     }
 
-
+    /**
+     * 依据场次Id  获取该场次座位表
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping("/getseat")
     public String getSeat(Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
@@ -226,33 +230,22 @@ public class ManagerController {
         }
 
         try {
-            Integer rows = (Integer) session.getAttribute("seatrows");
-            Integer cols = (Integer) session.getAttribute("seatcols");
-
-            HashMap<Integer, List<SeatStepOneVO>> seatMap = new HashMap<>();
-            for(int i=1;i<=rows;i++){
-                ArrayList<SeatStepOneVO> seatStepOneVOList = new ArrayList<>();
-                for (int j=1;j<=cols;j++){
-                    SeatStepOneVO seatStepOneVO = new SeatStepOneVO();
-                    seatStepOneVO.setRow(i);
-                    seatStepOneVO.setCol(j);
-                    seatStepOneVO.setHasSeatImage(SystemCfg.HAS_SEAT_PNG);
-                    seatStepOneVO.setNoneSeatImage(SystemCfg.NO_SEAT_PNG);
-                    seatStepOneVOList.add(seatStepOneVO);
-                }
-                seatMap.put(i,seatStepOneVOList);
-            }
+            Integer msgId = (Integer) session.getAttribute("msgId");
             if(logger.isDebugEnabled()){
-                logger.debug("seatMap=="+seatMap);
+                logger.debug("msgId=="+msgId);
             }
+            model.addAttribute("msgId",msgId);
+            Map<Integer, List<SeatDTO>> seatMap = seatService.getViewSeat(msgId);
             model.addAttribute("seatMap",seatMap);
-            model.addAttribute("rows",rows);
-            model.addAttribute("cols",cols);
+            if(logger.isDebugEnabled()){
+                logger.debug("seatMap==="+seatMap);
+            }
+
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
         }
-        return "index";
+        return "seat";
     }
 
 

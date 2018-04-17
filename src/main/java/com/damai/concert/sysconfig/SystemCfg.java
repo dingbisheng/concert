@@ -40,6 +40,9 @@ public class SystemCfg {
     //增加座位第一步   没有座位的图片名称
     public static final String NO_SEAT_PNG = "n.png";
 
+    //座位锁定状态的图片
+    public static final String LOCK_SEAT_PNG ="L.png";
+
     //前端座位分隔符
     public static final String SEAT_SPLIT = ";";
 
@@ -48,4 +51,10 @@ public class SystemCfg {
 
     //Token机制  防止重复提交   使用该字符串生成随机码
     public static final String TOKEN_RANDOM_STRING = "1234567890zxcvbnmlkjhgfdsaqwertyuiop";
+
+    //没有座位的state
+    public static final int NO_SEAT_STATE = -2;
+
+    //座位锁定状态Redis存储前缀
+    public static final String SEAT_STATE_PREFIX = "LOCK_SEAT_BY_USER";
 }
