@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dao.ISeatDAOMapper">
+    <resultMap id="SeatResultMap" type="com.damai.concert.dto.SeatDTO">
+        <id property="seatId" column="seat_id" javaType="java.lang.Integer"/>
+        <result property="seatRow" column="seat_row" javaType="java.lang.Integer"/>
+        <result property="seatCol" column="seat_col" javaType="java.lang.Integer"/>
+        <result property="seatPrice" column="md_price" javaType="java.lang.Integer"/>
+        <result property="seatImg" column="detail_colour" javaType="java.lang.String"/>
+        <result property="seatState" column="his_state" javaType="java.lang.Integer"/>
+    </resultMap>
+
+    <!--通过msgId获取座位信息-->
+    <select id="getSeatByMsgId" resultMap="SeatResultMap">
+        SELECT seat_id,seat_row,seat_col,md_price,detail_colour,his_state
+        FROM dm_seat s
+        join dm_history h on s.seat_id=h.his_seat_id
+        join dm_det_seat ds on ds.ds_his_id=h.his_id
+        join dm_detail det on ds.ds_detail_id=det.detail_id
+        join dm_mes_det md on md.md_detail_id = det.detail_id
+        join dm_message mes on mes.mes_id=md.md_mes_id
+        and mes.mes_id = #{msgId}
+    </select>
+
+</mapper>
