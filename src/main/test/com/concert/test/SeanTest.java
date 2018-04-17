@@ -73,8 +73,6 @@ public class SeanTest {
 
     @Test
     public void testCase3() throws Exception {
-//        Map<String, String> hashMap = new HashMap<>();
-//        hashMap.put("mesName","万");
         List<String> list = messageDAO.queryMessageVague("万","");
         logger.info(list.toString());
     }
