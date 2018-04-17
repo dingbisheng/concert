@@ -1,7 +1,5 @@
 package com.damai.concert.sysconfig;
 
-import java.util.Random;
-
 /**
  *
  * 系统配置参数
@@ -57,4 +55,9 @@ public class SystemCfg {
 
     //座位锁定状态Redis存储前缀
     public static final String SEAT_STATE_PREFIX = "LOCK_SEAT_BY_USER";
+
+    //分页
+    //pageSize 每页显示几条
+    public static final Integer PAGE_SIZE =6;
+
 }
