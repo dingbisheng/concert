@@ -17,5 +17,5 @@ public interface IMessageDAO {
 
     MessageDTO queryMessageInfo(Integer mesId) throws Exception;
 
-    List<String> queryMessageVague(String mesName,String cityName) throws Exception;
+    List<String> queryMessageVague(String mesName) throws Exception;
 }
