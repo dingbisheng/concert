@@ -112,12 +112,18 @@ public class TestDAO {
         List<UserDTO> list = null;
         try {
             list = userService.queryAll(0, 5);
+            logger.info(list.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-        logger.info(list.toString());
+
     }
 
+    @Test
+    public void test() throws Exception {
+        Integer userNum = userDAO.queryUserNum();
+        logger.info(userNum);
+    }
 
     @Test
     public void test1(){
