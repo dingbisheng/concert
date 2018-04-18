@@ -60,7 +60,7 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
     }
 
     @Override
-    public List<String> queryMessageVague(String mesName) throws Exception {
+    public List<MessageDTO> queryMessageVague(String mesName) throws Exception {
 
         return getSqlSession().selectList("com.damai.concert.dto.MessageMapper.queryMessageVague",mesName);
     }

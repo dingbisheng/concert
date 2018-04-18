@@ -34,7 +34,7 @@ public class MessageService implements IMessageService {
     }
 
     @Override
-    public List<String> queryMessageVague(String mesName) throws Exception {
+    public List<MessageDTO> queryMessageVague(String mesName) throws Exception {
         return messageDAO.queryMessageVague(mesName);
     }
 

@@ -61,4 +61,15 @@ public class MessageController {
         }
         return "";
     }
+
+    @RequestMapping("/Vague")
+    public String queryMessageVague(String mesName,Model model){
+        try {
+            List<MessageDTO> list = messageService.queryMessageVague(mesName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }
