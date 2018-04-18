@@ -15,6 +15,8 @@ public interface IUserDAO {
 
     UserDTO queryUser(String username)throws Exception;
 
+    Integer queryUserNum() throws Exception;
+
     void addUser(String username,String password)throws Exception;
 
     void updateUser(String username,String password,String id)throws Exception;
