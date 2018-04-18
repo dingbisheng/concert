@@ -56,7 +56,7 @@ public class UserController {
         token.setRememberMe(rememberMe);
         try {
             SecurityUtils.getSubject().login(token);
-            return "success";
+            return SystemCfg.SUCCESS_DATA;
         } catch (UnknownAccountException e) {
             e.printStackTrace();
         } catch (IncorrectCredentialsException e) {
@@ -64,7 +64,7 @@ public class UserController {
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
-        return "failed";
+        return SystemCfg.FAILED_DATA;
     }
 
 
@@ -76,7 +76,6 @@ public class UserController {
         model.addAttribute("assortmentDTOList",assortmentDTOList);
         return "main";
     }
-
 
 
 

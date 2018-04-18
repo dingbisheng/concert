@@ -42,6 +42,11 @@ public class UserDAO extends SqlSessionDaoSupport implements IUserDAO {
         return getSqlSession().selectOne("com.damai.concert.dao.UserMapper.queryUser",username);
     }
 
+    @Override
+    public Integer queryUserNum() throws Exception {
+        return getSqlSession().selectOne("com.damai.concert.dao.UserMapper.queryUserNum");
+    }
+
     /**
      * 用户新增，对应用户注册
      * @param username

@@ -13,6 +13,8 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -39,6 +42,9 @@ public class ManagerController {
 
     @Autowired
     private ISeatService seatService;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @RequestMapping("/login")
     @ResponseBody
@@ -201,15 +207,16 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/setseat")
-    public String setSeat(Integer msgId,Model model,HttpSession session) {
+    public String setSeat(String msgName,Integer msgId,Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
             logger.debug("managerAddFieldStepTwo() start  msgId==" + msgId);
         }
-        if (null == msgId) {
+        if (null == msgId || null==msgName) {
             return SystemCfg.FAILED_404;
         }
         try {
             session.setAttribute("msgId",msgId);
+            session.setAttribute("msgName",msgName);
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -226,7 +233,7 @@ public class ManagerController {
     @RequestMapping("/getseat")
     public String getSeat(Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
-            logger.debug("getSeat()");
+            logger.debug("getSeat() start");
         }
 
         try {
@@ -245,7 +252,83 @@ public class ManagerController {
             logger.fatal(e);
             return SystemCfg.FAILED_404;
         }
+        if (logger.isDebugEnabled()) {
+            logger.debug("getSeat() end");
+        }
         return "seat";
+    }
+
+    //锁定座位
+    @RequestMapping("/lock")
+    @ResponseBody
+    public String doLock(String username,String myseatids,String notmyseatids,Model model){
+        if (logger.isDebugEnabled()) {
+            logger.debug("doLock() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
+        }
+        try{
+            String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
+            String mySeatIds = myseatids;
+            for (String seat : notMySeatIds) {
+                mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
+            }
+            String[] mySeatIdArray = StringUtils.split(mySeatIds, SystemCfg.SEAT_SPLIT);
+            if(mySeatIdArray.length==0){
+                return "failed";
+            }
+            String[] rowAndCol = null;
+            for (String i : mySeatIdArray) {
+                rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
+                String seatId = rowAndCol[2];
+                //开启redis事务
+                redisTemplate.setEnableTransactionSupport(true);
+                redisTemplate.multi();
+                redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + seatId);
+                redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX+seatId,username);
+                redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+2, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
+                List<Object> exec = redisTemplate.exec();
+                Object o = exec.get(0);
+                //如果座位已经被锁定，返回failed
+                if(null!=o){
+                    logger.fatal("出现并发，回滚回原数据");
+                    redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX + seatId,o.toString());
+                    return "failed";
+                }
+            }
+        }catch (Exception e){
+            logger.fatal(e);
+            return "failed";
+        }
+        if (logger.isDebugEnabled()) {
+            logger.debug("doLock() end  success");
+        }
+        return "success";
+    }
+
+
+    //购买
+    @RequestMapping("/buy")
+    public String doBuy(Integer msgId,String myseatids,String notmyseatids,Model model){
+        if (logger.isDebugEnabled()) {
+            logger.debug("doBuy() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
+        }
+        try{
+            String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
+            String mySeatIds = myseatids;
+            for (String seat : notMySeatIds) {
+                mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
+            }
+            String[] mySeatIdArray = StringUtils.split(mySeatIds, SystemCfg.SEAT_SPLIT);
+            if(mySeatIdArray.length==0){
+                return "failed";
+            }
+        }catch (Exception e){
+            logger.fatal(e);
+            return "404";
+        }
+        if (logger.isDebugEnabled()) {
+            logger.debug("doBuy() end");
+        }
+        return "buy";
     }
 
 
