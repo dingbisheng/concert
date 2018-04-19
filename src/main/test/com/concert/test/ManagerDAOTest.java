@@ -1,7 +1,10 @@
 package com.concert.test;
 
 import com.damai.concert.dao.IManagerDAO;
+import com.damai.concert.dao.INewOrderDAO;
 import com.damai.concert.dto.ManagerDTO;
+import com.damai.concert.dto.NewOrderDTO;
+import com.damai.concert.dto.SubOrderDTO;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,6 +27,9 @@ public class ManagerDAOTest{
 
     @Autowired
     private IManagerDAO managerDAO;
+
+    @Autowired
+    private INewOrderDAO newOrderDAO;
 
     @Test
     public void queryManagerDTOByName(){
@@ -50,6 +56,65 @@ public class ManagerDAOTest{
         try {
             List<String> admin = managerDAO.queryManagerPermissionList("admin");
             logger.debug(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testInsertNewOrder(){
+        try {
+            newOrderDAO.insertNewOrder("1112222","zhangsan",1,0,1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testQueryNewOrder(){
+        try {
+            NewOrderDTO newOrderDTO = newOrderDAO.queryNewOrderByOrderNum("1112222");
+            System.out.println(newOrderDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testQueryNewOrderById(){
+        try {
+            NewOrderDTO newOrderDTO = newOrderDAO.queryNewOrderByOrderId(2);
+            System.out.println(newOrderDTO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testQueryNewOrderByUsername(){
+        try {
+            List<NewOrderDTO> zhangsan = newOrderDAO.queryNewOrderListByUsername("zhangsan");
+            System.out.println(zhangsan);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testInsertSubOrder(){
+        try {
+            newOrderDAO.insertSubOrder(1,2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testQuerySubOrder(){
+        try {
+            List<SubOrderDTO> subOrderDTOs = newOrderDAO.querySubOrderByOrderId(2);
+            for(SubOrderDTO s:subOrderDTOs)
+            System.out.println(s);
         } catch (Exception e) {
             e.printStackTrace();
         }

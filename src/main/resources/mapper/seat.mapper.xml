@@ -5,7 +5,7 @@
 
 <mapper namespace="com.damai.concert.dao.ISeatDAOMapper">
     <resultMap id="SeatResultMap" type="com.damai.concert.dto.SeatDTO">
-        <id property="seatId" column="seat_id" javaType="java.lang.Integer"/>
+        <id property="seatId" column="his_id" javaType="java.lang.Integer"/>
         <result property="seatRow" column="seat_row" javaType="java.lang.Integer"/>
         <result property="seatCol" column="seat_col" javaType="java.lang.Integer"/>
         <result property="seatPrice" column="md_price" javaType="java.lang.Integer"/>
@@ -15,7 +15,7 @@
 
     <!--通过msgId获取座位信息-->
     <select id="getSeatByMsgId" resultMap="SeatResultMap">
-        SELECT seat_id,seat_row,seat_col,md_price,detail_colour,his_state
+        SELECT h.his_id,seat_row,seat_col,md_price,detail_colour,his_state
         FROM dm_seat s
         join dm_history h on s.seat_id=h.his_seat_id
         join dm_det_seat ds on ds.ds_his_id=h.his_id

@@ -26,5 +26,6 @@
         <mapper resource="mapper/message.mapper.xml"/>
         <mapper resource="mapper/history.mapper.xml"/>
         <mapper resource="mapper/seat.mapper.xml" />
+        <mapper resource="mapper/neworder.mapper.xml" />
     </mappers>
 </configuration>
