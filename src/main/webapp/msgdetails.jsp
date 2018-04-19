@@ -763,7 +763,7 @@
                                 <div class="ct">
                                     <ul class="lst">
                                         <c:forEach items="${messageDTO.mesDetList}" var="mesDet">
-                                            <li class="itm" onclick="colorChange()" data-performtime="{mesDet.mdPrice}" data-buycount="20" id="firstperform">
+                                            <li class="itm" data-performtime="{mesDet.mdPrice}" data-buycount="20" id="firstperform">
                                                 <a href="javascript:;">${mesDet.mdPrice}
                                                     <%--color: #ed0a75;--%>
                                                 </a>
@@ -786,7 +786,7 @@
                                 </div>
 
                                 <div class="ops">
-                                    <a href="admin/setseat?msgId=${messageDTO.mesId}" class="u-btn u-btn-c1 u-btn-choose" id="btnXuanzuo" style=""
+                                    <a href="/admin/setseat?msgId=${messageDTO.mesId}" class="u-btn u-btn-c1 u-btn-choose" id="btnXuanzuo" style=""
                                        data-spm-click="">选座购买</a>
                                 </div>
 
