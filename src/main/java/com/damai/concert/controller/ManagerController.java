@@ -1,9 +1,11 @@
 package com.damai.concert.controller;
 
+import com.damai.concert.dto.NewOrderDTO;
 import com.damai.concert.dto.SeatDTO;
 import com.damai.concert.dto.setseatvo.SeatStepOneVO;
 import com.damai.concert.realm.token.MyUsernamePasswordToken;
 import com.damai.concert.service.IManagerService;
+import com.damai.concert.service.INewOrderService;
 import com.damai.concert.service.ISeatService;
 import com.damai.concert.sysconfig.SystemCfg;
 import org.apache.commons.lang3.StringUtils;
@@ -14,7 +16,6 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,9 @@ public class ManagerController {
 
     @Autowired
     private ISeatService seatService;
+
+    @Autowired
+    private INewOrderService newOrderService;
 
     @Autowired
     private StringRedisTemplate redisTemplate;
@@ -207,16 +211,15 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/setseat")
-    public String setSeat(String msgName,Integer msgId,Model model,HttpSession session) {
+    public String setSeat(Integer msgId,Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
-            logger.debug("managerAddFieldStepTwo() start  msgId==" + msgId);
+            logger.debug("setSeat() start  msgId==" + msgId);
         }
-        if (null == msgId || null==msgName) {
+        if (null == msgId) {
             return SystemCfg.FAILED_404;
         }
         try {
             session.setAttribute("msgId",msgId);
-            session.setAttribute("msgName",msgName);
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -235,7 +238,6 @@ public class ManagerController {
         if (logger.isDebugEnabled()) {
             logger.debug("getSeat() start");
         }
-
         try {
             Integer msgId = (Integer) session.getAttribute("msgId");
             if(logger.isDebugEnabled()){
@@ -261,7 +263,7 @@ public class ManagerController {
     //锁定座位
     @RequestMapping("/lock")
     @ResponseBody
-    public String doLock(String username,String myseatids,String notmyseatids,Model model){
+    public String doLock(Integer msgId,String username,String myseatids,String notmyseatids,Model model){
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
         }
@@ -278,21 +280,28 @@ public class ManagerController {
             String[] rowAndCol = null;
             for (String i : mySeatIdArray) {
                 rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
-                String seatId = rowAndCol[2];
+                String hisId = rowAndCol[2];
                 //开启redis事务
                 redisTemplate.setEnableTransactionSupport(true);
                 redisTemplate.multi();
-                redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + seatId);
-                redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX+seatId,username);
+                redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + hisId);
+                redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX+hisId,username);
                 redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+2, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
                 List<Object> exec = redisTemplate.exec();
                 Object o = exec.get(0);
                 //如果座位已经被锁定，返回failed
                 if(null!=o){
                     logger.fatal("出现并发，回滚回原数据");
-                    redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX + seatId,o.toString());
+                    redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX + hisId,o.toString());
                     return "failed";
                 }
+                //生成订单  使用redis自动增长1
+                Long orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
+
+                newOrderService.insertNewOrder(""+orderNum,username,0,0,msgId);
+                NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
+                Integer orderId = newOrderDTO.getOrderId();
+                newOrderService.insertSubOrder(Integer.parseInt(hisId),orderId);
             }
         }catch (Exception e){
             logger.fatal(e);
@@ -303,6 +312,28 @@ public class ManagerController {
         }
         return "success";
     }
+
+    @RequestMapping("/queryOrder")
+    public String queryOrder(String username,Model model){
+        if (logger.isDebugEnabled()) {
+            logger.debug("queryOrder() start");
+        }
+        if(null==username || "".equals(username)){
+            return "login";
+        }
+        try{
+            List<NewOrderDTO> newOrderDTOList = newOrderService.queryNewOrderListByUsername(username);
+            model.addAttribute("newOrderDTOList",newOrderDTOList);
+        }catch (Exception e){
+            logger.fatal(e);
+            return "404";
+        }
+        if (logger.isDebugEnabled()) {
+            logger.debug("doLock() end  success");
+        }
+        return "buy";
+    }
+
 
 
     //购买
