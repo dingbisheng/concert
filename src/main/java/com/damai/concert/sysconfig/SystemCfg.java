@@ -1,7 +1,5 @@
 package com.damai.concert.sysconfig;
 
-import java.util.Random;
-
 /**
  *
  * 系统配置参数
@@ -68,4 +66,7 @@ public class SystemCfg {
 
     //座位被锁定时间，单位：秒
     public static final long SEAT_LOCK_TIME=120;
+
+    //生成订单号保存redis的key
+    public static final String ORDER_NUM_NAME ="damaiordernumname";
 }
