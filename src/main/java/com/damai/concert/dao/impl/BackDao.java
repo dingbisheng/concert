@@ -40,7 +40,7 @@ public class BackDao extends SqlSessionDaoSupport implements IBackDao {
             logger.debug("queryManagerDTOByName() start ");
         }
 
-        List<ManagerDTO> managerDTO = getSqlSession().selectList("com.damai.com.concert.test.dto.ManagerDTOMapper.queryAll");
+        List<ManagerDTO> managerDTO = getSqlSession().selectList("com.damai.concert.dto.ManagerDTOMapper.queryAll");
 
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerDTOByName() end ");
@@ -80,7 +80,7 @@ public class BackDao extends SqlSessionDaoSupport implements IBackDao {
             logger.debug("queryManagerDTOByName() start ");
         }
 
-        List<RondaMessage> rondaMessages = getSqlSession().selectList("com.damai.com.concert.test.dto.RondaMessageMapper.queryAllMessage");
+        List<RondaMessage> rondaMessages = getSqlSession().selectList("com.damai.concert.dto.ManagerDTOMapper.queryAllMessage");
 
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerDTOByName() end ");

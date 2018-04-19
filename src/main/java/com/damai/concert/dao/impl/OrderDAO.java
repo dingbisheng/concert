@@ -27,7 +27,7 @@ public class OrderDAO extends SqlSessionDaoSupport implements IOrderDAO {
     @Override
     public List<OrderDTO> queryOrders(String username) {
         logger.info(username);
-        return getSqlSession().selectList("com.damai.com.concert.test.dto.OrderMapper.queryOrders",username);
+        return getSqlSession().selectList("com.damai.concert.dto.OrderMapper.queryOrders",username);
     }
 
 

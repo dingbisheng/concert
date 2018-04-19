@@ -32,7 +32,7 @@ public class SeatDAO extends SqlSessionDaoSupport implements ISeatDAO{
         if(logger.isDebugEnabled()){
             logger.debug("getSeatList() start msgId == "+ msgId);
         }
-        List<SeatDTO> seatDTOList = getSqlSession().selectList("com.damai.com.concert.test.dao.ISeatDAOMapper.getSeatByMsgId", msgId);
+        List<SeatDTO> seatDTOList = getSqlSession().selectList("com.damai.concert.dao.ISeatDAOMapper.getSeatByMsgId", msgId);
         if(logger.isDebugEnabled()){
             logger.debug("getSeatList() end seatDTOList == "+ seatDTOList);
         }
