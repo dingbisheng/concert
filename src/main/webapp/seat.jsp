@@ -45,6 +45,8 @@
 </c:forEach> 
 
 <form id="buy_form" name="buy_form" action="/admin/buy" target="_parent" method="post">
+    <input name="msgId" value="${msgId}">
+    <input name="username" value="<shiro:principal/>">
     <input name="myseatids" id="myseatids" value="" />
     <input name="notmyseatids" id="notmyseatids" value="" />
     <button value="购买" name="button" type="button" id="button" onclick="doLockSeat('/admin/lock')">购买</button>
@@ -55,7 +57,7 @@
     function doClickSeat(row,col,seatId) {
         var it = document.getElementById(row+","+col);
         if(it.getAttribute("src",2)==it.value){
-            it.src="<%= basePath%>/com.concert.test/picture/my.png";
+            it.src="<%= basePath%>/concert/picture/my.png";
             var ids = document.getElementById("myseatids");
             ids.value=ids.value+row+","+col+","+seatId+";";
         }else{
@@ -69,8 +71,10 @@
     function doLockSeat(url) {
         $.post(url,
                 {
+                    msgId:${msgId},
+                    username:<shiro:principal/>,
                     myseatids:document.getElementById("myseatids").value,
-                    password:document.getElementById("notmyseatids").value
+                    notmyseatids:document.getElementById("notmyseatids").value
                 },function(data,status){
                     if(data=="failed"){
                         alert("对不起，未选择座位或座位已经被其他会员锁定或购买，请刷新界面！");
