@@ -55,7 +55,7 @@
     function doClickSeat(row,col,seatId) {
         var it = document.getElementById(row+","+col);
         if(it.getAttribute("src",2)==it.value){
-            it.src="<%= basePath%>/concert/picture/my.png";
+            it.src="<%= basePath%>/com.concert.test/picture/my.png";
             var ids = document.getElementById("myseatids");
             ids.value=ids.value+row+","+col+","+seatId+";";
         }else{

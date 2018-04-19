@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.damai.concert.dto.RondaMessageMapper">
+
+    <resultMap id="RondaMessageMap" type="com.damai.concert.dto.RondaMessage">
+        <id property="mesId" column="mes_id" javaType="java.lang.Integer"/>
+        <result property="mesName" column="mes_name" javaType="java.lang.String"/>
+        <result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>
+        <result property="mesTime" column="mes_time" javaType="java.lang.String"/>
+        <result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>
+        <result property="cityName" column="city_name" javaType="java.lang.String"/>
+        <result property="subName" column="sub_name" javaType="java.lang.String"/>
+        <result property="placeName" column="place_name" javaType="java.lang.String"/>
+        <result property="price" column="md_price" javaType="java.lang.String"/>
+    </resultMap>
+
+    <!--程序所有场次信息-->
+    <select id="queryAllMessage" resultMap="RondaMessageMap">
+       SELECT mes_id, mes_name, mes_time, mes_photo, mes_explain,sub_name,place_name,city_name,md_price FROM dm_message m
+       join dm_place p on m.mes_place_id = p.place_id
+       join dm_subclass s on m.mes_sub_id = s.sub_id
+       join dm_city c on c.city_id = m.mes_city_id
+       join dm_mes_det d on d.md_mes_id = m.mes_id ;
+    </select>
+
+</mapper>

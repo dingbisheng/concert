@@ -1,4 +1,4 @@
-package com.concert.test;
+package com.concert;
 
 
 import com.damai.concert.dao.IAssortmentDAO;

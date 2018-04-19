@@ -44,7 +44,7 @@ public class SortDetailsDAO extends SqlSessionDaoSupport implements ISortDetails
         map.put("time",time);
         map.put("pageNum",pageNum);
 
-        List<SortDetailsDTO> sortDetailsList = getSqlSession().selectList("com.damai.concert.dto.SortDetailsMapper.querySortDetails" ,map);
+        List<SortDetailsDTO> sortDetailsList = getSqlSession().selectList("com.damai.com.concert.test.dto.SortDetailsMapper.querySortDetails" ,map);
 
 
 

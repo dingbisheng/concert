@@ -19,6 +19,7 @@
 </head>
 
 <body data-spm='home'>
+<script src='//kefu.easemob.com/webim/easemob.js?configId=7e0daef4-3d52-48db-bc57-939653ecf8d1'></script>
 <script type="text/javascript" id="beacon-aplus" src="<%=basePath%>/concert/js/aplus_v2.js" exparams="clog=o&aplus&sidx=aplusSidx&ckx=aplusCkx" async="async"></script>
 <div class="wrapper">
     <script type="text/javascript">var cityId = 0;</script>

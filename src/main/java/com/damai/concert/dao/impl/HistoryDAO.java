@@ -24,6 +24,6 @@ public class HistoryDAO extends SqlSessionDaoSupport implements IHistoryDAO{
 
     @Override
     public List<HistoryDTO> queryHistory(Integer mesId)throws Exception {
-        return getSqlSession().selectList("com.damai.concert.dto.HistoryMapper.queryHistory",mesId);
+        return getSqlSession().selectList("com.damai.com.concert.test.dto.HistoryMapper.queryHistory",mesId);
     }
 }

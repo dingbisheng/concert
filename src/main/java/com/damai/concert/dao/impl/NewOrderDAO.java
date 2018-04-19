@@ -35,7 +35,7 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
         if(logger.isDebugEnabled()){
             logger.debug("queryNewOrderListByOrderId() start  orderId === "+orderId);
         }
-        NewOrderDTO newOrderDTO = getSqlSession().selectOne("com.damai.concert.dto.NewOrderDTOMapper.queryNewOrderByOrderId", orderId);
+        NewOrderDTO newOrderDTO = getSqlSession().selectOne("com.damai.com.concert.test.dto.NewOrderDTOMapper.queryNewOrderByOrderId", orderId);
         if(logger.isDebugEnabled()){
             logger.debug("queryNewOrderListByOrderId() end  newOrderDTO === "+newOrderDTO);
         }
@@ -47,7 +47,7 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
         if(logger.isDebugEnabled()){
             logger.debug("queryNewOrderListByUsername() start  username === "+username);
         }
-        List<NewOrderDTO> newOrderDTOList = getSqlSession().selectList("com.damai.concert.dto.NewOrderDTOMapper.queryNewOrderListByUsername", username);
+        List<NewOrderDTO> newOrderDTOList = getSqlSession().selectList("com.damai.com.concert.test.dto.NewOrderDTOMapper.queryNewOrderListByUsername", username);
         if(logger.isDebugEnabled()){
             logger.debug("queryNewOrderListByUsername() end  newOrderDTOList === "+newOrderDTOList);
         }
@@ -59,7 +59,7 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
         if(logger.isDebugEnabled()){
             logger.debug("queryNewOrderListByOrderNum() start  orderNum === "+orderNum);
         }
-        NewOrderDTO newOrderDTO = getSqlSession().selectOne("com.damai.concert.dto.NewOrderDTOMapper.queryNewOrderByOrderNum", orderNum);
+        NewOrderDTO newOrderDTO = getSqlSession().selectOne("com.damai.com.concert.test.dto.NewOrderDTOMapper.queryNewOrderByOrderNum", orderNum);
         if(logger.isDebugEnabled()){
             logger.debug("queryNewOrderListByOrderNum() end  newOrderDTO === "+newOrderDTO);
         }
@@ -77,7 +77,7 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
         map.put("orderPrice",orderPrice);
         map.put("orderCondition",orderCondition);
         map.put("msgId",msgId);
-        int insert = getSqlSession().insert("com.damai.concert.dto.NewOrderDTOMapper.insertIntoNewOrder", map);
+        int insert = getSqlSession().insert("com.damai.com.concert.test.dto.NewOrderDTOMapper.insertIntoNewOrder", map);
         if(logger.isDebugEnabled()){
             logger.debug("insertNewOrder() end  insert=="+insert);
         }
@@ -91,7 +91,7 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
         Map<String, Object> map = new HashMap<>();
         map.put("hisId",hisId);
         map.put("orderId",orderId);
-        int insert = getSqlSession().insert("com.damai.concert.dto.NewOrderDTOMapper.insertIntoSubOrder", map);
+        int insert = getSqlSession().insert("com.damai.com.concert.test.dto.NewOrderDTOMapper.insertIntoSubOrder", map);
 
         if(logger.isDebugEnabled()){
             logger.debug("insertSubOrder() end insert=="+insert);
@@ -104,7 +104,7 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
             logger.debug("querySubOrderByOrderId() start orderId=="+orderId);
         }
 
-        List<SubOrderDTO> subOrderDTOList = getSqlSession().selectList("com.damai.concert.dto.NewOrderDTOMapper.querySubOrderByOrderId", orderId);
+        List<SubOrderDTO> subOrderDTOList = getSqlSession().selectList("com.damai.com.concert.test.dto.NewOrderDTOMapper.querySubOrderByOrderId", orderId);
 
         if(logger.isDebugEnabled()){
             logger.debug("querySubOrderByOrderId() end orderId=="+subOrderDTOList);

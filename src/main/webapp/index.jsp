@@ -46,12 +46,12 @@
 <script>
     function doChangeYN(row,col) {
         var it = document.getElementById(row+","+col);
-        if(it.getAttribute("src",2)=="<%= basePath%>/concert/picture/y.png"){
-            it.src="<%= basePath%>/concert/picture/n.png";
+        if(it.getAttribute("src",2)=="<%= basePath%>/com.concert.test/picture/y.png"){
+            it.src="<%= basePath%>/com.concert.test/picture/n.png";
             var ids = document.getElementById("noneseatids");
             ids.value=ids.value+row+","+col+";";
         }else{
-            it.src="<%= basePath%>/concert/picture/y.png";
+            it.src="<%= basePath%>/com.concert.test/picture/y.png";
             var ids = document.getElementById("notnoneseatids");
             ids.value=ids.value+row+","+col+";";
         }

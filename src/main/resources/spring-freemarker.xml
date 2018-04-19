@@ -4,15 +4,49 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--&lt;!&ndash; 设置freeMarker的配置文件路径 &ndash;&gt;-->
-    <!--<bean id="freemarkerConfigurer" class="org.springframework.beans.factory.config.PropertiesFactoryBean">-->
-        <!--<property name="location" value="classpath:conf/freemarker.properties"/>-->
-    <!--</bean>-->
+    <!--<bean id="freemarkerConfiguration" class=""-->
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
 
-    <bean id="freemarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <!--<property name="freemarkerSettings" ref="freemarkerConfigurer"/>-->
-        <property name="templateLoaderPath" value="/"/>
-        <property name="defaultEncoding" value="UTF-8"/>
+
+    <bean id="freemarkerConfigurer" class="com.damai.concert.sysconfig.FreeMarkerConfigExtend">
+        <!--<property name="freemarkerSettings" ref="freemarkerConfiguration"/>-->
+      <!--  <property name="templateLoaderPath" value="/"/>
+        <property name="defaultEncoding" value="UTF-8"/>-->
+        <property name="templateLoaderPath">
+            <value>/</value>
+        </property>
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape" />
+            </map>
+        </property>
+        <property name="defaultEncoding">
+            <value>utf-8</value>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <!-- 315360000 -->
+                <prop key="template_update_delay">0</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <!--			<prop key="number_format">0.######</prop>-->
+                <prop key="number_format">#</prop>
+                <prop key="whitespace_stripping">true</prop>
+                <prop key="auto_import">
+                    /common/config/top.ftl as _top,
+                    /common/config/left.ftl as _left,
+                    /common/config/html.ftl as _html,
+                    /common/config/bottom.ftl as _footer,
+                    /common/config/menu.ftl as _menu
+                </prop>
+            </props>
+        </property>
+
     </bean>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -20,7 +54,7 @@
         <property name="suffix" value=".html"/>
         <property name="contentType" value="text/html;charset=utf-8"/>
         <property name="cache" value="true"/>
-</bean>
+    </bean>
 
 
 </beans>

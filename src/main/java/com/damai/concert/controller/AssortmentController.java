@@ -34,6 +34,7 @@ public class AssortmentController {
     public String queryAssortment(Model model){
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
         model.addAttribute("assortmentDTOList",assortmentDTOList);
+        logger.info("===="+assortmentDTOList);
         HashMap<Integer, List<SortDetailsDTO>> sortDetailsListHashMap = new HashMap<>();
         try {
              for (AssortmentDTO assortmentDTO :assortmentDTOList) {
@@ -46,6 +47,7 @@ public class AssortmentController {
                 e.printStackTrace();
             }
             model.addAttribute("sortDetailsListHashMap",sortDetailsListHashMap);
+        logger.info("==========="+sortDetailsListHashMap);
         return "main";
     }
 
@@ -112,6 +114,7 @@ public class AssortmentController {
         List<AssortmentDTO> assortmentDTOs = null;
         try {
             assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId,minTime,maxTime);
+            logger.info("======" + assortmentDTOs);
         } catch (Exception e) {
             e.printStackTrace();
         }

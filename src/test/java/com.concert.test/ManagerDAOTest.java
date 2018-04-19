@@ -23,7 +23,7 @@ import java.util.List;
 public class ManagerDAOTest{
 
     /** logger */
-    private static final Logger logger = Logger.getLogger(TestDAO.class);
+    private static final Logger logger = Logger.getLogger(ManagerDAOTest.class);
 
     @Autowired
     private IManagerDAO managerDAO;

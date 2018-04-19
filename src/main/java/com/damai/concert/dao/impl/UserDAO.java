@@ -29,7 +29,7 @@ public class UserDAO extends SqlSessionDaoSupport implements IUserDAO {
      */
     @Override
     public List<UserDTO> queryAll() throws Exception{
-        return getSqlSession().selectList("com.damai.concert.dao.UserMapper.queryAll");
+        return getSqlSession().selectList("com.damai.com.concert.test.dao.UserMapper.queryAll");
     }
 
     /**
@@ -39,12 +39,12 @@ public class UserDAO extends SqlSessionDaoSupport implements IUserDAO {
      */
     @Override
     public UserDTO queryUser(String username)throws Exception {
-        return getSqlSession().selectOne("com.damai.concert.dao.UserMapper.queryUser",username);
+        return getSqlSession().selectOne("com.damai.com.concert.test.dao.UserMapper.queryUser",username);
     }
 
     @Override
     public Integer queryUserNum() throws Exception {
-        return getSqlSession().selectOne("com.damai.concert.dao.UserMapper.queryUserNum");
+        return getSqlSession().selectOne("com.damai.com.concert.test.dao.UserMapper.queryUserNum");
     }
 
     /**
@@ -57,7 +57,7 @@ public class UserDAO extends SqlSessionDaoSupport implements IUserDAO {
         Map<String, String> hashMap = new HashMap<>();
         hashMap.put("username",username);
         hashMap.put("password",password);
-        getSqlSession().insert("com.damai.concert.dao.UserMapper.addUser", hashMap);
+        getSqlSession().insert("com.damai.com.concert.test.dao.UserMapper.addUser", hashMap);
     }
 
     /**
@@ -72,7 +72,7 @@ public class UserDAO extends SqlSessionDaoSupport implements IUserDAO {
         hashMap.put("username",username);
         hashMap.put("password",password);
         hashMap.put("id",id);
-        getSqlSession().update("com.damai.concert.dao.UserMapper.updateUser", hashMap);
+        getSqlSession().update("com.damai.com.concert.test.dao.UserMapper.updateUser", hashMap);
     }
 
     /**
@@ -81,7 +81,7 @@ public class UserDAO extends SqlSessionDaoSupport implements IUserDAO {
      */
     @Override
     public void deleteUser(Integer id)throws Exception {
-        getSqlSession().delete("com.damai.concert.dao.UserMapper.deleteUser",id);
+        getSqlSession().delete("com.damai.com.concert.test.dao.UserMapper.deleteUser",id);
     }
 
 

@@ -40,7 +40,7 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
         if (logger.isDebugEnabled()){
             logger.debug("querySubclass():::"+sortName);
         }
-        List<SubclassDTO> subclassDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.querySubclass", sortName);
+        List<SubclassDTO> subclassDTOList = getSqlSession().selectList("com.damai.com.concert.test.dto.AssortmentMapper.querySubclass", sortName);
         if (logger.isDebugEnabled()){
             logger.debug("querySubclass():::"+sortName);
         }
@@ -52,7 +52,7 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
         if (logger.isDebugEnabled()){
             logger.debug("queryMessageInfo():::"+mesId);
         }
-        MessageDTO messageInfoDTO = getSqlSession().selectOne("com.damai.concert.dto.MessageMapper.queryMessageInfo", mesId);
+        MessageDTO messageInfoDTO = getSqlSession().selectOne("com.damai.com.concert.test.dto.MessageMapper.queryMessageInfo", mesId);
         if (logger.isDebugEnabled()){
             logger.debug("querySubclass():::end");
         }
@@ -62,7 +62,7 @@ public class MessageDAO extends SqlSessionDaoSupport implements IMessageDAO {
     @Override
     public List<MessageDTO> queryMessageVague(String mesName) throws Exception {
 
-        return getSqlSession().selectList("com.damai.concert.dto.MessageMapper.queryMessageVague",mesName);
+        return getSqlSession().selectList("com.damai.com.concert.test.dto.MessageMapper.queryMessageVague",mesName);
     }
 
 

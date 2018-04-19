@@ -59,7 +59,7 @@ public class MessageController {
         if (logger.isDebugEnabled()){
             logger.debug("queryMessageInfo() end "+messageDTO.toString() +"::::"+messageInfoDTOList.toString());
         }
-        return "";
+        return "msgdetails";
     }
 
     @RequestMapping("/Vague")

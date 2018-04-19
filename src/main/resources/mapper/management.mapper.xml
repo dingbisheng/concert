@@ -23,4 +23,8 @@
         select p.manager_permission_name from manager_permission p JOIN manager_rp rp on p.manager_permission_id = rp.manager_permission_id join manager_role r on rp.manager_role_id = r.manager_role_id join manager_ur ur on r.manager_role_id = ur.manager_role_id join manager_user u on ur.manager_user_id = u.manager_id and u.manager_name = #{username}
     </select>
 
+    <select id="queryAll" resultMap="ManagerResultMap">
+        SELECT * FROM manager_user
+    </select>
+
 </mapper>

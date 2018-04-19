@@ -17,7 +17,7 @@
 <link href="<%=basePath %>/concert/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath %>/concert/css/public-min_2.css"  rel="stylesheet" type="text/css"/>
 <link href="<%=basePath %>/concert/css/style-min_1.css" rel="stylesheet" type="text/css" />
-<!-- <link href="<%=basePath %>/concert/css/style_1.css" rel="stylesheet" type="text/css" /> -->
+<!-- <link href="<%=basePath %>/com.concert.test/css/style_1.css" rel="stylesheet" type="text/css" /> -->
 <link href="<%=basePath %>/concert/css/style_2.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript" src="<%=basePath %>/concert/js/jquery-1.7.2.min.js"></script>
@@ -26,7 +26,7 @@
 <script type="text/javascript" src="<%=basePath %>/concert/js/dui-min.js"></script>
 <script type="text/javascript" src="<%=basePath %>/concert/js/app-min.js"></script>
 <script type="text/javascript" src="<%=basePath %>/concert/js/headv6.js"></script>
-<!-- <script type="text/javascript" src="<%=basePath %>/concert/js/headv6.js"></script> -->
+<!-- <script type="text/javascript" src="<%=basePath %>/com.concert.test/js/headv6.js"></script> -->
 <script type="text/javascript" src="<%=basePath %>/concert/js/jquery.playalert3.js"></script>
 </head>
 <body data-spm="search">
@@ -1048,7 +1048,7 @@
 				<div class="search_right">
 					<div class = "search_right_head" ></div>
 <!-- 艺人场馆展位 -->
-					<!-- <script type="text/javascript" src="<%=basePath %>/concert/js/o.js"></script>
+					<!-- <script type="text/javascript" src="<%=basePath %>/com.concert.test/js/o.js"></script>
 					<script type="text/javascript">DAMAI_CLB_fillSlotAsync("35","ad_clb_cnt");</script>
 					<div id="ad_clb_cnt" class="mb15"></div> -->
 <!--明星周边-->
