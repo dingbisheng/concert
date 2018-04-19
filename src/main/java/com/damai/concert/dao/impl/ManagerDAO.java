@@ -40,7 +40,7 @@ public class ManagerDAO extends SqlSessionDaoSupport implements IManagerDAO {
             logger.debug("queryManagerDTOByName() start   username =="+ username);
         }
 
-        ManagerDTO managerDTO = getSqlSession().selectOne("com.damai.com.concert.test.dto.ManagerDTOMapper.queryManagerDTOByName", username);
+        ManagerDTO managerDTO = getSqlSession().selectOne("com.damai.concert.dto.ManagerDTOMapper.queryManagerDTOByName", username);
 
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerDTOByName() end   ManagerDTO ==" + managerDTO);
@@ -59,7 +59,7 @@ public class ManagerDAO extends SqlSessionDaoSupport implements IManagerDAO {
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerRoleList() start   username =="+ username);
         }
-        List<String> roleListByName = getSqlSession().selectList("com.damai.com.concert.test.dto.ManagerDTOMapper.queryManagerRoleList", username);
+        List<String> roleListByName = getSqlSession().selectList("com.damai.concert.dto.ManagerDTOMapper.queryManagerRoleList", username);
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerRoleList() end   roleListByName =="+ roleListByName);
         }
@@ -71,7 +71,7 @@ public class ManagerDAO extends SqlSessionDaoSupport implements IManagerDAO {
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerPermissionList() start   username =="+ username);
         }
-        List<String> permissionListByName = getSqlSession().selectList("com.damai.com.concert.test.dto.ManagerDTOMapper.queryManagerPermissionList", username);
+        List<String> permissionListByName = getSqlSession().selectList("com.damai.concert.dto.ManagerDTOMapper.queryManagerPermissionList", username);
         if(logger.isDebugEnabled()){
             logger.debug("queryManagerPermissionList() end   permissionListByName =="+permissionListByName);
         }

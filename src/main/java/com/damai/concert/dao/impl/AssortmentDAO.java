@@ -42,7 +42,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         if (logger.isDebugEnabled()){
             logger.debug("queryAssortment start");
         }
-        List<AssortmentDTO> assortmentDTOList = getSqlSession().selectList("com.damai.com.concert.test.dto.AssortmentMapper.queryAssortment");
+        List<AssortmentDTO> assortmentDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryAssortment");
         if (logger.isDebugEnabled()){
             logger.debug("queryAssortment end assortmentDTOList ==" + assortmentDTOList);
         }
@@ -57,7 +57,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         if(logger.isDebugEnabled()){
             logger.debug("save()    assortmentDTO =="+assortmentDTO);
         }
-        getSqlSession().insert("com.damai.com.concert.test.dto.AssortmentMapper.save",assortmentDTO);
+        getSqlSession().insert("com.damai.concert.dto.AssortmentMapper.save",assortmentDTO);
 
         if(logger.isDebugEnabled()){
             logger.debug("save() end ");
@@ -77,7 +77,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         HashMap<String, String> hashMap = new HashMap<>();
         hashMap.put("newName",newName);
         hashMap.put("oldName",oldName);
-        getSqlSession().insert("com.damai.com.concert.test.dto.AssortmentMapper.update",hashMap);
+        getSqlSession().insert("com.damai.concert.dto.AssortmentMapper.update",hashMap);
         if(logger.isDebugEnabled()){
             logger.debug("update(String newName,String oldName) end");
         }
@@ -92,7 +92,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
         if(logger.isDebugEnabled()){
             logger.debug("delete(Integer sortId) start =="+sortId);
         }
-        getSqlSession().delete("com.damai.com.concert.test.dto.AssortmentMapper.delete",sortId);
+        getSqlSession().delete("com.damai.concert.dto.AssortmentMapper.delete",sortId);
 
         if(logger.isDebugEnabled()){
             logger.debug("delete(Integer sortId) end");
@@ -118,7 +118,7 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
             hashMap.put("minTime", format.parse(minTime));
             hashMap.put("maxTime", format.parse(maxTime));
         }
-        List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.com.concert.test.dto.AssortmentMapper.queryMessage", hashMap);
+        List<AssortmentDTO> messageDTOList = getSqlSession().selectList("com.damai.concert.dto.AssortmentMapper.queryMessage", hashMap);
         if (logger.isDebugEnabled()){
             logger.debug("queryMessage() end"+messageDTOList);
         }
@@ -127,13 +127,13 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
 
     @Override
     public List<CityDTO> queryCity() {
-        List<CityDTO> cityDTO = getSqlSession().selectList("com.damai.com.concert.test.dto.CityMapper.queryCity");
+        List<CityDTO> cityDTO = getSqlSession().selectList("com.damai.concert.dto.CityMapper.queryCity");
         return cityDTO;
     }
 
     @Override
     public AssortmentDTO queryAssortmentName(Integer mesId) throws Exception{
-        AssortmentDTO assortment = getSqlSession().selectOne("com.damai.com.concert.test.dto.AssortmentMapper.queryAssortmentName", mesId);
+        AssortmentDTO assortment = getSqlSession().selectOne("com.damai.concert.dto.AssortmentMapper.queryAssortmentName", mesId);
         return assortment;
     }
 }
