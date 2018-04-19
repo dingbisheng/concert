@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Vincent on 2018\4\16 0016.
@@ -61,11 +62,12 @@ public class SeatService implements ISeatService{
                 if(maxCol<seat.getSeatCol()){
                     maxCol = seat.getSeatCol();
                 }
-//                //如果redis存在此被锁定的座位 则将显示图片进行替换
-//                String isLock = redisTemplate.opsForList().leftPop(SystemCfg.SEAT_STATE_PREFIX);
-//                if(StringUtils.isNotEmpty(isLock)){
-//                    seat.setSeatImg(SystemCfg.LOCK_SEAT_PNG);
-//                }
+                //如果redis存在此被锁定的座位 则将显示图片进行替换
+                Boolean isLock = redisTemplate.hasKey(SystemCfg.SEAT_STATE_PREFIX + seat.getSeatId());
+                if(isLock){
+                    seat.setSeatImg(SystemCfg.LOCK_SEAT_PNG);
+                    seat.setSeatState(SystemCfg.LOCK_SEAT_STATE);
+                }
             }
             for (int i = 1; i <= maxCol ; i++) {
                 boolean flag = true;

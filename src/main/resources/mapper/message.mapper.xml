@@ -33,16 +33,7 @@
     <select id="queryMessageVague" resultType="java.lang.String">
         SELECT mes_name FROM dm_message m JOIN  dm_city c
         ON m.mes_city_id=c.city_id
-        <where>
-            <if test="mesName!=null">
-                mes_name LIKE "%"#{mesName}"%"
-            </if>
-            <if test="cityName!=null">
-                <bind name="pattern" value="'%'+cityName+'%'"/>
-                AND city_name LIKE "%"#{cityName}"%"
-            </if>
-
-        </where>
+        AND  mes_name LIKE "%"#{mesName}"%"
     </select>
 
 </mapper>

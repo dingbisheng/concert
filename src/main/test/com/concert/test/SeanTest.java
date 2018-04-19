@@ -73,7 +73,7 @@ public class SeanTest {
 
     @Test
     public void testCase3() throws Exception {
-        List<String> list = messageDAO.queryMessageVague("万","");
+        List<String> list = messageDAO.queryMessageVague("万");
         logger.info(list.toString());
     }
 

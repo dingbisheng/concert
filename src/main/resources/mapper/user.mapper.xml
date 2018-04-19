@@ -20,6 +20,10 @@
     <select id="queryAll" resultMap="UserResultMap">
         SELECT * FROM tb_users
     </select>
+    <select id="queryUserNum" resultType="java.lang.Integer">
+        select count(1) from tb_users;
+    </select>
+
     <select id="queryUser" resultMap="UserResultMap">
         SELECT user_name,user_password FROM tb_users WHERE user_name=#{name}
     </select>

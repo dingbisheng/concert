@@ -10,6 +10,12 @@
         <setting name="cacheEnabled" value="true"/>
     </settings>
 
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
+
     <mappers>
         <mapper resource="mapper/user.mapper.xml"/>
         <mapper resource="mapper/assortment.mapper.xml"/>
@@ -20,5 +26,6 @@
         <mapper resource="mapper/message.mapper.xml"/>
         <mapper resource="mapper/history.mapper.xml"/>
         <mapper resource="mapper/seat.mapper.xml" />
+        <mapper resource="mapper/neworder.mapper.xml" />
     </mappers>
 </configuration>

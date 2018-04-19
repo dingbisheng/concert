@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.damai.concert.dto.NewOrderDTOMapper">
+    <resultMap id="NewOrderResultMap" type="com.damai.concert.dto.NewOrderDTO">
+        <id property="orderId" column="order_id" javaType="java.lang.Integer" />
+		<result property="orderNum" column="order_num" javaType="java.lang.String" />
+		<result property="username" column="order_user_name" javaType="java.lang.String" />
+		<result property="orderPrice" column="order_price" javaType="java.lang.Integer" />
+		<result property="orderCondition" column="order_condition" javaType="java.lang.Integer" />
+		<association property="msgVO" javaType="com.damai.concert.dto.msgvo.MsgVO">
+			<id property="msgId" column="order_msg_id" javaType="java.lang.Integer" />
+			<result property="msgName" column="mes_name" javaType="java.lang.String" />
+		</association>
+    </resultMap>
+
+	<resultMap id="SubOrderResultMap" type="com.damai.concert.dto.SubOrderDTO">
+		<id property="subOrderId" column="sub_order_id" javaType="java.lang.Integer"/>
+		<result property="seatRow" column="seat_row" javaType="java.lang.Integer"/>
+		<result property="seatCol" column="seat_col" javaType="java.lang.Integer"/>
+		<result property="seatPrice" column="md_price" javaType="java.lang.Integer"/>
+		<association property="msgVO" javaType="com.damai.concert.dto.msgvo.MsgVO">
+			<id property="msgId" column="mes_id" javaType="java.lang.Integer"/>
+			<result property="msgName" column="mes_name" javaType="java.lang.String"/>
+		</association>
+		<association property="placeVO" javaType="com.damai.concert.dto.placevo.PlaceVO">
+			<id property="placeId" column="place_id" javaType="java.lang.Integer"/>
+			<result property="placeName" column="place_name" javaType="java.lang.String"/>
+		</association>
+	</resultMap>
+
+	<select id="querySubOrderByOrderId" resultMap="SubOrderResultMap">
+		select sub_order_id,place_id,place_name,seat_row,seat_col,md_price,mes_id,mes_name
+		from tb_sub_order so
+		join tb_order_new o on so.order_id=o.order_id
+		join dm_message mes on mes.mes_id=o.order_msg_id
+		join dm_history his on so.his_id=his.his_id
+		join dm_seat s on s.seat_id=his.his_seat_id
+		join dm_place p on s.seat_place_id=p.place_id
+		join dm_det_seat ds on his.his_id = ds.ds_his_id
+		join dm_detail d on d.detail_id = ds.ds_detail_id
+		join dm_mes_det md on md.md_detail_id = d.detail_id
+		and md.md_mes_id=mes.mes_id
+		and o.order_id=#{orderId}
+	</select>
+
+
+	<insert id="insertIntoNewOrder">
+		insert into tb_order_new(order_num,order_user_name,order_price,order_condition,order_msg_id)
+		VALUES (#{orderNum},#{username},#{orderPrice},#{orderCondition},#{msgId})
+	</insert>
+
+	<insert id="insertIntoSubOrder">
+		insert into tb_sub_order(his_id,order_id) VALUES (#{hisId},#{orderId})
+	</insert>
+
+    <select id="queryNewOrderByOrderId" resultMap="NewOrderResultMap">
+		select o.order_id,order_num,order_user_name,order_price,order_condition,order_msg_id,mes_name
+		from tb_order_new o
+		join dm_message mes on o.order_msg_id = mes.mes_id
+		and o.order_id=#{orderId}
+    </select>
+
+	<select id="queryNewOrderListByUsername" resultMap="NewOrderResultMap">
+		select order_id,order_num,o.order_user_name,order_price,order_condition,order_msg_id,mes_name
+		from tb_order_new o
+		join dm_message mes on o.order_msg_id = mes.mes_id
+		AND o.order_user_name=#{username}
+	</select>
+
+
+	<select id="queryNewOrderByOrderNum" resultMap="NewOrderResultMap">
+		select order_id,order_num,order_user_name,order_price,order_condition,order_msg_id,mes_name
+		from tb_order_new o
+		join dm_message mes on o.order_msg_id = mes.mes_id
+		and o.order_num=#{orderNum}
+	</select>
+
+
+
+
+
+</mapper>

@@ -30,14 +30,20 @@ public class UserService implements IUserService {
      * @param pageSize 每页显示几条
      * @return
      */
-    @Transactional
+    @Transactional(rollbackFor =Exception.class )
+    @Override
     public List<UserDTO> queryAll(Integer currPage,Integer pageSize)throws Exception{
         logger.info("currPage:"+currPage+"--------pageSize:"+pageSize);
         List<UserDTO> list = userDAO.queryAll();
+        Integer userNum = userDAO.queryUserNum();
+        logger.info("userNum:"+userNum);
         //如果currPage小于1，则会报错。判断当其小于1是显示首页，并记录到日志中
         if (currPage<1){
             logger.error("currPage:"+currPage);
             currPage = 1;
+        }
+        if (userNum<pageSize){
+            pageSize=userNum;
         }
         int firstIndex = (currPage-1)*pageSize;
         int lastIndex = currPage * pageSize;
@@ -51,7 +57,8 @@ public class UserService implements IUserService {
      * @return
      * @throws Exception
      */
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
+    @Override
     public UserDTO queryUser(String username)throws Exception{
         return userDAO.queryUser(username);
     }
@@ -63,7 +70,7 @@ public class UserService implements IUserService {
      * @throws Exception
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void addUser(String username, String password) throws Exception{
         SimpleHash simpleHash = new SimpleHash("MD5",password,username);
         logger.info("密文simpleHash:"+simpleHash);
@@ -78,7 +85,7 @@ public class UserService implements IUserService {
      * @throws Exception
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void updateUser(String username, String password ,Integer id) throws Exception{
         SimpleHash simpleHash = new SimpleHash("MD5",password,username);
         logger.info("密文simpleHash:"+simpleHash+"-----用户id是:"+id);
@@ -91,7 +98,7 @@ public class UserService implements IUserService {
      * @throws Exception
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public void deleteUser(Integer id) throws Exception{
         logger.info("删除的用户Id是:"+id);
         userDAO.deleteUser(id);
