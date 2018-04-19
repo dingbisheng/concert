@@ -608,10 +608,10 @@
                     <p class="m-crm">
                         <a href="//www.damai.cn/">大麦网</a>
                         <span class="arrow">&gt;</span>
-                        <a href="//www.damai.cn/wuhan/" target="_blank">${messageDTO.cityDTO}</a>
+                        <a href="//www.damai.cn/wuhan/" target="_blank">${cityDTO.cityName}</a>
                         <span class="arrow">&gt;</span>
                         <a href="//search.damai.cn/search.html?ctl=%e6%bc%94%e5%94%b1%e4%bc%9a&cty=%e6%ad%a6%e6%b1%89&order=1"
-                           target="_blank">${sortName}</a>
+                           target="_blank">${assortmentDTO.sortName}</a>
                         <span class="arrow">&gt;</span>
                         <strong>${messageDTO.mesName}</strong>
                     </p>
@@ -748,8 +748,10 @@
                                     演出时间：</h3>
                                 <div class="ct">
                                     <ul class="lst lst-dis">
-                                        <li style="line-height:32px;padding-left:10px" class="loading">
-                                            <span>${messageDTO.mesTime}</span></li>
+                                        <li class="itm  itm-sel" class="loading" data-performtime="${messageDTO.mesTime}" data-buycount="20" id="firstperform">
+                                            <a href="javascript:;" data-spm-click="">${messageDTO.mesTime}
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -759,10 +761,12 @@
                             <div class="m-choose m-choose-price " id="priceList" data-col="4" data-spm="clickprice">
                                 <h3 class="tt">选择票价：</h3>
                                 <div class="ct">
-                                    <ul class="lst lst-dis">
+                                    <ul class="lst">
                                         <c:forEach items="${messageDTO.mesDetList}" var="mesDet">
-                                            <li style="line-height:32px;padding-left:10px" class="loading">
-                                                <span>${mesDet.mdPrice}</span>
+                                            <li class="itm" onclick="colorChange()" data-performtime="{mesDet.mdPrice}" data-buycount="20" id="firstperform">
+                                                <a href="javascript:;">${mesDet.mdPrice}
+                                                    <%--color: #ed0a75;--%>
+                                                </a>
                                             </li>
                                         </c:forEach>
 
@@ -775,19 +779,19 @@
                             <!-- 选择票价模块 end -->
 
                             <!-- 购物车模块 begin -->
-                            <div class="m-cart  " id="cartList" style="display:none;" data-spm="click">
-                                <h3 class="tt" style="display:none;">您选择了：</h3>
+                            <div class="m-cart  " id="cartList" style="" data-spm="click">
+                                <h3 class="tt" style="display:none;">您选择了：${messageDTO.mesTime}${mesDet.mdPrice}</h3>
                                 <div class="ct" style="display:none;">
                                     <ul class="lst"></ul>
                                 </div>
 
                                 <div class="ops">
-                                    <a href="javascript:;" class="u-btn u-btn-c1 u-btn-choose" id="btnXuanzuo"
-                                       style="display:none;"
-                                       data-spm-click="gostr=/damai_pc.default.click;localid=buyselectseatbtn;ditem_id=146408">选座购买</a>
+                                    <a href="admin/setseat?msgId=${messageDTO.mesId}" class="u-btn u-btn-c1 u-btn-choose" id="btnXuanzuo" style=""
+                                       data-spm-click="">选座购买</a>
                                 </div>
 
                             </div>
+
                             <!-- 购物车模块 end -->
 
                             <div class="m-probox m-remine" id="kaishoutixingLayer" style="display:none;">
@@ -2209,6 +2213,15 @@
             $("#wbFollowIframe_").parent().remove();
             $("#weibo_con_").parent().parent().remove();
         }
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("li.item").focus(function () {
+            $(this).item('border-color','#ed0a75');
+        }).blur(function(){
+            $(this).item('border-color','');
+        })
     });
 </script>
 </body>

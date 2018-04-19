@@ -9,23 +9,23 @@
 
 <link href="//search.damai.cn/favicon.ico" rel="shortcut icon" type="image/ico">
 <link href="//search.damai.cn/favicon.ico" rel="icon" type="image/ico">
-<link href="concert/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="concert/css/public-min_2.css"  rel="stylesheet" type="text/css"/>
-<link href="concert/css/style-min_1.css" rel="stylesheet" type="text/css" />
+<link href="../concert/css/jquery-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="../concert/css/public-min_2.css" rel="stylesheet" type="text/css"/>
+<link href="../concert/css/style-min_1.css" rel="stylesheet" type="text/css" />
 <!-- <link href="com.concert.test/css/style_1.css" rel="stylesheet" type="text/css" /> -->
-<link href="concert/css/style_2.css" rel="stylesheet" type="text/css" />
+<link href="../concert/css/style_2.css" rel="stylesheet" type="text/css" />
 
-<script type="text/javascript" src="concert/js/jquery-1.7.2.min.js"></script>
-<script type="text/javascript" src="concert/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="concert/js/public-min.js"></script>
-<script type="text/javascript" src="concert/js/dui-min.js"></script>
-<script type="text/javascript" src="concert/js/app-min.js"></script>
-<script type="text/javascript" src="concert/js/headv6.js"></script>
+<script type="text/javascript" src="../concert/js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../concert/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../concert/js/public-min.js"></script>
+<script type="text/javascript" src="../concert/js/dui-min.js"></script>
+<script type="text/javascript" src="../concert/js/app-min.js"></script>
+<script type="text/javascript" src="../concert/js/headv6.js"></script>
 <!-- <script type="text/javascript" src="com.concert.test/js/headv6.js"></script> -->
-<script type="text/javascript" src="concert/js/jquery.playalert3.js"></script>
+<script type="text/javascript" src="../concert/js/jquery.playalert3.js"></script>
 </head>
 <body data-spm="search">
-<script type="text/javascript" id="beacon-aplus" src="concert/js/aplus_v2.js"  exparams="clog=o&aplus&sidx=aplusSidx&ckx=aplusCkx"></script>
+<script type="text/javascript" id="beacon-aplus" src="../concert/js/aplus_v2.js" exparams="clog=o&aplus&sidx=aplusSidx&ckx=aplusCkx"></script>
 <div class="wrapper">
 <script type="text/javascript">var cityId = 0;</script>
 <!--页面头部 start-->
@@ -401,7 +401,7 @@
 
 <div class="header-w">
   <a href="//www.damai.cn/" class="dm-logo">
-    <img src="concert/picture/logo.png" alt="大麦网">
+    <img src="../concert/picture/logo.png" alt="大麦网">
   </a>
 		<!--选择城市 start-->
   <div class="dm-citys">
@@ -904,6 +904,15 @@
 						<dd><a class="active" href="javascript:void(0)" onclick="cityfilter('',this)">全部</a></dd>
 						<dd class="search_city_num" id="search_city_num_tj">
 							<ul class="search_city_all clear" style="height: auto;">
+                                <#list cityDTOList as city>
+                                    <li>
+                                        <input type="hidden" value="${city.cityId}" name="cityId"/>
+                                        <a href="javascript:void(0)" onclick="cityfilter('${city.cityId}',this)">
+                                            <a href="/assortment/queryMessage?cityId=${city.cityId}">${city.cityName}
+                                            </a>
+                                        </a>
+                                    </li>
+                                </#list>
 							</ul>
 						</dd>
 					</dl>
@@ -1118,7 +1127,7 @@
 			<a href="http://www.miitbeian.gov.cn" target="_blank">京ICP备11043884号</a>
 			<span>|</span>
 			<a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010102000430" target="_blank">
-				<img src="concert/picture/police.png" class="vm" />京公网安备11010102000430号
+				<img src="../concert/picture/police.png" class="vm" />京公网安备11010102000430号
 			</a>
 			<span>|</span>
 			<a href="//dui.dmcdn.cn/dm_2014/common/img/logo/gbdsjm.jpg" target="_blank">广播电视节目制作经营许可证 (京)字第02253号</a>
@@ -1150,13 +1159,13 @@
 </script>
 <img style="cursor:pointer;cursor:hand" src="concert/picture/siteseal_gd_3_h_l_m.gif" onclick="verifySeal();" alt="SSL site seal - click to verify">		</span>
       <a rel="nofollow" target="_blank" href="https://www.pcisecuritystandards.org/">
-        <img src="concert/picture/pci.png" class="mr10">
+        <img src="../concert/picture/pci.png" class="mr10">
       </a>
       <a rel="nofollow" target="_blank" href="http://www.itrust.org.cn/home/index/itrust_certifi/wm/1756737221">
         <img src="concert/picture/xin.png" class="mr10">
       </a>
       <a target="_blank" href="https://search.szfw.org/cert/l/CX20130327002367002885" id="___szfw_logo___">
-        <img src="concert/picture/chengxin.png">
+        <img src="../concert/picture/chengxin.png">
       </a>
         <script type="text/javascript">(function () { document.getElementById('___szfw_logo___').oncontextmenu = function () { return false; } })();</script>
     </div>
@@ -1232,7 +1241,7 @@
 	</div>
 <!--搜索体验  end-->
 <!--弹出层  end-->
-<script src="concert/js/dindex.js"></script>
+<script src="../concert/js/dindex.js"></script>
 <script type="text/javascript">
 var keyword = $("#keyword").val();
 var ctl = $("#category_name").val();

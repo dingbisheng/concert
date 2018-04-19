@@ -88,7 +88,7 @@ public class RegisterController {
 
     @RequestMapping("/view")
     public ModelAndView testView(){
-        ModelAndView modelAndView = new ModelAndView("main");
+        ModelAndView modelAndView = new ModelAndView("test");
         modelAndView.addObject("name","zxy");
         return modelAndView;
     }

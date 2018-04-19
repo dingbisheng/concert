@@ -5,14 +5,11 @@ import com.damai.concert.dto.AssortmentDTO;
 import com.damai.concert.dto.CityDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSessionFactory;
-
 import org.mybatis.spring.support.SqlSessionDaoSupport;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.HashMap;

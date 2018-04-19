@@ -12,6 +12,12 @@
         <result property="mesPhoto" column="mes_photo" javaType="java.lang.String"/>
         <result property="mesTime" column="mes_time" javaType="java.lang.String"/>
         <result property="mesExplain" column="mes_explain" javaType="java.lang.String"/>
+
+        <association property="cityDTO"  javaType="com.damai.concert.dto.CityDTO">
+            <id property="cityId" column="city_id" javaType="java.lang.Integer"/>
+            <result property="cityName" column="city_name" javaType="java.lang.String"/>
+        </association>
+
         <collection property="messageInfoDTOList" ofType="com.damai.concert.dto.MessageInfoDTO">
             <id property="infoId" column="info_id" javaType="java.lang.Integer"/>
             <result property="infoName" column="info_name" javaType="java.lang.String"/>
@@ -24,8 +30,10 @@
     </resultMap>
         <!--查询购买场次的基本信息注意事项-->
         <select id="queryMessageInfo" resultMap="MessageResultMap">
-            select * from dm_messageinfo mi join dm_message m join dm_place p JOIN dm_mes_det md
+            select * from dm_messageinfo mi
+            join dm_message m join dm_place p JOIN dm_mes_det md JOIN dm_city ci
             on mi.info_mes_id = m.mes_id and m.mes_place_id = p.place_id and md.md_mes_id=m.mes_id
+            AND ci.city_id = m.mes_city_id
             and mes_id = #{mesId};
         </select>
 

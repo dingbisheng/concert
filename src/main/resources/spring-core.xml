@@ -14,13 +14,13 @@
 
     <import resource="spring-dao.xml"/>
     <import resource="spring-shiro.xml"/>
-    <import resource="spring-freemarker.xml"/>
+    <!--<import resource="spring-freemarker.xml"/>-->
     <import resource="spring-redis.xml"/>
 
-    <!--<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
-    </bean>-->
+    </bean>
 
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>

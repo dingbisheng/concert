@@ -3,19 +3,15 @@ package com.concert.test;
 import com.damai.concert.dao.IHistoryDAO;
 import com.damai.concert.dao.IMessageDAO;
 import com.damai.concert.dao.IOrderDAO;
-import com.damai.concert.dao.impl.MessageDAO;
 import com.damai.concert.dto.*;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 王明 on 2018/4/12.
@@ -73,7 +69,7 @@ public class SeanTest {
 
     @Test
     public void testCase3() throws Exception {
-        List<String> list = messageDAO.queryMessageVague("万");
+        List<MessageDTO> list = messageDAO.queryMessageVague("万");
         logger.info(list.toString());
     }
 
