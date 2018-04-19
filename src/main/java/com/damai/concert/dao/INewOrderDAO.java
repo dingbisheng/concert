@@ -22,4 +22,6 @@ public interface INewOrderDAO {
 
     List<SubOrderDTO> querySubOrderByOrderId(Integer orderId) throws Exception;
 
+    void setOrderPaySuccessByOrderNum(String orderNum) throws Exception;
+
 }

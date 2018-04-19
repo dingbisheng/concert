@@ -111,4 +111,17 @@ public class NewOrderDAO extends SqlSessionDaoSupport implements INewOrderDAO{
         }
         return subOrderDTOList;
     }
+
+    @Override
+    public void setOrderPaySuccessByOrderNum(String orderNum) throws Exception {
+        if(logger.isDebugEnabled()){
+            logger.debug("setOrderPaySuccessByOrderNum() start orderNum=="+orderNum);
+        }
+
+        getSqlSession().update("com.damai.concert.dto.NewOrderDTOMapper.setOrderPaySuccessByOrderNum",orderNum);
+ 
+        if(logger.isDebugEnabled()){
+            logger.debug("setOrderPaySuccessByOrderNum() end");
+        }
+    }
 }
