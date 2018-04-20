@@ -273,21 +273,39 @@ public class ManagerController {
             if(mySeatIdArray.length==0){
                 return "{\"code\":1,\"msg\":\"no seat select\"}";
             }
+            //验证是否可以全部锁定
             String[] rowAndCol = null;
             for (String i : mySeatIdArray) {
                 rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
+                String row = rowAndCol[0];
+                String col = rowAndCol[1];
                 String hisId = rowAndCol[2];
 
+                //redis setNX  如果存在该key  则返回false   不存在  则写入
                 Boolean isLockSuccess = redisTemplate.opsForValue().setIfAbsent(SystemCfg.SEAT_STATE_PREFIX + hisId, username);
-                if(isLockSuccess){
-                    redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
+                if(logger.isDebugEnabled()){
+                    logger.debug("username == isLockSuccess=="+username + isLockSuccess);
                 }
+                if(isLockSuccess){
+                    //如果成功锁定   加短时锁
+                    redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_SORT_TIME,TimeUnit.SECONDS);
+                }else{
+                    String s = redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + hisId);
+                    //如果key里面   保存的不是自己的username 则返回被其他人锁定的座位行号和列号
+                    if(!username.equals(s)){
+                        return "{\"code\":1,\"msg\":\"row"+row+"col"+col+" locked by other! please choose other seat\"}";
+                    }
+                }
+            }
 
-
-                orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
-                newOrderService.insertNewOrder(""+orderNum,username,0,0,msgId);
-                NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
-                Integer orderId = newOrderDTO.getOrderId();
+            orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
+            newOrderService.insertNewOrder(""+orderNum,username,0,0,msgId);
+            NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
+            Integer orderId = newOrderDTO.getOrderId();
+            for (String i : mySeatIdArray) {
+                String hisId = rowAndCol[2];
+                //如果全部座位能成功短时锁定  则加上长时间锁定
+                redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
                 newOrderService.insertSubOrder(Integer.parseInt(hisId),orderId);
             }
         }catch (Exception e){
@@ -316,7 +334,7 @@ public class ManagerController {
             return "404";
         }
         if (logger.isDebugEnabled()) {
-            logger.debug("doLock() end  success");
+            logger.debug("queryOrder() end  success");
         }
         return "buy";
     }
