@@ -297,7 +297,7 @@ public class ManagerController {
                     }
                 }
             }
-
+            //全部成功则生成订单编号
             orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
             newOrderService.insertNewOrder(""+orderNum,username,0,0,msgId);
             NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
