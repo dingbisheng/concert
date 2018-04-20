@@ -65,8 +65,11 @@ public class SystemCfg {
 
 
     //座位被锁定时间，单位：秒
-    public static final long SEAT_LOCK_TIME=120;
+    public static final long SEAT_LOCK_TIME=60;
 
     //生成订单号保存redis的key
     public static final String ORDER_NUM_NAME ="damaiordernumname";
+
+    //座位被短时锁定时间，单位：秒
+    public static final long SEAT_LOCK_SORT_TIME=30;
 }
