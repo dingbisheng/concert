@@ -1,12 +1,101 @@
-<pre class="java" name="code">
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <title>侧边栏</title>
+    <link href="css/siderBar.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+
+    </style>
+
 </head>
 <body>
-${name}
+<div class="container">
+    <div class="header">
+        <div class="nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+    <div class="content">侧边栏内容</div>
+    <div class="sideBar">
+        <div class="sideBar-left">
+            <div class="divider"></div>
+            <div class="body-content">
+                <div class="messageWarning item">
+                    <div><i class="message_icon"></i>消息提醒</div>
+                    <ul>
+                        <li class="news">
+                            <i class="circle"></i><a href="javascript:void()">消息1</a>
+                        </li>
+                        <li class="news">
+                            <i class="circle"></i><a href="javascript:void()">消息2</a>
+                        </li>
+                        <li class="news">
+                            <i class="circle"></i><a href="javascript:void()">消息3</a>
+                        </li>
+                        <li class="news">
+                            <i class="circle"></i><a href="javascript:void()">消息4</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="course item">
+                    <div><i class="icon"></i>课程</div>
+                    <ul>
+                        <li class="myInfo">
+                            <i class="circle"></i><a href="javascript:void()">我的课程</a>
+                        </li>
+                        <li class="Dynamic">
+                            <i class="circle"></i><a href="javascript:void()">课程动态</a>
+                        </li>
+                        <li class="question">
+                            <i class="circle"></i><a href="javascript:void()">问题空间</a>
+                        </li>
+                        <li class="homework">
+                            <i class="circle"></i><a href="javascript:void()">课程作业</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="myHome item">
+                    <a href="javascript:void()">
+                        <i class="home_icon"></i>我的主页
+                    </a>
+                </div>
+                <div class="exit item">
+                    <a href="javascript:void()">
+                        <i class="exit_icon"></i>退出
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="sideBar-right"></div>
+    </div>
+</div>
 </body>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/sideBar.js"></script>
 </html>
-</pre>
+<script type="text/javascript">
+    $(function(){
+
+        var windowWidth = $(window).width();
+        var windowHeight = $(window).height();
+        var sideBarWidth = windowWidth*0.8;
+//设置侧边栏左边宽度与右边高度
+        $(".sideBar-left").height(windowHeight);
+        $(".sideBar-right").height(windowHeight);
+//侧边栏由左向右滑动
+        $(".nav-icon").on("click",function(){
+            $(".sideBar").animate({left: "0"},350);
+        });
+//点击退出，侧边栏由右向左滑动
+        $(".exit").on("click",function(){
+            $(".sideBar").animate({left: "-100%"},350);
+        });
+
+    })
+</script>
+
