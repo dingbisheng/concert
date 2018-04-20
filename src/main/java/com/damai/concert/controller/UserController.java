@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -47,7 +48,7 @@ public class UserController {
      */
     @RequestMapping("/login")
     @ResponseBody
-    public String doLogin(String username,String password,boolean rememberMe){
+    public String doLogin(String username, String password, boolean rememberMe, HttpSession session){
         if(logger.isDebugEnabled()){
             logger.debug("doLogin() start  username =="+ username);
         }
@@ -56,6 +57,7 @@ public class UserController {
         token.setRememberMe(rememberMe);
         try {
             SecurityUtils.getSubject().login(token);
+            session.setAttribute("username",username);
             return SystemCfg.SUCCESS_DATA;
         } catch (UnknownAccountException e) {
             e.printStackTrace();
