@@ -219,7 +219,13 @@ public class ManagerController {
             return SystemCfg.FAILED_404;
         }
         try {
-            session.setAttribute("msgId",msgId);
+            model.addAttribute("msgId",msgId);
+//            Map<Integer, List<SeatDTO>> seatMap = seatService.getViewSeat(msgId);
+//            model.addAttribute("seatMap",seatMap);
+//            if(logger.isDebugEnabled()){
+//                logger.debug("seatMap==="+seatMap);
+//            }
+
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -234,12 +240,12 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/getseat")
-    public String getSeat(Model model,HttpSession session) {
+    public String getSeat(Integer msgId,Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
             logger.debug("getSeat() start");
         }
         try {
-            Integer msgId = (Integer) session.getAttribute("msgId");
+            //Integer msgId = (Integer) session.getAttribute("msgId");
             if(logger.isDebugEnabled()){
                 logger.debug("msgId=="+msgId);
             }
@@ -270,6 +276,7 @@ public class ManagerController {
         try{
             String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
             String mySeatIds = myseatids;
+            username="zhangsan";
             for (String seat : notMySeatIds) {
                 mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
             }
