@@ -43,10 +43,8 @@
 				<li>应付金额</li>
 			</ul>
 			<table class="orderTableinfo">
-
-				<c:forEach items="${newOrderDTOList}" var="order" >
-					<tr>
-						<td>${order.orderNum}</td>
+				<tr>
+					<td>${order.orderNum}</td>
 						<td>
 							<table>
 								<tr>
@@ -58,7 +56,7 @@
 						</td>
 						<td class="f14"><strong class="c4">${order.orderPrice}</strong>元</td>
 					</tr>
-				</c:forEach>
+
 			</table>
 			 
 			<!--pay tab-->

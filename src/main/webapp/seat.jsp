@@ -161,10 +161,18 @@
                     myseatids:document.getElementById("myseatids").value,
                     notmyseatids:document.getElementById("notmyseatids").value
                 },function(data,status){
-                    if(data=="failed"){
-                        alert("对不起，未选择座位或座位已经被其他会员锁定或购买，请刷新界面！");
-                    }else{
-                        $("#buy_form").submit();
+                    var resultJson = JSON.parse(data);
+                    if(resultJson.code==0){
+                        alert(0);
+                        window.parent.location.href="/login.html";
+                    }
+                    if(resultJson.code==1){
+                        alert(1);
+                        alert(resultJson.msg);
+                    }
+                    if(resultJson.code==2){
+                        alert(2);
+                        window.parent.location.href="/admin/queryOrder?orderNum="+resultJson.msg;
                     }
                 });
     }
