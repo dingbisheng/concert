@@ -65,14 +65,14 @@
         join dm_city c join dm_place p join dm_mes_det md
         on m.mes_sub_id = s.sub_id and s.sub_sort_id = a.sort_id
         and m.mes_city_id = c.city_id and m.mes_place_id = p.place_id and md.md_mes_id=m.mes_id
-        <if test="sortId!=null ">
-            and a.sort_id=#{sortId}
+        <if test="sortName!=null ">
+            and a.sort_name=#{sortName}
         </if>
-        <if test="cityId!=null">
-            and c.city_id =#{cityId}
+        <if test="cityName!=null">
+            and c.city_name =#{cityName}
         </if>
-        <if test="subId!=null">
-            and s.sub_id= #{subId}
+        <if test="subName!=null">
+            and s.sub_name= #{subName}
         </if>
         <if test="minTime!=null">
             and m.mes_time &gt;= #{minTime}

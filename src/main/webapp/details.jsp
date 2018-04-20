@@ -810,22 +810,28 @@
 </div>
 <!--主导航 end-->
 
-<form name="searchForm" action="search.html" method="post">
+<form name="searchForm" action="##" method="post">
+    <%--模糊查询--%>
 	<input type="hidden" name="keyword" id="keyword" value=""/>
+        <%--分页--%>
 	<input type="hidden" name="currPage" id="currPage" value="1"/>
 	<input type="hidden" id="tsg" value=""/>
+        <%--开始时间 结束时间--%>
 	<input type="hidden" id="sttime" value=""/>
 	<input type="hidden" id="ettime" value=""/>
 	<input type="hidden" id="degrade" value=""/>
+        <%--城市--%>
 	<input type="hidden" id="cityId" value=""/>
 	<input type="hidden" id="ptype" value=""/>
 	<input type="hidden" id="simp_key" value=""/>
 	<input type="hidden" id="curr_order" value="1"/>
 	<input type="hidden" id="city_name" value=""/>
 	<input type="hidden" id="destCity" value=""/>
-	<input type="hidden" id="category_name" value="演唱会"/>
+        <%--分类--%>
+	<input type="hidden" id="category_name" value="${sortId}"/>
 	<input type="hidden" id="tag_names" value=""/>
-	<input type="hidden" id="subcategory_name" value=""/>
+        <%--子类--%>
+	<input type="hidden" id="subcategory_name" value="${subId}"/>
 	<input type="hidden" id="isSingleChar" value=""/>
 	<input type="hidden" id="projectids" value=""/>
 	<input type="hidden" id="listmodle" value="0"/>
@@ -917,10 +923,8 @@
 							<ul class="search_city_all clear" style="height: auto;">
                                 <c:forEach items="${cityDTOList}" var="city" varStatus="status">
                                     <li>
-                                        <input type="hidden" value="${city.cityId}" name="cityId"/>
                                         <a href="javascript:void(0)" onclick="cityfilter('${city.cityId}',this)">
-                                            <a href="/assortment/queryMessage?cityId=${city.cityId}">${city.cityName}
-                                            </a>
+                                            ${city.cityName}
                                         </a>
                                     </li>
                                 </c:forEach>

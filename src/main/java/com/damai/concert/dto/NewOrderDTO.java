@@ -3,7 +3,6 @@ package com.damai.concert.dto;
 import com.damai.concert.dto.msgvo.MsgVO;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by Vincent on 2018\4\18 0018.

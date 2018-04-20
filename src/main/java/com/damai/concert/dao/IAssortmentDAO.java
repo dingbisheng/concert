@@ -21,7 +21,7 @@ public interface IAssortmentDAO {
 
      void delete(Integer sortId);
 
-     List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime)throws  Exception;
+     List<AssortmentDTO> queryMessage(String sortName,String subName,String cityName,String minTime,String maxTime)throws  Exception;
 
      List<CityDTO> queryCity();
 

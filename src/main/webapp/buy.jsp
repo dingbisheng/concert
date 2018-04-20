@@ -44,7 +44,7 @@
 			</ul>
 			<table class="orderTableinfo">
 
-				<c:forEach items="newOrderDTOList" var="order" >
+				<c:forEach items="${newOrderDTOList}" var="order" >
 					<tr>
 						<td>${order.orderNum}</td>
 						<td>
