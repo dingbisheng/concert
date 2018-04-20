@@ -35,9 +35,7 @@ public class RegisterController {
     public String sendSms(@RequestParam("login_email") String login_email, HttpSession session){
         VerificationCode verificationCode = new VerificationCode();
         String code = verificationCode.createCode();
-
         session.setAttribute("code",code);
-
         IndustrySMS.execute(login_email,code);
         return "success";
     }
@@ -77,7 +75,7 @@ public class RegisterController {
 
             }
             SecurityUtils.getSubject().login(token);
-
+            session.setAttribute("username",login_email);
         } catch (Exception e) {
             e.printStackTrace();
             return "failed";

@@ -147,13 +147,11 @@ public class ManagerController {
             } else {
                 session.removeAttribute("token");
             }
-
             String[] notNoneSeatIds = StringUtils.split(notnoneseatids, SystemCfg.SEAT_SPLIT);
             String replace = noneseatids;
             for (String seat : notNoneSeatIds) {
                 replace = StringUtils.replace(replace, seat, "", 1);
             }
-
             String[] noneSeatIds = StringUtils.split(replace, SystemCfg.SEAT_ROW_COL_SPLIT);
             String[] rowAndCol = null;
             for (String i : noneSeatIds) {
@@ -180,7 +178,6 @@ public class ManagerController {
                         seatArray[1] = j;
                         ints.add(seatArray);
                     }
-
                 }
             }
             if (logger.isDebugEnabled()) {
@@ -195,7 +192,6 @@ public class ManagerController {
                     logger.debug("col ===" + is[1]);
                 }
             }
-
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -211,7 +207,7 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/setseat")
-    public String setSeat(Integer msgId,Model model,HttpSession session) {
+    public String setSeat(Integer msgId,Model model) {
         if (logger.isDebugEnabled()) {
             logger.debug("setSeat() start  msgId==" + msgId);
         }
@@ -220,12 +216,6 @@ public class ManagerController {
         }
         try {
             model.addAttribute("msgId",msgId);
-//            Map<Integer, List<SeatDTO>> seatMap = seatService.getViewSeat(msgId);
-//            model.addAttribute("seatMap",seatMap);
-//            if(logger.isDebugEnabled()){
-//                logger.debug("seatMap==="+seatMap);
-//            }
-
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -242,20 +232,15 @@ public class ManagerController {
     @RequestMapping("/getseat")
     public String getSeat(Integer msgId,Model model,HttpSession session) {
         if (logger.isDebugEnabled()) {
-            logger.debug("getSeat() start");
+            logger.debug("getSeat() start msgId =="+msgId);
         }
         try {
-            //Integer msgId = (Integer) session.getAttribute("msgId");
-            if(logger.isDebugEnabled()){
-                logger.debug("msgId=="+msgId);
-            }
             model.addAttribute("msgId",msgId);
             Map<Integer, List<SeatDTO>> seatMap = seatService.getViewSeat(msgId);
             model.addAttribute("seatMap",seatMap);
             if(logger.isDebugEnabled()){
                 logger.debug("seatMap==="+seatMap);
             }
-
         }catch(Exception e){
             logger.fatal(e);
             return SystemCfg.FAILED_404;
@@ -273,43 +258,33 @@ public class ManagerController {
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
         }
+        Long orderNum = 0L;
         try{
             String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
             String mySeatIds = myseatids;
             String username=(String)session.getAttribute("username");
             if(null==username||"".equals(username)){
-                return "login";
+                return "{\"code\":0,\"msg\":\"未登录\"}";
             }
-
-
             for (String seat : notMySeatIds) {
                 mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
             }
             String[] mySeatIdArray = StringUtils.split(mySeatIds, SystemCfg.SEAT_SPLIT);
             if(mySeatIdArray.length==0){
-                return "failed";
+                return "{\"code\":1,\"msg\":\"no seat select\"}";
             }
             String[] rowAndCol = null;
             for (String i : mySeatIdArray) {
                 rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
                 String hisId = rowAndCol[2];
-                //开启redis事务
-                redisTemplate.setEnableTransactionSupport(true);
-                redisTemplate.multi();
-                redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + hisId);
-                redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX+hisId,username);
-                redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+2, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
-                List<Object> exec = redisTemplate.exec();
-                Object o = exec.get(0);
-                //如果座位已经被锁定，返回failed
-                if(null!=o){
-                    logger.fatal("出现并发，回滚回原数据");
-                    redisTemplate.opsForValue().set(SystemCfg.SEAT_STATE_PREFIX + hisId,o.toString());
-                    return "failed";
-                }
-                //生成订单  使用redis自动增长1
-                Long orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
 
+                Boolean isLockSuccess = redisTemplate.opsForValue().setIfAbsent(SystemCfg.SEAT_STATE_PREFIX + hisId, username);
+                if(isLockSuccess){
+                    redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
+                }
+
+
+                orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
                 newOrderService.insertNewOrder(""+orderNum,username,0,0,msgId);
                 NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
                 Integer orderId = newOrderDTO.getOrderId();
@@ -317,26 +292,25 @@ public class ManagerController {
             }
         }catch (Exception e){
             logger.fatal(e);
-            return "failed";
+            return "{\"code\":1,\"msg\":\"lock error\"}";
         }
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() end  success");
         }
-        return "success";
+        return "{\"code\":2,\"msg\":\""+orderNum+"\"}";
     }
 
+
+
     @RequestMapping("/queryOrder")
-    public String queryOrder(Model model, HttpSession session){
+    public String queryOrder(String orderNum,Model model){
         if (logger.isDebugEnabled()) {
             logger.debug("queryOrder() start");
         }
-        String username = (String)session.getAttribute("username");
-        if(null==username){
-            return "login";
-        }
+
         try{
-            List<NewOrderDTO> newOrderDTOList = newOrderService.queryNewOrderListByUsername(username);
-            model.addAttribute("newOrderDTOList",newOrderDTOList);
+            NewOrderDTO order = newOrderService.queryNewOrderByOrderNum(orderNum);
+            model.addAttribute("order",order);
         }catch (Exception e){
             logger.fatal(e);
             return "404";
@@ -346,6 +320,8 @@ public class ManagerController {
         }
         return "buy";
     }
+
+
 
     //购买
     @RequestMapping("/buy")
