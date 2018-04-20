@@ -810,7 +810,7 @@
                                     <dd>
                                         <span>&gt;</span>
                                         <c:forEach items="${assortment.subclassDTOList}" var="SubclassDTO">
-                                            <a href="/assortment/queryAll?sortId=${assortment.sortId}&subId=${SubclassDTO.subId}" target="_blank" id="home_fldh_tan_ych_wenzi_001">${SubclassDTO.subName}</a><i>|</i>
+                                            <a href="/assortment/queryAll?sortName=${assortment.sortName}&subName=${SubclassDTO.subName}" target="_blank" id="home_fldh_tan_ych_wenzi_001">${SubclassDTO.subName}</a><i>|</i>
                                         </c:forEach>
                                     </dd>
                                 </dl>

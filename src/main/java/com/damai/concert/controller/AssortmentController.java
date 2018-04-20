@@ -54,13 +54,13 @@ public class AssortmentController {
 
     /**
      * 根据分类 和子类 查询具体信息
-     * @param sortId
-     * @param subId
+     * @param
+     * @param
      * @param model
      * @return
      */
     @RequestMapping("/queryAll")
-    @ResponseBody
+
     public String queryAll(String sortName,String subName,Model model){
         if (logger.isDebugEnabled()){
             logger.debug("queryAll() start:::"+sortName+":::"+subName);
