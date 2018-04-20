@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -59,29 +60,28 @@ public class AssortmentController {
      * @return
      */
     @RequestMapping("/queryAll")
-    public String queryAll(Integer sortId,Integer subId,Model model){
+    @ResponseBody
+    public String queryAll(String sortName,String subName,Model model){
         if (logger.isDebugEnabled()){
-            logger.debug("queryAll() start:::"+sortId+":::"+subId);
+            logger.debug("queryAll() start:::"+sortName+":::"+subName);
         }
         List<AssortmentDTO> assortmentDTOs = null;
         try {
-            assortmentDTOs = assortmentService.queryMessage(sortId,subId);
+            assortmentDTOs = assortmentService.queryMessage(sortName,subName);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sortName = null;
+
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
-        CityDTO cityDTO = null ;
         PlaceDTO placeDTO = null;
         List<MesDetDTO> mesDetList = null ;
         for (AssortmentDTO assortmentDTO :assortmentDTOs) {
             sortName = assortmentDTO.getSortName();
-            subclassDTOList = assortmentDTO.getSubclassDTOList();
-            for (SubclassDTO subclassDTO : subclassDTOList) {
+            List<SubclassDTO> subclassDTOList1 = assortmentDTO.getSubclassDTOList();
+            for (SubclassDTO subclassDTO : subclassDTOList1) {
                 messageDTOList = subclassDTO.getMessageDTOList();
                 for (MessageDTO messageDTO : messageDTOList) {
-                    cityDTO = messageDTO.getCityDTO();
                     mesDetList = messageDTO.getMesDetList();
                     placeDTO = messageDTO.getPlaceDTO();
                 }
@@ -92,10 +92,13 @@ public class AssortmentController {
         model.addAttribute("cityDTOList",cityDTOList);
         //全部分类集合
         List<AssortmentDTO> assortmentDTOList = assortmentService.queryAssortment();
+       for (AssortmentDTO assortmentDTO:assortmentDTOList){
+            subclassDTOList = assortmentDTO.getSubclassDTOList();
+       }
         model.addAttribute("assortmentDTOList",assortmentDTOList);
         //选中的分类对象
         model.addAttribute("sortName",sortName);
-        //
+        //一个分类下的子集合
         model.addAttribute("subclassDTOList",subclassDTOList);
         model.addAttribute("messageDTOList",messageDTOList);
         model.addAttribute("placeDTO",placeDTO);
@@ -107,18 +110,18 @@ public class AssortmentController {
     }
 
     @RequestMapping("/queryMessage")
-    public String queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime, Model model){
+    public String queryMessage(String sortName,String subName,String cityName,String minTime,String maxTime, Model model){
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() start:::"+sortId+"::"+subId+":::"+cityId+"::::"+minTime+":::::"+maxTime);
+            logger.debug("queryMessage() start:::"+sortName+"::"+subName+":::"+cityName+"::::"+minTime+":::::"+maxTime);
         }
         List<AssortmentDTO> assortmentDTOs = null;
         try {
-            assortmentDTOs = assortmentService.queryMessage(sortId,subId,cityId,minTime,maxTime);
+            assortmentDTOs = assortmentService.queryMessage(sortName,subName,cityName,minTime,maxTime);
             logger.info("======" + assortmentDTOs);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sortName = null;
+
         List<SubclassDTO> subclassDTOList = null ;
         List<MessageDTO> messageDTOList = null ;
         CityDTO cityDTO = null ;

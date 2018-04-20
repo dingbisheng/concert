@@ -58,33 +58,17 @@ public class AssortmentService implements IAssortmentService {
         assortmentDAO.delete(sortId);
     }
 
+
+
     @Transactional
-    public List<AssortmentDTO> queryMessage() throws Exception{
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(null, null, null,null,null);
+    public List<AssortmentDTO> queryMessage(String sortName,String subName) throws Exception{
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortName, subName, null,null,null);
         return assortmentDTOList;
     }
 
     @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId) throws Exception{
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, null, null,null,null);
-        return assortmentDTOList;
-    }
-
-    @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId) throws Exception{
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, null,null,null);
-        return assortmentDTOList;
-    }
-
-    @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId)throws Exception {
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId,null,null);
-        return assortmentDTOList;
-    }
-
-    @Transactional
-    public List<AssortmentDTO> queryMessage(Integer sortId, Integer subId, Integer cityId, String minTime, String maxTime) throws Exception {
-        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortId, subId, cityId,minTime,maxTime);
+    public List<AssortmentDTO> queryMessage(String sortName,String subName,String cityName, String minTime, String maxTime) throws Exception {
+        List<AssortmentDTO> assortmentDTOList = assortmentDAO.queryMessage(sortName, subName, cityName,minTime,maxTime);
         return assortmentDTOList;
     }
 

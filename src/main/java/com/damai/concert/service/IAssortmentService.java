@@ -19,15 +19,13 @@ public interface IAssortmentService {
 
     void delete(Integer sortId);
 
-    public List<AssortmentDTO> queryMessage() throws Exception;
 
-    public List<AssortmentDTO> queryMessage(Integer sortId)throws Exception;
 
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId)throws Exception;
+    public List<AssortmentDTO> queryMessage(String sortName,String subName)throws Exception;
 
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId)throws Exception;
 
-    List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime)throws  Exception;
+
+    List<AssortmentDTO> queryMessage(String sortName,String subName,String cityName,String minTime,String maxTime)throws  Exception;
 
 
     List<CityDTO> queryCity();

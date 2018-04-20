@@ -102,14 +102,14 @@ public class AssortmentDAO extends SqlSessionDaoSupport implements IAssortmentDA
      * @return
      */
 
-    public List<AssortmentDTO> queryMessage(Integer sortId,Integer subId,Integer cityId,String minTime,String maxTime) throws Exception{
+    public List<AssortmentDTO> queryMessage(String sortName,String subName,String cityName,String minTime,String maxTime) throws Exception{
         if (logger.isDebugEnabled()){
-            logger.debug("queryMessage() :::"+sortId+"::"+subId+"::"+cityId);
+            logger.debug("queryMessage() :::"+sortName+"::"+subName+"::"+cityName);
         }
         Map<String, Object> hashMap = new HashMap<>();
-        hashMap.put("sortId",sortId);
-        hashMap.put("subId",subId);
-        hashMap.put("cityId",cityId);
+        hashMap.put("sortName",sortName);
+        hashMap.put("subName",subName);
+        hashMap.put("cityName",cityName);
         if (StringUtils.isNotEmpty(minTime) &&StringUtils.isNotEmpty(maxTime) ){
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             hashMap.put("minTime", format.parse(minTime));
