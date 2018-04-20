@@ -64,7 +64,7 @@ public class RedisTest {
         Long expire = redisTemplate.boundHashOps("yanchanghui1").getExpire();
         System.out.println("redis有效时间为："+expire+"S");
         if (versionVal == null){
-            System.out.println("redis缓存没有数据，重新获取后设置缓存");
+            System.out.println("redis缓存没有 数据，重新获取后设置缓存");
             versionVal ="sale";
             //将结果放入缓存，注意先后顺序(先设置值，再设置过期时间)，否则过期时间不生效
             redisTemplate.opsForHash().put("yanchanghui1",hashKey,versionVal);
