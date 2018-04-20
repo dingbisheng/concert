@@ -303,6 +303,7 @@ public class ManagerController {
             NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
             Integer orderId = newOrderDTO.getOrderId();
             for (String i : mySeatIdArray) {
+                rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
                 String hisId = rowAndCol[2];
                 //如果全部座位能成功短时锁定  则加上长时间锁定
                 redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
