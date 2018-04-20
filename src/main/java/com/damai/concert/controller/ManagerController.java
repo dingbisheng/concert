@@ -269,14 +269,19 @@ public class ManagerController {
     //锁定座位
     @RequestMapping("/lock")
     @ResponseBody
-    public String doLock(Integer msgId,String username,String myseatids,String notmyseatids,Model model){
+    public String doLock(Integer msgId,String myseatids,String notmyseatids,Model model,HttpSession session){
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
         }
         try{
             String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
             String mySeatIds = myseatids;
-            username="zhangsan";
+            String username=(String)session.getAttribute("username");
+            if(null==username||"".equals(username)){
+                return "login";
+            }
+
+
             for (String seat : notMySeatIds) {
                 mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
             }
@@ -321,11 +326,12 @@ public class ManagerController {
     }
 
     @RequestMapping("/queryOrder")
-    public String queryOrder(String username,Model model){
+    public String queryOrder(Model model, HttpSession session){
         if (logger.isDebugEnabled()) {
             logger.debug("queryOrder() start");
         }
-        if(null==username || "".equals(username)){
+        String username = (String)session.getAttribute("username");
+        if(null==username){
             return "login";
         }
         try{
@@ -340,8 +346,6 @@ public class ManagerController {
         }
         return "buy";
     }
-
-
 
     //购买
     @RequestMapping("/buy")
