@@ -1,5 +1,6 @@
 package com.damai.concert.controller;
 
+import com.damai.concert.dto.JsonMsgDTO;
 import com.damai.concert.dto.NewOrderDTO;
 import com.damai.concert.dto.SeatDTO;
 import com.damai.concert.dto.setseatvo.SeatStepOneVO;
@@ -263,30 +264,52 @@ public class ManagerController {
     }
 
     //锁定座位
-    @RequestMapping("/lock")
+    @RequestMapping(value="/lock",produces = "text/HTML; charset=utf-8")
     @ResponseBody
     public String doLock(String seattoken,Integer msgId,String myseatids,String notmyseatids,Model model,HttpSession session){
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
         }
+        JsonMsgDTO jsonMsgDTO = new JsonMsgDTO();
+        Gson gson = new Gson();
+        String s=null;
         Object localSeatToken = session.getAttribute("seattoken");
         if(null==localSeatToken || !localSeatToken.equals(seattoken)){
-            return "{\"code\":1,\"msg\":\"please don't repeat submit\"}";
+            jsonMsgDTO.setCode(1);
+            jsonMsgDTO.setMsg("请不要重复提交订单");
+            s = gson.toJson(jsonMsgDTO);
+            return s;
         }
         Long orderNum = 0L;
         try{
             String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
             String mySeatIds = myseatids;
             String username=(String)session.getAttribute("username");
+
             if(null==username||"".equals(username)){
-                return "{\"code\":0,\"msg\":\"未登录\"}";
+                if(logger.isDebugEnabled()){
+                    logger.debug("用户未登录");
+                }
+                jsonMsgDTO.setCode(0);
+                jsonMsgDTO.setMsg("请登录后再购买");
+                s = gson.toJson(jsonMsgDTO);
+                if(logger.isDebugEnabled()){
+                    logger.debug("s========="+s);
+                }
+                return s;
             }
             for (String seat : notMySeatIds) {
                 mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
             }
             String[] mySeatIdArray = StringUtils.split(mySeatIds, SystemCfg.SEAT_SPLIT);
             if(mySeatIdArray.length==0){
-                return "{\"code\":1,\"msg\":\"no seat select\"}";
+                if(logger.isDebugEnabled()){
+                    logger.debug("用户未选座");
+                }
+                jsonMsgDTO.setCode(1);
+                jsonMsgDTO.setMsg("没有座位被选中");
+                s = gson.toJson(jsonMsgDTO);
+                return s;
             }
             //验证是否可以全部锁定
             String[] rowAndCol = null;
@@ -304,10 +327,16 @@ public class ManagerController {
                     //如果成功锁定   加短时锁
                     redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_SORT_TIME,TimeUnit.SECONDS);
                 }else{
-                    String s = redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + hisId);
+                    String sKey = redisTemplate.opsForValue().get(SystemCfg.SEAT_STATE_PREFIX + hisId);
                     //如果key里面   保存的不是自己的username 则返回被其他人锁定的座位行号和列号
-                    if(!username.equals(s)){
-                        return "{\"code\":1,\"msg\":\"row"+row+"col"+col+" locked by other! please choose other seat\"}";
+                    if(!username.equals(sKey)){
+                        if(logger.isDebugEnabled()){
+                            logger.debug("被锁定");
+                        }
+                        jsonMsgDTO.setCode(1);
+                        jsonMsgDTO.setMsg("座被其他人锁定，请更换该座位。");
+                        s = gson.toJson(jsonMsgDTO);
+                        return s;
                     }
                 }
             }
@@ -327,12 +356,18 @@ public class ManagerController {
             session.removeAttribute("seattoken");
         }catch (Exception e){
             logger.fatal(e);
-            return "{\"code\":1,\"msg\":\"lock error\"}";
+            jsonMsgDTO.setCode(1);
+            jsonMsgDTO.setMsg("系统异常，请稍后再试。");
+            s = gson.toJson(jsonMsgDTO);
+            return s;
         }
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() end  success");
         }
-        return "{\"code\":2,\"msg\":\""+orderNum+"\"}";
+        jsonMsgDTO.setCode(2);
+        jsonMsgDTO.setMsg(orderNum.toString());
+        s = gson.toJson(jsonMsgDTO);
+        return s;
     }
 
 

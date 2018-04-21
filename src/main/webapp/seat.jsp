@@ -118,15 +118,13 @@
                 },function (data,status){
                     var resultJson = JSON.parse(data);
                     if(resultJson.code==0){
-                        alert(0);
+                        alert(resultJson.msg);
                         window.parent.location.href="/login.html";
                     }
                     if(resultJson.code==1){
-                        alert(1);
                         alert(resultJson.msg);
                     }
                     if(resultJson.code==2){
-                        alert(2);
                         window.parent.location.href="/admin/queryOrder?orderNum="+resultJson.msg;
                     }
                 });
