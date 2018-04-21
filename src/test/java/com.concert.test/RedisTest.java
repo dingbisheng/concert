@@ -1,6 +1,7 @@
 package com.concert.test;
 
 
+import com.damai.concert.sysconfig.SystemCfg;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -72,6 +73,20 @@ public class RedisTest {
             redisTemplate.expire("yanchanghui1", 600, TimeUnit.SECONDS);
         }
         System.out.println(versionVal);
+    }
+
+    @Test
+    public void testSetOrderNumStart(){
+
+        redisTemplate.opsForValue().set(SystemCfg.ORDER_NUM_NAME,"1000000000000");
+
+    }
+
+    @Test
+    public void testGetOrderNumStart(){
+
+        Long increment = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1L);
+        System.out.println(increment);
     }
 
 }
