@@ -137,7 +137,7 @@ public class TestDAO {
     @Test
     public void test12(){
         try {
-            List<AssortmentDTO> messageDTOList = assortmentService.queryMessage(1,1,1);
+//            List<AssortmentDTO> messageDTOList = assortmentService.queryMessage(1,1,1);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,7 +148,7 @@ public class TestDAO {
     public void test13(){
         List<AssortmentDTO> assortmentDTOList = null;
         try {
-            assortmentDTOList = assortmentService.queryMessage(1);
+//            assortmentDTOList = assortmentService.queryMessage(1);
         } catch (Exception e) {
             e.printStackTrace();
         }
