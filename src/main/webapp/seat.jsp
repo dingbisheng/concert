@@ -110,7 +110,6 @@
                 },function (data,status) {
                     var resultJson = JSON.parse(data);
                     $.each(resultJson, function(index,value) {
-                            alert(value.seatImg);
                         $('<li>' + value.seatRow + '排' + value.seatCol + '座</li>')
                                .attr('id', 'cart-item-' + seatId)
 //                               .data('seatId', seatId)
