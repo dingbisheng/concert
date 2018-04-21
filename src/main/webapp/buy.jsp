@@ -24,6 +24,7 @@
 		<a title="首页" href="https://www.damai.cn/index.html">首页</a> &gt; 支付中心
 	</div>
 	<!--main-->
+
 	<div class="shopping shopping_w">
 		<dl class="guide threestep">
 			<dt class="on">确认订单信息</dt>
@@ -35,21 +36,26 @@
 		<!--erro-->
 		<!--table list-->
 		<div class="pay">
-			<ul class="hd">
-				<li>支付编号</li>
-				<li>订单编号</li>
-				<li>商品名称</li>
-				<li>订单金额</li>
-				<li>应付金额</li>
-			</ul>
-			<table class="orderTableinfo">
-				<tr>
-					<td>${order.orderNum}</td>
+
+			<form action="/payment/pay" method="post">
+
+				<ul class="hd">
+					<li>支付编号</li>
+					<li>订单编号</li>
+					<li>商品名称</li>
+					<li>订单金额</li>
+					<li>应付金额</li>
+				</ul>
+
+				<table class="orderTableinfo">
+					<tr>
+						<td>${order.orderNum}</td>
 						<td>
 							<table>
 								<tr>
 									<td>${order.orderNum}</td>
 									<td>${order.msgVO.msgName}</td>
+									<input name="msgName" value="${order.msgVO.msgName}" hidden/>
 									<td>${order.orderPrice}元</td>
 								</tr>
 							</table>
@@ -57,8 +63,13 @@
 						<td class="f14"><strong class="c4">${order.orderPrice}</strong>元</td>
 					</tr>
 
-			</table>
-			 
+				</table>
+
+
+				<button id="orderConfirmSubmit" class="c_submit u-btn u-btn-c2 u-btn-rds u-btn-lg z-dis1" >确认并提交订单</button>
+
+			</form>
+
 			<!--pay tab-->
 	<div class="hidden" id="paymethods">
 		<div class="payTab" id="selectPay">
