@@ -12,38 +12,39 @@
 -------------------------------------------演唱会台方向-------------------------------------------
 <c:forEach items="${seatMap.keySet()}" var="key" varStatus="status">
     <div>
-    ${key}
-        <c:choose>
-            <c:when test="${status.count >= 10}">
-                --
-            </c:when>
-            <c:otherwise>
-                ---
-            </c:otherwise>
-        </c:choose>
+
         <div id="seat_area">
+                ${key}
+            <c:choose>
+                <c:when test="${status.count >= 10}">
+                    --
+                </c:when>
+                <c:otherwise>
+                    ---
+                </c:otherwise>
+            </c:choose>
             <c:forEach items="${seatMap.get(key)}" var="seat">
                 <c:choose>
                     <c:when test="${seat.seatState==0}">
                         <%--有座位--%>
                         <img id="${seat.seatRow},${seat.seatCol}" title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   可售"
-                             name="<%=basePath %>/concert/picture/${seat.seatImg}" src="<%=basePath %>/concert/picture/${seat.seatImg}" width="20" height="20"
+                             name="<%=basePath %>/concert/picture/${seat.seatImg}" src="<%=basePath %>/concert/picture/${seat.seatImg}" width="40" height="40"
                              onclick="doClickSeat(${seat.seatRow},${seat.seatCol},${seat.seatId},'/admin/loadseat')"/>
                     </c:when>
 
                     <c:when test="${seat.seatState==-2}">
                         <%--座位被锁定--%>
-                        <img title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   不可售" src="<%=basePath %>/concert/picture/l.png" width="20" height="20"/>
+                        <img title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   不可售" src="<%=basePath %>/concert/picture/l.png" width="40" height="40"/>
                     </c:when>
 
                     <c:when test="${seat.seatState==-1}">
                         <%--没有座位--%>
-                        <img title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   不可售" src="<%=basePath %>/concert/picture/n.png" width="20" height="20"/>
+                        <img title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   不可售" src="<%=basePath %>/concert/picture/n.png" width="40" height="40"/>
                     </c:when>
 
                     <c:otherwise>
                         <%--座位被购买--%>
-                        <img title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   不可售" src="<%=basePath %>/concert/picture/m.png" width="20" height="20"/>
+                        <img title="${seat.seatRow}排${seat.seatCol}座  ${seat.seatPrice}元   不可售" src="<%=basePath %>/concert/picture/m.png" width="40" height="40"/>
                     </c:otherwise>
 
                 </c:choose>
