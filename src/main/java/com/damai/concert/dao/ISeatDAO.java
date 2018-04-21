@@ -15,4 +15,6 @@ public interface ISeatDAO {
      * @throws Exception
      */
     List<SeatDTO> getSeatList(Integer msgId) throws Exception;
+
+    SeatDTO getSeatByMsgIdAndSeatId(Integer msgId,Integer seatId) throws Exception;
 }
