@@ -239,6 +239,16 @@ public class ManagerController {
             model.addAttribute("msgId",msgId);
             Map<Integer, List<SeatDTO>> seatMap = seatService.getViewSeat(msgId);
             model.addAttribute("seatMap",seatMap);
+            String tokenRandomString = SystemCfg.TOKEN_RANDOM_STRING;
+            int length = tokenRandomString.length();
+            Random random = new Random();
+            String token = "";
+            for (int i=0;i<5;i++) {
+                int i1 = random.nextInt(length);
+                token = token + tokenRandomString.charAt(i1);
+            }
+//            model.addAttribute("seattoken",token);
+            session.setAttribute("seattoken",token);
             if(logger.isDebugEnabled()){
                 logger.debug("seatMap==="+seatMap);
             }
@@ -255,9 +265,13 @@ public class ManagerController {
     //锁定座位
     @RequestMapping("/lock")
     @ResponseBody
-    public String doLock(Integer msgId,String myseatids,String notmyseatids,Model model,HttpSession session){
+    public String doLock(String seattoken,Integer msgId,String myseatids,String notmyseatids,Model model,HttpSession session){
         if (logger.isDebugEnabled()) {
             logger.debug("doLock() start myseatids + notmyseatids = " +myseatids+"+"+notmyseatids);
+        }
+        Object localSeatToken = session.getAttribute("seattoken");
+        if(null==localSeatToken || !localSeatToken.equals(seattoken)){
+            return "{\"code\":1,\"msg\":\"please don't repeat submit\"}";
         }
         Long orderNum = 0L;
         try{
@@ -309,6 +323,8 @@ public class ManagerController {
                 redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
                 newOrderService.insertSubOrder(Integer.parseInt(hisId),orderId);
             }
+            //生成订单后清除token
+            session.removeAttribute("seattoken");
         }catch (Exception e){
             logger.fatal(e);
             return "{\"code\":1,\"msg\":\"lock error\"}";
@@ -368,7 +384,7 @@ public class ManagerController {
         return "buy";
     }
 
-    @RequestMapping("/admin/loadseat")
+    @RequestMapping("/loadseat")
     @ResponseBody
     public String doLoadSeatOnWindow(Integer msgId,String myseatids,String notmyseatids){
         if(logger.isDebugEnabled()){

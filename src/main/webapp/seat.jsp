@@ -9,6 +9,7 @@
     <title>Title</title>
 </head>
 <body>
+<input type="hidden" id="seattoken" name="seattoken" value="${seattoken}" />
 -------------------------------------------演唱会台方向-------------------------------------------
 <c:forEach items="${seatMap.keySet()}" var="key" varStatus="status">
     <div>
@@ -110,10 +111,11 @@
     function doLockSeat(url) {
         $.post(url,
                 {
+                    seattoken:document.getElementById("seattoken").value,
                     msgId:${msgId},
                     myseatids:document.getElementById("myseatids").value,
                     notmyseatids:document.getElementById("notmyseatids").value
-                },function(data,status){
+                },function (data,status){
                     var resultJson = JSON.parse(data);
                     if(resultJson.code==0){
                         alert(0);
