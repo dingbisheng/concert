@@ -12,7 +12,7 @@
 </head>
 <body>
 当前时支付页面，订单号是：${oid} <br>请扫码支付
-<img src="/payment/image" onclick="abc()">
+<img src="/payment/image">
 <span id="neirong">
 
     </span>
@@ -85,7 +85,7 @@
             clearInterval(timer);
         }else {
             $.ajax({
-                url:"",
+                url:"/payment/orderStatus",
                 type:"post",
                 data:{
                     oId:oId
@@ -93,8 +93,11 @@
                 success:function (result) {
                     if (result == '1'){
                         clearInterval(timer);
-                        window.location.href = "";
+                        window.location.href = "login.jsp";
                     }
+                },
+                fail:function () {
+                    alert("当前订单支付失败，请重新支付！");
                 }
             });
             repeat --;
