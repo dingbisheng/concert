@@ -7,11 +7,6 @@
 <head>
     <script type="text/javascript" src="<%=basePath%>/concert/js/jquery-1.7.2.min.js"></script>
     <title>Title</title>
-    <style type="text/css">
-        .selectSeat{
-
-        }
-    </style>
 </head>
 <body>
 -------------------------------------------演唱会台方向-------------------------------------------
@@ -60,38 +55,30 @@
 
 
 <form id="buy_form" name="buy_form" action="/admin/queryOrder" target="_parent" method="post">
-    <input name="msgId" value="${msgId}" >
-    <input name="username" value="<shiro:principal/>" >
-    <input name="myseatids" id="myseatids" value="" />
-    <input name="notmyseatids" id="notmyseatids" value="" />
+    <input name="msgId" value="${msgId}" type="hidden" >
+    <input name="username" value="<shiro:principal/>" type="hidden" >
+    <input name="myseatids" id="myseatids" value="" type="hidden" />
+    <input name="notmyseatids" id="notmyseatids" value="" type="hidden" />
     <p>座位:</p>
     <ul id="seats_chose">
+
     </ul>
 
     <p>票数：<span id="ticket_num">0</span></p>
     <p>总价：<b>￥<span id="total_price">0</span></b></p>
     <button value="购买" name="button" type="button" id="button" onclick="doLockSeat('/admin/lock')">购买</button>
 </form>
-
-
     <div id="legend">
-
     </div>
-
 </body>
 <script src="http://www.jq22.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/back/jquery.seat-charts.min.js"></script>
-<script type="text/javascript">
-
-
-
+<script>
     function doClickSeat(row,col,seatId,url) {
-        var $cart = $('#seats_chose'), //座位区
-        $tickets_num = $('#tickects_num'), //票数
-        $total_price = $('#total_price'); //票价总额
-        //查询选中座位
+        var $cart = $('#seats_chose'); //座位区
+        //清空显示区内容
         $('#seats_chose li').remove();
-
+        $('#ticket_num').text(0);
         var it = document.getElementById(row+","+col);
         var myseatids = document.getElementById("myseatids");
         var notmyseatids = document.getElementById("notmyseatids");
@@ -102,24 +89,23 @@
             it.src=it.name;
             notmyseatids.value=notmyseatids.value+row+","+col+","+seatId+";";
         }
-
         $.post(url,{
                     msgId:${msgId},
                     myseatids:myseatids.value,
                     notmyseatids:notmyseatids.value
                 },function (data,status) {
+                    var totalPrice = 0;
                     var resultJson = JSON.parse(data);
                     $.each(resultJson, function(index,value) {
-                        $('<li>' + value.seatRow + '排' + value.seatCol + '座</li>')
-                               .attr('id', 'cart-item-' + seatId)
-//                               .data('seatId', seatId)
+                        $('<li>' + value.seatRow + '排' + value.seatCol +'座        价格：'+value.seatPrice+'元</li>')
                                .appendTo($cart);
-//                        $tickets_num.text();
+                        $('#ticket_num').text(index+1);
+                        totalPrice = totalPrice+value.seatPrice;
                     });
+                $('#total_price').text(totalPrice);
             });
     }
 
-    
     function doLockSeat(url) {
         $.post(url,
                 {
@@ -142,9 +128,6 @@
                     }
                 });
     }
-
-
-
 </script>
 
 </html>
