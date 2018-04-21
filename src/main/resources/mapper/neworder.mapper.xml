@@ -78,6 +78,11 @@
 	</select>
 
 
+	<update id="setOrderPaySuccessByOrderNum">
+		update tb_order_new SET order_condition = 1 where o.order_num=#{orderNum}
+	</update>
+
+
 
 
 
