@@ -8,6 +8,7 @@ import com.damai.concert.service.IManagerService;
 import com.damai.concert.service.INewOrderService;
 import com.damai.concert.service.ISeatService;
 import com.damai.concert.sysconfig.SystemCfg;
+import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
@@ -280,7 +281,6 @@ public class ManagerController {
                 String row = rowAndCol[0];
                 String col = rowAndCol[1];
                 String hisId = rowAndCol[2];
-
                 //redis setNX  如果存在该key  则返回false   不存在  则写入
                 Boolean isLockSuccess = redisTemplate.opsForValue().setIfAbsent(SystemCfg.SEAT_STATE_PREFIX + hisId, username);
                 if(logger.isDebugEnabled()){
@@ -297,12 +297,13 @@ public class ManagerController {
                     }
                 }
             }
-
+            //全部成功则生成订单编号
             orderNum = redisTemplate.opsForValue().increment(SystemCfg.ORDER_NUM_NAME, 1);
             newOrderService.insertNewOrder(""+orderNum,username,0,0,msgId);
             NewOrderDTO newOrderDTO = newOrderService.queryNewOrderByOrderNum("" + orderNum);
             Integer orderId = newOrderDTO.getOrderId();
             for (String i : mySeatIdArray) {
+                rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
                 String hisId = rowAndCol[2];
                 //如果全部座位能成功短时锁定  则加上长时间锁定
                 redisTemplate.expire(SystemCfg.SEAT_STATE_PREFIX+hisId, SystemCfg.SEAT_LOCK_TIME, TimeUnit.SECONDS);
@@ -365,6 +366,43 @@ public class ManagerController {
             logger.debug("doBuy() end");
         }
         return "buy";
+    }
+
+    @RequestMapping("/admin/loadseat")
+    @ResponseBody
+    public String doLoadSeatOnWindow(Integer msgId,String myseatids,String notmyseatids){
+        if(logger.isDebugEnabled()){
+            logger.debug("doLoadSeatOnWindow() start msgId=="+msgId+"myseatids=="+myseatids+"notmyseatids=="+notmyseatids);
+        }
+
+        Gson gson = new Gson();
+        String jsonData = null;
+        try {
+            String[] notMySeatIds = StringUtils.split(notmyseatids, SystemCfg.SEAT_SPLIT);
+            String mySeatIds = myseatids;
+            for (String seat : notMySeatIds) {
+                mySeatIds = StringUtils.replace(mySeatIds, seat, "", 1);
+            }
+            String[] mySeatIdArray = StringUtils.split(mySeatIds, SystemCfg.SEAT_SPLIT);
+            //验证是否可以全部锁定
+            String[] rowAndCol = null;
+            List<SeatDTO> seatDTOList = new ArrayList<>();
+            for (String i : mySeatIdArray) {
+                rowAndCol = StringUtils.split(i, SystemCfg.SEAT_ROW_COL_SPLIT);
+                String hisId = rowAndCol[2];
+                SeatDTO seatByMsgIdAndSeatId = seatService.getSeatByMsgIdAndSeatId(msgId, Integer.parseInt(hisId));
+                seatDTOList.add(seatByMsgIdAndSeatId);
+            }
+            jsonData = gson.toJson(seatDTOList);
+        }catch (Exception e) {
+            e.printStackTrace();
+            logger.fatal(e);
+            return "404";
+        }
+        if(logger.isDebugEnabled()){
+            logger.debug("doLoadSeatOnWindow() end jsonData=="+jsonData);
+        }
+        return jsonData;
     }
 
 

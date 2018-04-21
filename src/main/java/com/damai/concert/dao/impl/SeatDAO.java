@@ -8,7 +8,9 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Vincent on 2018\4\16 0016.
@@ -37,5 +39,20 @@ public class SeatDAO extends SqlSessionDaoSupport implements ISeatDAO{
             logger.debug("getSeatList() end seatDTOList == "+ seatDTOList);
         }
         return seatDTOList;
+    }
+
+    @Override
+    public SeatDTO getSeatByMsgIdAndSeatId(Integer msgId, Integer seatId) throws Exception {
+        if(logger.isDebugEnabled()){
+            logger.debug("getSeatByMsgIdAndSeatId() start msgId seatId== "+ msgId+"/"+seatId);
+        }
+        Map<String, Object> map = new HashMap<>();
+        map.put("msgId",msgId);
+        map.put("seatId",seatId);
+        SeatDTO seatDTO = getSqlSession().selectOne("com.damai.concert.dao.ISeatDAOMapper.getSeatByMsgIdAndSeatId", map);
+        if(logger.isDebugEnabled()){
+            logger.debug("getSeatByMsgIdAndSeatId() end seatDTO == "+ seatDTO);
+        }
+        return seatDTO;
     }
 }

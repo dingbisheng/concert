@@ -4,7 +4,6 @@ import com.damai.concert.dao.ISeatDAO;
 import com.damai.concert.dto.SeatDTO;
 import com.damai.concert.service.ISeatService;
 import com.damai.concert.sysconfig.SystemCfg;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Vincent on 2018\4\16 0016.
@@ -94,5 +92,10 @@ public class SeatService implements ISeatService{
         }
 
         return seatListTreeMap;
+    }
+
+    @Override
+    public SeatDTO getSeatByMsgIdAndSeatId(Integer msgId, Integer seatId) throws Exception {
+        return seatDAO.getSeatByMsgIdAndSeatId(msgId, seatId);
     }
 }
