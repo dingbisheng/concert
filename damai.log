@@ -2828,3 +2828,15 @@ com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: You have an error in 
 2018-04-16 19:48:43 250  INFO BackTest:48 - ===RondaMessage{cityName='北京', mesId=17, mesName='伍佰&China Blue 摇滚全经典-全面对决演唱会北京站', mesPhoto='141351_n.jpg', mesTime='2018-06-23 19:00:00.0', mesExplain='艺人: 伍佰', subName='摇滚', placeName='凯迪拉克中心'}
 2018-04-16 19:48:43 250  INFO BackTest:48 - ===RondaMessage{cityName='北京', mesId=18, mesName='《山谷的呼唤》胡德夫民谣音乐会', mesPhoto='142181_n.jpg', mesTime='2018-05-20 19:30:00.0', mesExplain='艺人: 胡德夫', subName='摇滚', placeName='天桥艺术中心大剧场'}
 2018-04-16 19:48:43 251  INFO BackTest:48 - ===RondaMessage{cityName='北京', mesId=19, mesName='李易峰生日嘉年华', mesPhoto='146133_n.jpg', mesTime='2018-04-30 19:30:00.0', mesExplain='艺人: 李易峰', subName='流行', placeName='首都体育馆'}
+2018-04-21 10:41:28 042  INFO MLog:80 - MLog clients using log4j logging.
+2018-04-21 10:41:28 425  INFO C3P0Registry:204 - Initializing c3p0-0.9.1.1 [built 15-March-2007 01:32:31; debug? true; trace: 10]
+2018-04-21 10:41:28 470 DEBUG DynamicPooledDataSourceManagerMBean:236 - MBean: com.mchange.v2.c3p0:type=PooledDataSource[1hgef2d9u1ru6lgg1whaafh|6187d1f5] registered.
+2018-04-21 10:41:29 122 DEBUG LogFactory:135 - Logging initialized using 'class org.apache.ibatis.logging.log4j.Log4jImpl' adapter.
+2018-04-21 10:41:45 927  INFO MLog:80 - MLog clients using log4j logging.
+2018-04-21 10:41:46 084  INFO C3P0Registry:204 - Initializing c3p0-0.9.1.1 [built 15-March-2007 01:32:31; debug? true; trace: 10]
+2018-04-21 10:41:46 123 DEBUG DynamicPooledDataSourceManagerMBean:236 - MBean: com.mchange.v2.c3p0:type=PooledDataSource[1hgef2d9u1ru6z8t95jwcn|6187d1f5] registered.
+2018-04-21 10:41:46 559 DEBUG LogFactory:135 - Logging initialized using 'class org.apache.ibatis.logging.log4j.Log4jImpl' adapter.
+2018-04-21 10:42:12 422  INFO MLog:80 - MLog clients using log4j logging.
+2018-04-21 10:42:12 593  INFO C3P0Registry:204 - Initializing c3p0-0.9.1.1 [built 15-March-2007 01:32:31; debug? true; trace: 10]
+2018-04-21 10:42:12 630 DEBUG DynamicPooledDataSourceManagerMBean:236 - MBean: com.mchange.v2.c3p0:type=PooledDataSource[1hgef2d9u1ru7jot1jk9kq4|6187d1f5] registered.
+2018-04-21 10:42:13 057 DEBUG LogFactory:135 - Logging initialized using 'class org.apache.ibatis.logging.log4j.Log4jImpl' adapter.

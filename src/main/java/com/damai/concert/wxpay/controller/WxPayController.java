@@ -49,7 +49,7 @@ public class WxPayController {
         ModelAndView modelAndView = new ModelAndView("test_payment");
         orderPrice = "1";
         Random random = new Random();
-        orderNum = random.nextInt(10000000) + "";
+//        orderNum = random.nextInt(10000000) + "";
         try {
             //获取微信返回二维码对应的地址
             String url = PayCommonUtil.weixin_pay(orderPrice, msgName, orderNum);

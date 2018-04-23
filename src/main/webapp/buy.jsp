@@ -56,6 +56,7 @@
 									<td>${order.orderNum}</td>
 									<td>${order.msgVO.msgName}</td>
 									<input name="msgName" value="${order.msgVO.msgName}" hidden/>
+									<input name="orderNum" value="${order.orderNum}" hidden/>
 									<td>${order.orderPrice}元</td>
 								</tr>
 							</table>

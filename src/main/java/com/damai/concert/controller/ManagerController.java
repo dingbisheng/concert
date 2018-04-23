@@ -334,7 +334,7 @@ public class ManagerController {
                             logger.debug("被锁定");
                         }
                         jsonMsgDTO.setCode(1);
-                        jsonMsgDTO.setMsg("座被其他人锁定，请更换该座位。");
+                        jsonMsgDTO.setMsg(row+"排"+col+"座被其他人锁定，请更换该座位。");
                         s = gson.toJson(jsonMsgDTO);
                         return s;
                     }
