@@ -370,8 +370,6 @@ public class ManagerController {
         return s;
     }
 
-
-
     @RequestMapping("/queryOrder")
     public String queryOrder(String orderNum,Model model){
         if (logger.isDebugEnabled()) {
